@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<script>
+	if(window.customElements == undefined) {
+		var s = document.createElement("script");
+		s.src = "../node_modules/@webcomponents/custom-elements/custom-elements.min.js";
+		document.head.appendChild(s);
+	}
+	</script>
+	<title>Easy Pensum</title>
+	<meta charset="utf-8">
+
+	
+	<meta name="viewport" content="width=device-width,height=device-height">
+	<meta name="theme-color" content="#D68800">
+
+
+	<link rel="stylesheet" href="css/splashscreen.css" inline>
+	<script src="classid.js"></script>
+</head>
+<body>
+	<div id="main">
+		<div id="splashheader"></div>
+
+		<link rel="stylesheet" href="css/splashloadinganimation.css" inline>
+		
+		<div id="splashloadinganimation">
+			<span>.</span>
+			<span>.</span>
+			<span>.</span>
+		</div>
+		<div id="sections">
+			<div id="overview"></div>
+			<div id="archive"></div>
+			<div id="settings"></div>
+			<div id="info"></div>
+		</div>
+	</div>
+
+	<link rel="stylesheet" href="css/splashdrawer.css" inline>
+
+	<div id="drawer">
+		<div id="navigation_header">
+			<div id="navigation_firstrow">
+				<img src="static/logo72.png" alt="Easy Pensum Logo" id="navigation_logo" async>
+				<div id="navigation_title">Easy<br>Pensum</div>
+			</div>
+			<div id="schoolinfo"></div>
+		</div>
+	</div>
+	<script src="bundles/overview.js" async></script>
+</body>
+</html>

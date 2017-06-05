@@ -1,0 +1,49 @@
+@media screen and (min-width: 800px) {
+	#drawer {
+		position: fixed;
+		top: 0px;
+		display: block !important;
+		transform: translateZ(0);
+	}
+	#main {
+		margin-left: 250px;
+	}
+	.drawerToggle {
+		display: none;
+	}
+}
+
+#drawer {
+	display: none;
+	background: #EAEAEA;
+	height: 100vh;
+	width: 250px;
+
+}
+
+#navigation_header {
+	height: 104px;
+	width: 100%;
+	background: #009688;
+	display: block;
+}
+
+#navigation_title {
+	height: 60px;
+	font-size: 20px;
+	color: #fff;
+	display: inline-block;
+	padding-left: 10px;
+	padding-top: 5px;
+}
+
+#navigation_logo {
+	padding: 5px 0 0 10px;
+	height: 60px;
+	width: 60px;
+}
+
+#navigation_firstrow {
+	display: flex;
+	height: 72px;
+}

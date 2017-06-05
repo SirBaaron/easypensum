@@ -1,0 +1,79 @@
+{
+	"injectPattern": "//<-inject:<filename>->",
+	"bundles": [
+		{
+			"base": "js/overview.js",
+			"sources": [
+				"js/card.js",
+				"js/tabs.js",
+				"css/overview.css",
+				"css/overviewHeader.css",
+				"css/card.css",
+				"html/card.html",
+				"html/overview.html"
+			]
+		},
+		{
+			"base": "js/progressive.js",
+			"sources": [
+				"js/ripple.js",
+				"js/cardanimation.js",
+				"css/ripple.css",
+				"css/progressive.css",
+				"css/css/cardanimation.css"
+			]
+		}
+	],
+	"files": {
+		"js": [
+			"js/card.js",
+			"js/overview.js",
+			"js/tabs.js",
+			"js/progressive.js",
+			"js/ripple.js",
+			"js/cardanimation.js"
+		],
+		"html": [
+			"index.html",
+			"html/card.html",
+			"html/overview.html"
+		],
+		"css": [
+			"css/card.css",
+			"css/overview.css",
+			"css/overviewHeader.css",
+			"css/splashdrawer.css",
+			"css/splashloadinganimation.css",
+			"css/splashscreen.css",
+			"css/ripple.css",
+			"css/progressive.css",
+			"css/cardanimation.css"
+		],
+		"img": [
+			"static/logo168.png",
+			"static/logo144.png",
+			"static/logo192.png",
+			"static/logo96.png",
+			"static/logo72.png",
+			"static/logo48.png"
+		]
+	},
+	"output": {
+		"index.html": "index.html",
+		"bundles/overview.js": "a.js",
+		"bundles/progressive.js": "b.js",
+		"../node_modules/@webcomponents/custom-elements/custom-elements.min.js": "c.js",
+		"static/*.png": "static/*.png"
+	},
+	"rename": {
+		"bundles/overview.js": "a.js",
+		"bundles/progressive.js": "b.js",
+		"../node_modules/@webcomponents/custom-elements/custom-elements.min.js": "c.js",
+		"<script src=\"classid.js\"></script>": ""
+	},
+	"addCopyright": [
+		"index.html",
+		"bundles/overview.js",
+		"bundles/progressive.js"
+	]
+}

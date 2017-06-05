@@ -1,0 +1,82 @@
+entry-card {
+	margin: 10px 5px;
+	box-sizing: border-box;
+	display: block;
+	overflow: hidden;
+	contain: content;
+}
+
+.card_header {
+	height: 55px;
+	box-shadow: 0 2px 2px 0 rgba(0,0,0,.14), 0 1px 5px 0 rgba(0,0,0,.12), 0 3px 1px -2px rgba(0,0,0,.2);
+	padding-left: 12px;
+	overflow: hidden;
+	position: relative;
+	display: flex;
+	transition: background 0.3s cubic-bezier(.4, 0, .2, 1);
+	cursor: pointer;
+	z-index: 1;
+	width: 100%;
+}
+
+.card_header > span {
+	color: white;
+	font: 20px/55px 'Comic Sans MS';
+	pointer-events: none;
+	white-space: nowrap;
+	overflow: hidden;
+}
+
+.card_subject {
+	text-overflow: ellipsis;
+	text-align: right;
+	flex: 1;
+}
+
+.card_detail {
+	position: absolute;
+	right: 0px;
+	transform: translateX(100%);
+	box-sizing: border-box;
+	opacity: 0;
+}
+
+.card_detail, .card_subject {
+	padding-right: 16px;
+}
+
+
+.card_body {
+	display: none;
+	background: white;
+}
+
+.card_content {
+	padding: 10px 15px;
+	word-wrap: break-word;
+}
+
+.card_body a:link, .card_body a:visited {
+	color: #FFC107;
+	font-style: italic;
+	text-decoration: none;
+}
+
+.card_body a:hover {
+	font-style: normal;
+}
+
+.card_body a:active {
+	opacity: 0.7;
+}
+
+@keyframes cards-intro {
+	0% {
+		opacity: 0;
+		transform: translateY(20px);
+	}
+	100% {
+		opacity: 1;
+		transform: translateY(0px);
+	}
+}

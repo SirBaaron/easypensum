@@ -1,0 +1,25 @@
+#tab_scrollshell {
+	width: 100%;
+	overflow: hidden;
+	display: none;
+	animation: cards-intro 0.4s cubic-bezier(0, 0, .2, 1);
+}
+
+#tabhost {
+	display: flex;
+	overflow: hidden;
+	transform: translateZ(0);
+	transition: transform 0.25s ease-in-out;
+	align-items: flex-start;
+}
+
+#tabhost > div {
+	flex: 1;
+}
+
+
+button, button:active {
+	background: transparent;
+	border: none;
+	outline: none;
+}

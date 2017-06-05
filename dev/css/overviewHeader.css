@@ -1,0 +1,94 @@
+#overview_header_one {
+	height: 32px;
+	position: fixed;
+	top: 0px;
+	right: 0px;
+	left: 0px;
+	z-index: 2;
+	background: #D68800;
+	white-space: nowrap;
+	transform: translateZ(0);
+	opacity: 0;
+}
+
+@media screen and (min-width: 800px) {
+	#overview_header_one, #overview_header {
+		left: 250px;
+	}
+}
+
+#overview_header {
+	height: 72px;
+	background: #D68800;
+	position: -webkit-sticky;
+	position: sticky;
+	top: 0px;
+	margin-top: 32px;
+	overflow: hidden;
+	z-index: 1;
+	transform: translateZ(0);
+	opacity: 0;
+}
+
+.drawerToggle {
+	height: 40px;
+	width: 28px;
+	padding-left: 10px;
+	fill: white;
+	float: left;
+}
+
+svg > path {
+	pointer-events: none !important;
+}
+
+.section_title {
+	display: inline;
+	padding-left: 15px;
+	line-height: 40px;
+	font-size: 150%;
+	color: white;
+}
+
+#updateinfo {
+	width: 100%;
+	text-align: right;
+	line-height: 32px;
+	font-size: 75%;
+	color: #E0F2F1;
+	padding-right: 7px;
+	white-space: nowrap;
+	max-width: calc(100% - 45px);
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+#update {
+	margin-right: 10px;
+	width: 25px;
+	height: 25px;
+	align-self: center;
+	fill: white;
+	flex-shrink: 0;
+}
+
+#header_row_3 {
+	height: 40px;
+	overflow: auto;
+	white-space: nowrap;
+	display: flex;
+	position: relative;
+}
+
+.headerButton {
+	flex: auto;
+	font-size: 19px;
+	line-height: 38px;
+	cursor: pointer;
+	padding: 0 20px;
+	color: white;
+	font-family: "Comic Sans MS";
+	display: inline-block;
+	flex-shrink: 0;
+	text-align: center;
+}

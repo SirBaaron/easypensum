@@ -1,0 +1,10 @@
+<button class="card_header" noSelect style="background:${this.color}">
+	<span class="card_date">${this._compileDate(this.date)}</span>
+	<span class="card_subject">${this.subject}</span>
+	<span class="card_detail">${((this.detail.length > 0) ? "- " : "") + this.detail}</span>
+	<ripple-effect opacity="0.4" cancel-on-move></ripple-effect>
+</button>
+<div class="card_body"><div class="card_container">
+		<div class="card_content">${this._parseText(this.content)}</div>
+	</div>
+</div>
