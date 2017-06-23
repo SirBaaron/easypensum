@@ -9,12 +9,17 @@ class cubicBezier {
 }
 
 
+
+
 Object.defineProperties(entryCard.prototype, {
-	"easing": {
-		value: new cubicBezier([0.4, 0, 0.2, 1])
-	},
-	"animationDuration": {
-		value: 200
+	"progressiveConstructor": {
+		/**
+		 * runs when the element gets upgraded
+		 */
+		value: function progressiveConstructor() {
+			this.easing = new cubicBezier([.4, 0, .2, 1]);
+			this.animationDuration = 200;
+		}
 	},
 	"_expand": {
 		/**
@@ -32,32 +37,22 @@ Object.defineProperties(entryCard.prototype, {
 
 			const size = el.getBoundingClientRect().height;
 
-			this.animationStart = performance.now();
-			window.requestAnimationFrame(stmp => {
-				this._openframe(stmp, el.firstChild);
+			animation.add({
+				el: el.firstChild,
+				property: "transform",
+				value: (prgs) => {
+					return `translateY(-${(1 - prgs) * 100}%)`;
+				},
+				duration: this.animationDuration,
+				easing: this.easing
+			}).then(_ => {
+				el.firstChild.style.willChange = "initial";
+				this.animating = false;
 			});
 
 			this.followingSiblings.forEach(n => {
 				n.fakeMove(-size, 0);
 			});
-		}
-	},
-	"_openframe": {
-		value: function _openframe(stmp, el) {
-			var prgs = Math.min((stmp - this.animationStart) / this.animationDuration, 1);
-			var f = this.easing.yatx(prgs);
-
-			el.style.transform = `translateY(-${(1 - f) * 100}%)`;
-
-			if(prgs < 1) {
-				window.requestAnimationFrame(stmp => {
-					this._openframe(stmp, el);
-				});
-			}
-			else {
-				this.animating = false;
-				el.style.willChange = "initial";
-			}
 		}
 	},
 	"_collapse": {
@@ -75,33 +70,23 @@ Object.defineProperties(entryCard.prototype, {
 
 			el.firstChild.style.willChange = "transform";
 
-			this.animationStart = performance.now();
-			window.requestAnimationFrame(stmp => {
-				this._closeframe(stmp, el.firstChild);
-			});
+			animation.add({
+				el: el.firstChild,
+				property: "transform",
+				value: (prgs) => {
+					return `translateY(-${prgs * 100}%)`;
+				},
+				duration: this.animationDuration,
+				easing: this.easing
+			}).then(_ => {
+				el.firstChild.parentNode.style.display = "none";
+				el.firstChild.style.willChange = "initial";
+				this.animating = false;
+			})
 
 			this.followingSiblings.forEach(n => {
 				n.fakeMove(0, -size);
 			});
-		}
-	},
-	"_closeframe": {
-		value: function _closeframe(stmp, el) {
-			var prgs = Math.min((stmp - this.animationStart) / this.animationDuration, 1);
-			var f = this.easing.yatx(prgs);
-
-			el.style.transform = `translateY(-${f * 100}%)`;
-
-			if(prgs < 1) {
-				window.requestAnimationFrame(stmp => {
-					this._closeframe(stmp, el);
-				});
-			}
-			else {
-				el.parentNode.style.display = "none";
-				el.style.willChange = "initial";
-				this.animating = false;
-			}
 		}
 	},
 	"fakeMove": {
@@ -111,47 +96,19 @@ Object.defineProperties(entryCard.prototype, {
 		 * @param  {Number}	Position to get to
 		 */
 		value: function fakeMove(from, to) {
-			var cur = (this.style.transform.length > 0) ? this.style.transform.match(/\d+/g)[0] : 0;
-			this.style.transform = `translateY(${cur + from}px)`;
+			this.style.transform = `translateY(${from}px)`;
 			
-			if(!this.moveque) {
-				this.moveque = [];
-			}
-			this.moveque.push({
-				from: from,
-				to: to,
-				start: performance.now()
-			});
-			if(!this.activeMove) {
-				window.requestAnimationFrame(this._moveFrame.bind(this));
-				this.activeMove = true;
-			}
-		}
-	},
-	"_moveFrame": {
-		value: function _moveFrame(stmp) {
-			var tot = 0;
-
-			this.moveque = this.moveque.filter(m => {
-				var prgs = Math.min((stmp - m.start) / this.animationDuration, 1);
-				var f = this.easing.yatx(prgs);
-				tot += m.to * f + m.from * (1 -f);
-				if(prgs == 1) {
-					return false;
-				}
-				return true;
-			});
-			
-			this.style.transform = `translateY(${tot}px)`;
-			
-			if(this.moveque.length > 0) {
-				window.requestAnimationFrame(this._moveFrame.bind(this));
-			}
-			else {
+			animation.add({
+				el: this,
+				property: "transform",
+				value: (prgs) => {
+					return `translateY(${to * prgs + from * (1 - prgs)}px)`;
+				},
+				duration: this.animationDuration,
+				easing: this.easing
+			}).then(_ => {
 				this.style.transform = "translateY(0px)";
-				this.activeMove = false;
-			}
-
+			})
 		}
 	},
 	"_updateText": {
@@ -209,3 +166,5 @@ Object.defineProperties(entryCard.prototype, {
 		}
 	}
 });
+
+[].slice.call(document.getElementsByTagName("entry-card")).forEach(v => v.progressiveConstructor());
