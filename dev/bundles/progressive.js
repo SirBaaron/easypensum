@@ -280,7 +280,7 @@ class animationSyncer {
 		}
 	}
 }
-animation = new animationSyncer();
+var animation = new animationSyncer();
 
 //DOTO: actually make easing
 class cubicBezier {

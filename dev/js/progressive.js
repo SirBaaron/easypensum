@@ -55,6 +55,6 @@ class animationSyncer {
 		}
 	}
 }
-animation = new animationSyncer();
+var animation = new animationSyncer();
 
 //<-inject:cardanimation.js->

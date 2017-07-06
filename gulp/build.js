@@ -1,7 +1,7 @@
 /*
 FLAGS:
---noimagecompression			won't compress images, duh
---nolighthouse					skip lighthouse report
+--noimagecompression || -i			won't compress images, duh
+--nolighthouse  || -l					skip lighthouse report
 */
 
 var gulp = require('gulp');
@@ -131,7 +131,7 @@ gulp.task("index", () => {
 });
 
 gulp.task("images", () => {
-	if(argv.noimagecompression) {
+	if(argv.noimagecompression || argv.i) {
 		return;
 	}
 

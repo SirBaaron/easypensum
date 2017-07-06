@@ -7,7 +7,7 @@ var argv = require('yargs').argv;
 
 
 gulp.task("lighthouse", () => {
-  if(argv.nolighthouse) {
+  if(argv.nolighthouse || argv.l) {
     return;
   }
 
