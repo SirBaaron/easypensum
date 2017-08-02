@@ -1,24 +1,15 @@
 
 
 class entryCard extends HTMLElement {
-	constructor() {
+	constructor(param) {
 		super();
+		this.data = param;
+
 		this.expanded = false;
 		this.detailWidth = undefined;
-
-		this.attached = false;
+		this.infoOpen = false;
 	}
 
-	static get observedAttributes() {
-		return ["content", "subject", "color", "date", "detail"];
-	}
-
-	attributeChangedCallback(name, oldValue, newValue) {
-		if(!this.attached) {
-			return;
-		}
-		this[name] = newValue;
-	}
 
 	get template() {
 		return `
@@ -26,58 +17,131 @@ class entryCard extends HTMLElement {
 		`;
 	}
 
-
-	get content() {
-		return this.getAttribute("content") || "";
+	get color() {
+		return this.data.color || "red";
 	}
 	get subject() {
-		return this.getAttribute("subject") || "";
-	}
-	get color() {
-		return this.getAttribute("color") || "#009688";
-	}
-	get date() {
-		return this.getAttribute("date") || new Date();
+		return this.data.subject || "";
 	}
 	get detail() {
-		return this.getAttribute("detail") || "";
+		return this.data.detail || "";
+	}
+	get date() {
+		return this.data.date || new Date();
+	}
+	get content() {
+		return this.data.content || "";
+	}
+	get interactions() {
+		return this.data.interactions || {};
 	}
 
+
+
 	set color(val) {
+		this.data.color = val;
 		this.header.style.background = val;
 	}
 	set subject(val) {
+		this.data.subject = val;
 		this._updateText(this.cardSubject, val);
 	}
 	set detail(val) {
+		this.data.detail = val;
 		var txt = ((val.length > 0) ? "- " : "") + val;
 		this._updateText(this.cardDetail, txt).then(this._measure.bind(this));
 	}
 	set date(val) {
+		this.data.date = val;
 		this._updateText(this.cardDate, this._compileDate(val));
 	}
 	set content(val) {
+		this.data.content = val;
 		this._updateText(this.cardContent, this._parseText(val));
+	}
+	set interactions(val) {
+		this.data.interactions = val;
+		this._updateText(this.info, this._compileInteractions(val));
 	}
 
 	connectedCallback() {
 		this.innerHTML = this.template;
 
+
 		this.header = this.querySelector("." + classid("card_header"));
 		this.cardDetail = this.querySelector("." + classid("card_detail"));
 		this.cardSubject = this.querySelector("." + classid("card_subject"));
 		this.cardDate = this.querySelector("." + classid("card_date"));
-		this.cardContainer = this.querySelector("." + classid("card_container"));
 		this.cardBody = this.querySelector("." + classid("card_body"));
 		this.cardContent = this.querySelector("." + classid("card_content"));
+
+		this.actionfooter = this.querySelector("." + classid("card_actionfooter"));
+
+		this.infoBody = this.querySelector("." + classid("card_info_body"));
+		this.info = this.querySelector("." + classid("card_info"));
+
+
+
+
 
 		
 
 		this.header.addEventListener("click", this.toggle.bind(this));
 		this.header.addEventListener("ripple-click", this.toggle.bind(this));
 
-		this.attached = true;
+		this.info.addEventListener("click", this.toggleInfo.bind(this));
+
+		this.actionfooter.addEventListener("click", this.action.bind(this));
+
+
 		window.setTimeout(this._measure.bind(this), 500);
+	}
+
+	/**
+	 * Gets called when a button from the actionbar gets pressed
+	 * @param  {Event} e the click event
+	 */
+	action(e) {
+		if(e.target == this.actionfooter) return;
+		switch(e.target.getAttribute("value")) {
+			case "info":
+				this.toggleInfo();
+				break;
+			case "done":
+				alert("Not implemented yet.");
+				break;
+			case "edit":
+				alert("Not sure about the transition yet..");
+				break;
+			case "share":
+				let txt = `Bis ${this._compileDate(this.date)} in ${this.subject}:\n${this.content.replace(/§br/g, "\n")}\n\n`;
+
+				if("share" in navigator) {
+					//use fancy share api
+					navigator.share({
+						title: "Easy Pensum Eintrag",
+						text: txt,
+						url: window.location.origin
+					})
+				}
+				else {
+					//fallback to WhatsApp
+					let url = "whatsapp://send?text=" + encodeURIComponent(txt + window.location.origin);
+					window.location = url;
+				}
+				break;
+		}
+	}
+
+	toggleInfo() {
+		if(!this.infoOpen) {
+			this._expand(this.infoBody);
+			this.infoOpen = true;
+		}
+		else {
+			this._collapse(this.infoBody);
+			this.infoOpen = false;
+		}
 	}
 
 	/**
@@ -91,16 +155,54 @@ class entryCard extends HTMLElement {
 	}
 
 	/**
-	 * Compiles a Date to a human readable format also with words if possible
+	 * Turns the JSON structure of interactions into readable lines.
+	 * @param  {Object} interactions an Object with creation and changes
+	 * @return {DOMString}              The readable output
+	 */
+	_compileInteractions(interactions) {
+		var str = `Erstellt: ${this._compileDate(interactions.created, "am ")} um ${this._extractTime(interactions.created)}
+					<br>Von: ${interactions.creator}`;
+
+		for(var i in interactions.changed) {
+			str += `<br><i>Verändert ${this._compileDate(interactions.changed[i].time, "am ")} um ${this._extractTime(interactions.changed[i].time)}
+			 von ${interactions.changed[i].user}</i>`;
+		}
+		return str;
+	}
+
+	/**
+	 * extracts the hour and minute component of a dateTime
+	 * @param  {String} dte a parseable datetime String
+	 * @return {String}     The time in the format hh:mm
+	 */
+	_extractTime(dte) {
+		let d = new Date(dte);
+		return d.getHours() + ":" + d.getMinutes();
+	}
+
+	/**
+	 * Compiles a Date to a human readable format, with words if possible
 	 * @param  {Date}
 	 * @return {String}
 	 */
-	_compileDate(dte) {
+	_compileDate(dte, prefix = "") {
 		const now = new Date();
 		const date = new Date(dte);
 		const diff = Math.ceil((date.getTime() - now.getTime()) / 86400000);
 
 		switch(true) {
+			case (diff == -7):
+				return "Vor einer Woche";
+				break;
+			case (diff < -2 && diff > -7):
+				return `Vor ${diff} Tagen`;
+				break;
+			case (diff == -2):
+				return "Vorgestern";
+				break;
+			case (diff == -1):
+				return "Gestern";
+				break;
 			case (diff == 0):
 				return "Heute";
 				break;
@@ -117,7 +219,7 @@ class entryCard extends HTMLElement {
 				return "In einer Woche";
 				break;
 			default:
-				return `${date.getDate()}.${(date.getMonth() + 1)}`;
+				return `${prefix}${date.getDate()}.${(date.getMonth() + 1)}`;
 				break;
 		}
 	}
@@ -171,7 +273,7 @@ class entryCard extends HTMLElement {
 			this.cardDetail.style.opacity = 1;
 		}
 
-		this._expand(this.cardBody, this);
+		this._expand(this.cardBody);
 	}
 
 	/**

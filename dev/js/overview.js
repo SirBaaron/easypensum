@@ -3,6 +3,8 @@
 
 //<-inject:../js/tabs.js->
 
+window["mobile"] = /(Android)|(webOS)|(iPhone)|(BlackBerry)|(Windows Phone)/ig.test(navigator.userAgent);
+
 class Overview {
 	constructor() {
 		this.shell = document.getElementById(classid("overview"));
@@ -86,6 +88,48 @@ class Overview {
 	
 }
 new Overview();
+
+class cardManager {
+	constructor() {
+		this.tabHost = document.getElementById(classid("tabhost"));
+	}
+
+	render(data) {
+		for(let i in data) {
+			let card = new entryCard(data[i]);
+			this.tabHost.childNodes[0].appendChild(card);
+		}
+	}
+}
+var cards = new cardManager;
+
+cards.render([{
+	"subject": "Englisch",
+	"content": "Link: www.google.com§brfull Link: https://www.google.com§brEmail: aaron.laengert@gmail.com",
+	"date": "2017-08-23",
+	"color": "gold",
+	"detail": "Koch",
+	"interactions": {
+		"creator": "Aaron Längert",
+		"created": "2017-08-20 17:43:10",
+		"changed": [{
+			"user": "le fugh",
+			"time": "2017-08-22 03:10"
+		}]
+	}
+},
+{
+	"subject": "Mathe",
+	"content": "10.47| a) b)§br10.53|",
+	"date": "2017-08-26",
+	"color": "green",
+	"detail": "",
+	"interactions": {
+		"creator": "Someone else",
+		"created": "2017-06-10 18:10:43",
+		"changed": []
+	}
+}]);
 
 
 // cubicBezier = (x, points) => {

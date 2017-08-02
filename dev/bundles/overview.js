@@ -2,24 +2,15 @@
 
 
 class entryCard extends HTMLElement {
-	constructor() {
+	constructor(param) {
 		super();
+		this.data = param;
+
 		this.expanded = false;
 		this.detailWidth = undefined;
-
-		this.attached = false;
+		this.infoOpen = false;
 	}
 
-	static get observedAttributes() {
-		return ["content", "subject", "color", "date", "detail"];
-	}
-
-	attributeChangedCallback(name, oldValue, newValue) {
-		if(!this.attached) {
-			return;
-		}
-		this[name] = newValue;
-	}
 
 	get template() {
 		return `
@@ -29,65 +20,165 @@ class entryCard extends HTMLElement {
 				<span class="card_detail">${((this.detail.length > 0) ? "- " : "") + this.detail}</span>
 				<ripple-effect opacity="0.4" cancel-on-move></ripple-effect>
 			</button>
-			<div class="card_body"><div class="card_container">
-					<div class="card_content">${this._parseText(this.content)}</div>
+			<div class="card_body accordeon_host"><div class="accordeon_curtain"></div>
+				<div class="card_content">${this._parseText(this.content)}</div>
+				<hr class="card_seperator" noshade>
+				<div class="card_actionfooter">
+					<button class="card_action_button" value="edit">
+						<svg viewBox="0 0 24 24">
+							<path d="M20.71,7.04C21.1,6.65 21.1,6 20.71,5.63L18.37,3.29C18,2.9 17.35,2.9 16.96,3.29L15.12,5.12L18.87,8.87M3,17.25V21H6.75L17.81,9.93L14.06,6.18L3,17.25Z"></path>
+						</svg>
+					</button>
+					<button class="card_action_button" value="info">
+						<svg viewBox="0 0 24 24">
+							<path d="M13,9H11V7H13M13,17H11V11H13M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2Z"></path>
+						</svg>
+					</button>
+					<button class="card_action_button" value="share" style="display: ${(window.mobile || ("share" in navigator)) ? "initial" : "none"}">
+						<svg viewBox="0 0 24 24">
+							<path d="M18,16.08C17.24,16.08 16.56,16.38 16.04,16.85L8.91,12.7C8.96,12.47 9,12.24 9,12C9,11.76 8.96,11.53 8.91,11.3L15.96,7.19C16.5,7.69 17.21,8 18,8A3,3 0 0,0 21,5A3,3 0 0,0 18,2A3,3 0 0,0 15,5C15,5.24 15.04,5.47 15.09,5.7L8.04,9.81C7.5,9.31 6.79,9 6,9A3,3 0 0,0 3,12A3,3 0 0,0 6,15C6.79,15 7.5,14.69 8.04,14.19L15.16,18.34C15.11,18.55 15.08,18.77 15.08,19C15.08,20.61 16.39,21.91 18,21.91C19.61,21.91 20.92,20.61 20.92,19A2.92,2.92 0 0,0 18,16.08Z"></path>
+						</svg>
+					</button>
+					<button class="card_action_button" value="done">
+						<svg viewBox="0 0 24 24">
+							<path d="M21,7L9,19L3.5,13.5L4.91,12.09L9,16.17L19.59,5.59L21,7Z"></path>
+						</svg>
+					</button>
+				</div>
+				<div class="card_info_body accordeon_host"><div class="accordeon_curtain"></div>
+					<div class="card_info">
+						${this._compileInteractions(this.interactions)}
+					</div>
 				</div>
 			</div>
 		`;
 	}
 
-
-	get content() {
-		return this.getAttribute("content") || "";
+	get color() {
+		return this.data.color || "red";
 	}
 	get subject() {
-		return this.getAttribute("subject") || "";
-	}
-	get color() {
-		return this.getAttribute("color") || "#009688";
-	}
-	get date() {
-		return this.getAttribute("date") || new Date();
+		return this.data.subject || "";
 	}
 	get detail() {
-		return this.getAttribute("detail") || "";
+		return this.data.detail || "";
+	}
+	get date() {
+		return this.data.date || new Date();
+	}
+	get content() {
+		return this.data.content || "";
+	}
+	get interactions() {
+		return this.data.interactions || {};
 	}
 
+
+
 	set color(val) {
+		this.data.color = val;
 		this.header.style.background = val;
 	}
 	set subject(val) {
+		this.data.subject = val;
 		this._updateText(this.cardSubject, val);
 	}
 	set detail(val) {
+		this.data.detail = val;
 		var txt = ((val.length > 0) ? "- " : "") + val;
 		this._updateText(this.cardDetail, txt).then(this._measure.bind(this));
 	}
 	set date(val) {
+		this.data.date = val;
 		this._updateText(this.cardDate, this._compileDate(val));
 	}
 	set content(val) {
+		this.data.content = val;
 		this._updateText(this.cardContent, this._parseText(val));
+	}
+	set interactions(val) {
+		this.data.interactions = val;
+		this._updateText(this.info, this._compileInteractions(val));
 	}
 
 	connectedCallback() {
 		this.innerHTML = this.template;
 
+
 		this.header = this.querySelector("." + classid("card_header"));
 		this.cardDetail = this.querySelector("." + classid("card_detail"));
 		this.cardSubject = this.querySelector("." + classid("card_subject"));
 		this.cardDate = this.querySelector("." + classid("card_date"));
-		this.cardContainer = this.querySelector("." + classid("card_container"));
 		this.cardBody = this.querySelector("." + classid("card_body"));
 		this.cardContent = this.querySelector("." + classid("card_content"));
+
+		this.actionfooter = this.querySelector("." + classid("card_actionfooter"));
+
+		this.infoBody = this.querySelector("." + classid("card_info_body"));
+		this.info = this.querySelector("." + classid("card_info"));
+
+
+
+
 
 		
 
 		this.header.addEventListener("click", this.toggle.bind(this));
 		this.header.addEventListener("ripple-click", this.toggle.bind(this));
 
-		this.attached = true;
+		this.info.addEventListener("click", this.toggleInfo.bind(this));
+
+		this.actionfooter.addEventListener("click", this.action.bind(this));
+
+
 		window.setTimeout(this._measure.bind(this), 500);
+	}
+
+	/**
+	 * Gets called when a button from the actionbar gets pressed
+	 * @param  {Event} e the click event
+	 */
+	action(e) {
+		if(e.target == this.actionfooter) return;
+		switch(e.target.getAttribute("value")) {
+			case "info":
+				this.toggleInfo();
+				break;
+			case "done":
+				alert("Not implemented yet.");
+				break;
+			case "edit":
+				alert("Not sure about the transition yet..");
+				break;
+			case "share":
+				let txt = `Bis ${this._compileDate(this.date)} in ${this.subject}:\n${this.content.replace(/§br/g, "\n")}\n\n`;
+
+				if("share" in navigator) {
+					//use fancy share api
+					navigator.share({
+						title: "Easy Pensum Eintrag",
+						text: txt,
+						url: window.location.origin
+					})
+				}
+				else {
+					//fallback to WhatsApp
+					let url = "whatsapp://send?text=" + encodeURIComponent(txt + window.location.origin);
+					window.location = url;
+				}
+				break;
+		}
+	}
+
+	toggleInfo() {
+		if(!this.infoOpen) {
+			this._expand(this.infoBody);
+			this.infoOpen = true;
+		}
+		else {
+			this._collapse(this.infoBody);
+			this.infoOpen = false;
+		}
 	}
 
 	/**
@@ -101,16 +192,54 @@ class entryCard extends HTMLElement {
 	}
 
 	/**
-	 * Compiles a Date to a human readable format also with words if possible
+	 * Turns the JSON structure of interactions into readable lines.
+	 * @param  {Object} interactions an Object with creation and changes
+	 * @return {DOMString}              The readable output
+	 */
+	_compileInteractions(interactions) {
+		var str = `Erstellt: ${this._compileDate(interactions.created, "am ")} um ${this._extractTime(interactions.created)}
+					<br>Von: ${interactions.creator}`;
+
+		for(var i in interactions.changed) {
+			str += `<br><i>Verändert ${this._compileDate(interactions.changed[i].time, "am ")} um ${this._extractTime(interactions.changed[i].time)}
+			 von ${interactions.changed[i].user}</i>`;
+		}
+		return str;
+	}
+
+	/**
+	 * extracts the hour and minute component of a dateTime
+	 * @param  {String} dte a parseable datetime String
+	 * @return {String}     The time in the format hh:mm
+	 */
+	_extractTime(dte) {
+		let d = new Date(dte);
+		return d.getHours() + ":" + d.getMinutes();
+	}
+
+	/**
+	 * Compiles a Date to a human readable format, with words if possible
 	 * @param  {Date}
 	 * @return {String}
 	 */
-	_compileDate(dte) {
+	_compileDate(dte, prefix = "") {
 		const now = new Date();
 		const date = new Date(dte);
 		const diff = Math.ceil((date.getTime() - now.getTime()) / 86400000);
 
 		switch(true) {
+			case (diff == -7):
+				return "Vor einer Woche";
+				break;
+			case (diff < -2 && diff > -7):
+				return `Vor ${diff} Tagen`;
+				break;
+			case (diff == -2):
+				return "Vorgestern";
+				break;
+			case (diff == -1):
+				return "Gestern";
+				break;
 			case (diff == 0):
 				return "Heute";
 				break;
@@ -127,7 +256,7 @@ class entryCard extends HTMLElement {
 				return "In einer Woche";
 				break;
 			default:
-				return `${date.getDate()}.${(date.getMonth() + 1)}`;
+				return `${prefix}${date.getDate()}.${(date.getMonth() + 1)}`;
 				break;
 		}
 	}
@@ -181,7 +310,7 @@ class entryCard extends HTMLElement {
 			this.cardDetail.style.opacity = 1;
 		}
 
-		this._expand(this.cardBody, this);
+		this._expand(this.cardBody);
 	}
 
 	/**
@@ -284,6 +413,8 @@ class tabView {
 
 var tabManager;
 
+window["mobile"] = /(Android)|(webOS)|(iPhone)|(BlackBerry)|(Windows Phone)/ig.test(navigator.userAgent);
+
 class Overview {
 	constructor() {
 		this.shell = document.getElementById(classid("overview"));
@@ -317,15 +448,7 @@ class Overview {
 				</div>
 			</div>
 			<div id="tab_scrollshell">
-				<div id="tabhost" style="width: 300%;">
-					<div>
-						<entry-card subject="subject" content="Link: www.google.com§brfull Link: https://www.google.com§brEmail: aaron.laengert@gmail.com" date="2017-04-23" color="pink" detail="test"></entry-card>
-						<entry-card subject="zu Faul" content="blob" date="2017-04-17" color="gold" detail="idk"></entry-card>
-						<entry-card subject="Mathe" content="some serious stuff §br and newlines§br§br§br§br§br§br§br§brloooong post.." date="2017-06-12" color="blue" detail=""></entry-card>
-					</div>
-					<div></div>
-					<div></div>
-				</div>
+				<div id="tabhost" style="width: 300%;"><div></div><div></div><div></div></div>
 			</div>
 		`;
 	}
@@ -458,7 +581,8 @@ class Overview {
 				display: block;
 				overflow: hidden;
 				contain: content;
-			}
+			/*	outline: 1px red solid;
+			*/}
 			
 			.card_header {
 				height: 55px;
@@ -501,7 +625,6 @@ class Overview {
 			
 			
 			.card_body {
-				display: none;
 				background: white;
 			}
 			
@@ -510,18 +633,67 @@ class Overview {
 				word-wrap: break-word;
 			}
 			
-			.card_body a:link, .card_body a:visited {
+			.card_content a:link, .card_content a:visited {
 				color: #FFC107;
 				font-style: italic;
 				text-decoration: none;
 			}
 			
-			.card_body a:hover {
+			.card_content a:hover {
 				font-style: normal;
 			}
 			
-			.card_body a:active {
+			.card_content a:active {
 				opacity: 0.7;
+			}
+			
+			.card_seperator {
+				background: rgba(0,0,0,.2);
+				height: 1px;
+				width: 98%;
+				border: none;
+				margin: auto;
+			}
+			
+			.card_actionfooter {
+				height: 45px;
+				display: flex;
+				align-items: center;
+				justify-content: flex-end;
+				padding-right: 10px;
+			}
+			
+			.card_action_button {
+				height: 32px;
+				cursor: pointer;
+			}
+			
+			.card_action_button > svg {
+				height: 32px;
+				width: 32px;
+				fill: rgba(0, 0, 0, 0.75);
+				pointer-events: none;
+			}
+			
+			.card_info {
+				padding: 7px 0 7px 15px;
+				font-size: 14px;
+				line-height: 23px;
+			}
+			
+			.accordeon_host {
+				display: none;
+				overflow: hidden;
+				position: relative;
+			}
+			
+			.accordeon_curtain {
+				position: absolute;
+				height: 100%;
+				width: 100%;
+				background: rgb(249, 249, 249);
+				transform: translateY(100%);
+				z-index: 1;
 			}
 			
 			@keyframes cards-intro {
@@ -597,6 +769,48 @@ class Overview {
 	
 }
 new Overview();
+
+class cardManager {
+	constructor() {
+		this.tabHost = document.getElementById(classid("tabhost"));
+	}
+
+	render(data) {
+		for(let i in data) {
+			let card = new entryCard(data[i]);
+			this.tabHost.childNodes[0].appendChild(card);
+		}
+	}
+}
+var cards = new cardManager;
+
+cards.render([{
+	"subject": "Englisch",
+	"content": "Link: www.google.com§brfull Link: https://www.google.com§brEmail: aaron.laengert@gmail.com",
+	"date": "2017-08-23",
+	"color": "gold",
+	"detail": "Koch",
+	"interactions": {
+		"creator": "Aaron Längert",
+		"created": "2017-08-20 17:43:10",
+		"changed": [{
+			"user": "le fugh",
+			"time": "2017-08-22 03:10"
+		}]
+	}
+},
+{
+	"subject": "Mathe",
+	"content": "10.47| a) b)§br10.53|",
+	"date": "2017-08-26",
+	"color": "green",
+	"detail": "",
+	"interactions": {
+		"creator": "Someone else",
+		"created": "2017-06-10 18:10:43",
+		"changed": []
+	}
+}]);
 
 
 // cubicBezier = (x, points) => {

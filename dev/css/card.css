@@ -4,7 +4,8 @@ entry-card {
 	display: block;
 	overflow: hidden;
 	contain: content;
-}
+/*	outline: 1px red solid;
+*/}
 
 .card_header {
 	height: 55px;
@@ -47,7 +48,6 @@ entry-card {
 
 
 .card_body {
-	display: none;
 	background: white;
 }
 
@@ -56,18 +56,67 @@ entry-card {
 	word-wrap: break-word;
 }
 
-.card_body a:link, .card_body a:visited {
+.card_content a:link, .card_content a:visited {
 	color: #FFC107;
 	font-style: italic;
 	text-decoration: none;
 }
 
-.card_body a:hover {
+.card_content a:hover {
 	font-style: normal;
 }
 
-.card_body a:active {
+.card_content a:active {
 	opacity: 0.7;
+}
+
+.card_seperator {
+	background: rgba(0,0,0,.2);
+	height: 1px;
+	width: 98%;
+	border: none;
+	margin: auto;
+}
+
+.card_actionfooter {
+	height: 45px;
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+	padding-right: 10px;
+}
+
+.card_action_button {
+	height: 32px;
+	cursor: pointer;
+}
+
+.card_action_button > svg {
+	height: 32px;
+	width: 32px;
+	fill: rgba(0, 0, 0, 0.75);
+	pointer-events: none;
+}
+
+.card_info {
+	padding: 7px 0 7px 15px;
+	font-size: 14px;
+	line-height: 23px;
+}
+
+.accordeon_host {
+	display: none;
+	overflow: hidden;
+	position: relative;
+}
+
+.accordeon_curtain {
+	position: absolute;
+	height: 100%;
+	width: 100%;
+	background: rgb(249, 249, 249);
+	transform: translateY(100%);
+	z-index: 1;
 }
 
 @keyframes cards-intro {

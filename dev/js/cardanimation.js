@@ -32,7 +32,7 @@ Object.defineProperties(entryCard.prototype, {
 			}
 			this.animating = true;
 			el.style.display = "block";
-			el.firstChild.style.transform = "translateY(-100%)";
+			el.firstChild.style.transform = "translateY(0%)";
 			el.firstChild.style.willChange = "transform";
 
 			const size = el.getBoundingClientRect().height;
@@ -41,7 +41,7 @@ Object.defineProperties(entryCard.prototype, {
 				el: el.firstChild,
 				property: "transform",
 				value: (prgs) => {
-					return `translateY(-${(1 - prgs) * 100}%)`;
+					return `translateY(${(prgs) * 100}%)`;
 				},
 				duration: this.animationDuration,
 				easing: this.easing
@@ -74,7 +74,7 @@ Object.defineProperties(entryCard.prototype, {
 				el: el.firstChild,
 				property: "transform",
 				value: (prgs) => {
-					return `translateY(-${prgs * 100}%)`;
+					return `translateY(${(1 - prgs) * 100}%)`;
 				},
 				duration: this.animationDuration,
 				easing: this.easing
@@ -96,6 +96,7 @@ Object.defineProperties(entryCard.prototype, {
 		 * @param  {Number}	Position to get to
 		 */
 		value: function fakeMove(from, to) {
+			this.style.willChange = "transform";
 			this.style.transform = `translateY(${from}px)`;
 			
 			animation.add({
@@ -108,6 +109,7 @@ Object.defineProperties(entryCard.prototype, {
 				easing: this.easing
 			}).then(_ => {
 				this.style.transform = "translateY(0px)";
+				this.style.willChange = "initial";
 			})
 		}
 	},
