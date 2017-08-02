@@ -98,9 +98,9 @@ class rippleEffect extends HTMLElement {
 
 		this.parentNode.addEventListener("mousemove", this.move.bind(this));
 
-		this.parentNode.addEventListener("touchstart", this.start.bind(this));
-		this.parentNode.addEventListener("touchmove", this.move.bind(this));
-		this.parentNode.addEventListener("touchend", this.release.bind(this));
+		this.parentNode.addEventListener("touchstart", this.start.bind(this), {passive: true});
+		this.parentNode.addEventListener("touchmove", this.move.bind(this), {passive: true});
+		this.parentNode.addEventListener("touchend", this.release.bind(this), {passive: true});
 
 		this.attached = true;
 	}
