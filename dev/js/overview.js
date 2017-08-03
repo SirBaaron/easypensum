@@ -33,7 +33,7 @@ class Overview {
 	 * @return {Array String}
 	 */
 	get lazyLoad() {
-		return ["bundles/progressive.js"];
+		return ["bundles/progressive.js", "bundles/second-view.js"];
 	}
 
 	init() {

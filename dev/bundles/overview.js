@@ -148,7 +148,19 @@ class entryCard extends HTMLElement {
 				alert("Not implemented yet.");
 				break;
 			case "edit":
-				alert("Not sure about the transition yet..");
+				let el = document.getElementById(classid("overview_drawerToggle"));
+				let display = window.getComputedStyle(el).getPropertyValue("display");
+				let titleel = document.getElementById(classid("overview_section_title"));
+
+				var previousactionbutton = {
+					el: el,
+					type: "burger"
+				}
+				if(display == "none") {
+					previousactionbutton = null;
+				}
+
+				window.sv.open("edit", e, this.color, "back", previousactionbutton, "Bearbeiten", titleel);
 				break;
 			case "share":
 				let txt = `Bis ${this._compileDate(this.date)} in ${this.subject}:\n${this.content.replace(/§br/g, "\n")}\n\n`;
@@ -427,10 +439,10 @@ class Overview {
 	get template() {
 		return `
 			<div id="overview_header_one">
-				<svg class="drawerToggle" viewBox="0 0 24 24">
+				<svg class="drawerToggle" id="overview_drawerToggle" viewBox="0 0 24 24">
 					<path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"></path>
 				</svg>
-				<span class="section_title">Übersicht</span>
+				<span class="section_title" id="overview_section_title">Übersicht</span>
 			</div>
 			<div id="overview_header">
 				<div style="height: 32px; display: flex">
@@ -525,7 +537,7 @@ class Overview {
 			}
 			
 			.section_title {
-				display: inline;
+				display: inline-block;
 				padding-left: 15px;
 				line-height: 40px;
 				font-size: 150%;
@@ -714,7 +726,7 @@ class Overview {
 	 * @return {Array String}
 	 */
 	get lazyLoad() {
-		return ["bundles/progressive.js"];
+		return ["bundles/progressive.js", "bundles/second-view.js"];
 	}
 
 	init() {

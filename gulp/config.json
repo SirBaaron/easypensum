@@ -22,6 +22,13 @@
 				"css/progressive.css",
 				"css/css/cardanimation.css"
 			]
+		},
+		{
+			"base": "js/second-view.js",
+			"sources": [
+				"html/second-view.html",
+				"css/second-view.css"
+			]
 		}
 	],
 	"files": {
@@ -31,12 +38,14 @@
 			"js/tabs.js",
 			"js/progressive.js",
 			"js/ripple.js",
-			"js/cardanimation.js"
+			"js/cardanimation.js",
+			"js/second-view.js"
 		],
 		"html": [
 			"index.html",
 			"html/card.html",
-			"html/overview.html"
+			"html/overview.html",
+			"html/second-view.html"
 		],
 		"css": [
 			"css/card.css",
@@ -47,7 +56,8 @@
 			"css/splashscreen.css",
 			"css/ripple.css",
 			"css/progressive.css",
-			"css/cardanimation.css"
+			"css/cardanimation.css",
+			"css/second-view.css"
 		],
 		"img": [
 			"static/logo168.png",
@@ -62,18 +72,21 @@
 		"index.html": "index.html",
 		"bundles/overview.js": "a.js",
 		"bundles/progressive.js": "b.js",
+		"bundles/second-view.js": "d.js",
 		"../node_modules/@webcomponents/custom-elements/custom-elements.min.js": "c.js",
 		"static/*.png": "static/*.png"
 	},
 	"rename": {
 		"bundles/overview.js": "a.js",
 		"bundles/progressive.js": "b.js",
+		"bundles/second-view.js": "d.js",
 		"../node_modules/@webcomponents/custom-elements/custom-elements.min.js": "c.js",
 		"<script src=\"classid.js\"></script>": ""
 	},
 	"addCopyright": [
 		"index.html",
 		"bundles/overview.js",
-		"bundles/progressive.js"
+		"bundles/progressive.js",
+		"bundles/second-view.js"
 	]
 }
