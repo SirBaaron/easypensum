@@ -80,6 +80,8 @@ class entryCard extends HTMLElement {
 		this.infoBody = this.querySelector("." + classid("card_info_body"));
 		this.info = this.querySelector("." + classid("card_info"));
 
+		this.shadow = this.querySelector("." + classid("card_shadow"));
+
 
 
 
@@ -286,6 +288,7 @@ class entryCard extends HTMLElement {
 		}
 
 		this._expand(this.cardBody);
+		this._enlargeshadow();
 	}
 
 	/**
@@ -299,6 +302,16 @@ class entryCard extends HTMLElement {
 		this.cardDetail.style.opacity = 0;
 
 		this._collapse(this.cardBody);
+		this._reduceshadow();
+	}
+
+	_enlargeshadow() {
+		this.shadow.style.boxShadow = "0 0 10px 0 rgba(0,2,0,.75)";
+	}
+
+	_reduceshadow() {
+		this.shadow.style.boxShadow = "0 0 5px 0 rgba(0,2,0,.7)";
+
 	}
 
 	_expand(el) {
