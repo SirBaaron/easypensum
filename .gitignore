@@ -1,4 +1,4 @@
 build/
 dist/
 report/
-dev/bundles/
+dev/bundles/*
