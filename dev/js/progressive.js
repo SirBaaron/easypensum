@@ -32,11 +32,15 @@ class animationSyncer {
 	}
 
 	frame(stmp) {
+		this.tasks.forEach(task => {
+			task.el.style[task.property] = "";
+		});
+
 		this.tasks = this.tasks.filter(task => {
 			var prgs = Math.min((stmp - task._startime) / task.duration, 1);
 			var f = task.easing.yatx(prgs);
 
-			task.el.style[task.property] = task.value(f);
+			task.el.style[task.property] += task.value(f) + " ";
 
 			
 			if(prgs == 1) {

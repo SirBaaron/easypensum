@@ -80,6 +80,8 @@ class entryCard extends HTMLElement {
 		this.infoBody = this.querySelector("." + classid("card_info_body"));
 		this.info = this.querySelector("." + classid("card_info"));
 
+		this.shadow = this.querySelector("." + classid("card_shadow"));
+
 
 
 
@@ -111,7 +113,19 @@ class entryCard extends HTMLElement {
 				alert("Not implemented yet.");
 				break;
 			case "edit":
-				alert("Not sure about the transition yet..");
+				let el = document.getElementById(classid("overview_drawerToggle"));
+				let display = window.getComputedStyle(el).getPropertyValue("display");
+				let titleel = document.getElementById(classid("overview_section_title"));
+
+				var previousactionbutton = {
+					el: el,
+					type: "burger"
+				}
+				if(display == "none") {
+					previousactionbutton = null;
+				}
+
+				window.sv.open("edit", e, this.color, "back", previousactionbutton, "Bearbeiten", titleel);
 				break;
 			case "share":
 				let txt = `Bis ${this._compileDate(this.date)} in ${this.subject}:\n${this.content.replace(/§br/g, "\n")}\n\n`;
@@ -274,6 +288,7 @@ class entryCard extends HTMLElement {
 		}
 
 		this._expand(this.cardBody);
+		this._enlargeshadow();
 	}
 
 	/**
@@ -287,6 +302,16 @@ class entryCard extends HTMLElement {
 		this.cardDetail.style.opacity = 0;
 
 		this._collapse(this.cardBody);
+		this._reduceshadow();
+	}
+
+	_enlargeshadow() {
+		this.shadow.style.boxShadow = "0 0 10px 0 rgba(0,2,0,.75)";
+	}
+
+	_reduceshadow() {
+		this.shadow.style.boxShadow = "0 0 5px 0 rgba(0,2,0,.7)";
+
 	}
 
 	_expand(el) {

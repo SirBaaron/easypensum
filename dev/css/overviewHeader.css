@@ -31,7 +31,7 @@
 }
 
 .drawerToggle {
-	height: 40px;
+	height: 50px;
 	width: 28px;
 	padding-left: 10px;
 	fill: white;
@@ -43,9 +43,9 @@ svg > path {
 }
 
 .section_title {
-	display: inline;
+	display: inline-block;
 	padding-left: 15px;
-	line-height: 40px;
+	line-height: 50px;
 	font-size: 150%;
 	color: white;
 }
@@ -87,7 +87,7 @@ svg > path {
 	cursor: pointer;
 	padding: 0 20px;
 	color: white;
-	font-family: "Comic Sans MS";
+	font-family: "Arial";
 	display: inline-block;
 	flex-shrink: 0;
 	text-align: center;

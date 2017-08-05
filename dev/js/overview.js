@@ -3,6 +3,10 @@
 
 //<-inject:../js/tabs.js->
 
+history.replaceState({
+	view: "main",
+	previous: ""
+}, "", "");
 window["mobile"] = /(Android)|(webOS)|(iPhone)|(BlackBerry)|(Windows Phone)/ig.test(navigator.userAgent);
 
 class Overview {
@@ -33,7 +37,7 @@ class Overview {
 	 * @return {Array String}
 	 */
 	get lazyLoad() {
-		return ["bundles/progressive.js"];
+		return ["bundles/progressive.js", "bundles/second-view.js"];
 	}
 
 	init() {
@@ -116,6 +120,18 @@ cards.render([{
 			"user": "le fugh",
 			"time": "2017-08-22 03:10"
 		}]
+	}
+},
+{
+	"subject": "Mathe",
+	"content": "10.47| a) b)§br10.53|",
+	"date": "2017-08-26",
+	"color": "green",
+	"detail": "",
+	"interactions": {
+		"creator": "Someone else",
+		"created": "2017-06-10 18:10:43",
+		"changed": []
 	}
 },
 {

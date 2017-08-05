@@ -31,11 +31,16 @@ Object.defineProperties(entryCard.prototype, {
 				return;
 			}
 			this.animating = true;
+
+			const sizebefore = this.getBoundingClientRect().height;
+
 			el.style.display = "block";
 			el.firstChild.style.transform = "translateY(0%)";
 			el.firstChild.style.willChange = "transform";
 
 			const size = el.getBoundingClientRect().height;
+
+			const ratio = sizebefore / (size + sizebefore);
 
 			animation.add({
 				el: el.firstChild,
@@ -48,6 +53,18 @@ Object.defineProperties(entryCard.prototype, {
 			}).then(_ => {
 				el.firstChild.style.willChange = "initial";
 				this.animating = false;
+			});
+
+			animation.add({
+				el: this.shadow,
+				property: "transform",
+				value: (prgs) => {
+					return `scaleY(${(1 - ratio) * prgs + ratio})`;
+				},
+				duration: this.animationDuration,
+				easing: this.easing
+			}).then(_ => {
+				this.shadow.style.transform = "";
 			});
 
 			this.followingSiblings.forEach(n => {
@@ -66,7 +83,10 @@ Object.defineProperties(entryCard.prototype, {
 			}
 			this.animating = true;
 
+			const wholesize = this.getBoundingClientRect().height;
 			const size = el.getBoundingClientRect().height;
+
+			const ratio = (wholesize - size) / wholesize;
 
 			el.firstChild.style.willChange = "transform";
 
@@ -82,7 +102,19 @@ Object.defineProperties(entryCard.prototype, {
 				el.firstChild.parentNode.style.display = "none";
 				el.firstChild.style.willChange = "initial";
 				this.animating = false;
-			})
+			});
+
+			animation.add({
+				el: this.shadow,
+				property: "transform",
+				value: (prgs) => {
+					return `scaleY(${(1 - ratio) * (1 - prgs) + ratio})`;
+				},
+				duration: this.animationDuration,
+				easing: this.easing
+			}).then(_ => {
+				this.shadow.style.transform = "";
+			});
 
 			this.followingSiblings.forEach(n => {
 				n.fakeMove(0, -size);
