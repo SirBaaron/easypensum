@@ -110,22 +110,21 @@ class entryCard extends HTMLElement {
 				this.toggleInfo();
 				break;
 			case "done":
-				alert("Not implemented yet.");
 				break;
 			case "edit":
-				let el = document.getElementById(classid("overview_drawerToggle"));
-				let display = window.getComputedStyle(el).getPropertyValue("display");
-				let titleel = document.getElementById(classid("overview_section_title"));
+				// let el = document.getElementById(classid("overview_drawerToggle"));
+				// let display = window.getComputedStyle(el).getPropertyValue("display");
+				// let titleel = document.getElementById(classid("overview_section_title"));
 
-				var previousactionbutton = {
-					el: el,
-					type: "burger"
-				}
-				if(display == "none") {
-					previousactionbutton = null;
-				}
+				// var previousactionbutton = {
+				// 	el: el,
+				// 	type: "burger"
+				// }
+				// if(display == "none") {
+				// 	previousactionbutton = null;
+				// }
 
-				window.sv.open("edit", e, this.color, "back", previousactionbutton, "Bearbeiten", titleel);
+				// window.sv.open("edit", e, this.color, "back", previousactionbutton, "Bearbeiten", titleel);
 				break;
 			case "share":
 				let txt = `Bis ${this._compileDate(this.date)} in ${this.subject}:\n${this.content.replace(/§br/g, "\n")}\n\n`;
