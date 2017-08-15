@@ -9,13 +9,9 @@ history.replaceState({
 }, "", "");
 window["mobile"] = /(Android)|(webOS)|(iPhone)|(BlackBerry)|(Windows Phone)/ig.test(navigator.userAgent);
 
-class Overview {
+class Overview extends HTMLElement {
 	constructor() {
-		this.shell = document.getElementById(classid("overview"));
-		this.splashheader = document.getElementById(classid("splashheader"));
-		this.splashloadinganimation = document.getElementById(classid("splashloadinganimation"));
-
-		this.init();
+		super();
 	}
 
 	get template() {
@@ -41,7 +37,7 @@ class Overview {
 		// return ["bundles/progressive.js", "bundles/second-view.js"];
 	}
 
-	init() {
+	connectedCallback() {
 		var css = document.createElement("style");
 		css.innerHTML = this.css;
 		document.head.appendChild(css);
@@ -53,42 +49,54 @@ class Overview {
 			document.head.appendChild(el);
 		});
 
-		const splashdim = this.splashheader.getBoundingClientRect();
-		const loaderdim = this.splashloadinganimation.getBoundingClientRect();
-		
-		this.splashheader.style.position = this.splashloadinganimation.style.position = "absolute";
-		this.splashheader.style.left = this.splashloadinganimation.style.left = `${splashdim.left}px`;
-		this.splashloadinganimation.style.top = `${loaderdim.top}px`;
-		this.splashloadinganimation.style.right = this.splashloadinganimation.style.bottom = this.splashheader.style.top = this.splashheader.style.right = "0px";
+		try {
+			this.splashheader = document.getElementById(classid("splashheader"));
+			this.splashloadinganimation = document.getElementById(classid("splashloadinganimation"));
 
-		this.splashloadinganimation.style.opacity = 1;
-		this.splashloadinganimation.style.transition = this.splashheader.style.transition = "opacity 0.2s linear";
-		this.splashloadinganimation.style.opacity = 0;
+			const splashdim = this.splashheader.getBoundingClientRect();
+			const loaderdim = this.splashloadinganimation.getBoundingClientRect();
+			
+			this.splashheader.style.position = this.splashloadinganimation.style.position = "absolute";
+			this.splashheader.style.left = this.splashloadinganimation.style.left = `${splashdim.left}px`;
+			this.splashloadinganimation.style.top = `${loaderdim.top}px`;
+			this.splashloadinganimation.style.right = this.splashloadinganimation.style.bottom = this.splashheader.style.top = this.splashheader.style.right = "0px";
 
-		const evhandler = e => {
-			this.splashheader.parentNode.removeChild(this.splashheader);
-			e.target.parentNode.removeChild(e.target);
+			this.splashloadinganimation.style.opacity = 1;
+			this.splashloadinganimation.style.transition = this.splashheader.style.transition = "opacity 0.2s linear";
+			this.splashloadinganimation.style.opacity = 0;
+
+			const evhandler = e => {
+				this.splashheader.parentNode.removeChild(this.splashheader);
+				e.target.parentNode.removeChild(e.target);
+			}
+
+
+			this.splashloadinganimation.addEventListener("transitionend", evhandler);
+
+			
+			this.splashheader.style.opacity = 0;
+
 		}
+		catch(err) {}
 
+		this.innerHTML = this.template;
 
-		this.splashloadinganimation.addEventListener("transitionend", evhandler);
-
-		this.shell.innerHTML = this.template;
-
-		this.headerone = document.getElementById(classid("overview_header_one"));
-		this.header = document.getElementById(classid("overview_header"));
 		this.tabshell = document.getElementById(classid("tab_scrollshell"));
+		this.header = document.getElementById(classid("overview_header"));
+		this.headerone = document.getElementById(classid("overview_header_one"));
 
-		this.splashheader.style.opacity = 0;
+
 		this.headerone.style.opacity = this.header.style.opacity = 1;
 		this.tabshell.style.display = "block";
+
 
 		tabManager = new tabView();
 	}
 
 	
 }
-new Overview();
+window.customElements.define("section-overview", Overview);
+
 
 class cardManager {
 	constructor() {
