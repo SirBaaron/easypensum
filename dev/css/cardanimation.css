@@ -4,5 +4,5 @@
 }
 
 .card_shadow {
-	transition: box-shadow 0.2s linear;
+	transition: opacity 0.2s linear;
 }

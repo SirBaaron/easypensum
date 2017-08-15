@@ -36,7 +36,7 @@ Object.defineProperties(entryCard.prototype, {
 
 			el.style.display = "block";
 			el.firstChild.style.transform = "translateY(0%)";
-			el.firstChild.style.willChange = "transform";
+			el.firstChild.style.willChange = this.shadow.style.willChange = "transform";
 
 			const ratio = sizebefore / (size + sizebefore);
 
@@ -63,6 +63,7 @@ Object.defineProperties(entryCard.prototype, {
 				easing: this.easing
 			}).then(_ => {
 				this.shadow.style.transform = "";
+				this.shadow.style.willChange = "initial";
 			});
 
 			this.followingSiblings.forEach(n => {
@@ -85,7 +86,7 @@ Object.defineProperties(entryCard.prototype, {
 
 			const ratio = (wholesize - size) / wholesize;
 
-			el.firstChild.style.willChange = "transform";
+			el.firstChild.style.willChange = this.shadow.style.willChange = "transform";
 
 			animation.add({
 				el: el.firstChild,
@@ -111,6 +112,7 @@ Object.defineProperties(entryCard.prototype, {
 				easing: this.easing
 			}).then(_ => {
 				this.shadow.style.transform = "";
+				this.shadow.style.willChange = "initial";
 			});
 
 			this.followingSiblings.forEach(n => {

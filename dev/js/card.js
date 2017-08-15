@@ -330,11 +330,11 @@ class entryCard extends HTMLElement {
 	}
 
 	_enlargeshadow() {
-		this.shadow.style.boxShadow = "0 0 10px 0 rgba(0,2,0,.75)";
+		this.shadow.style.opacity = 1;
 	}
 
 	_reduceshadow() {
-		this.shadow.style.boxShadow = "0 0 5px 0 rgba(0,2,0,.7)";
+		this.shadow.style.opacity = "0.65";
 
 	}
 

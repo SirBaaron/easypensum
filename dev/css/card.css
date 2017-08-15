@@ -134,10 +134,13 @@ entry-card {
 	top: 0px;
 	bottom: 0px;
 	pointer-events: none;
-	box-shadow: 0 0 5px 0 rgba(0,2,0,.7);
+	box-shadow: 0 0 10px 0 rgba(0,2,0,.75);
 	transform-origin: top;
 	z-index: 1;
+	opacity: 0.65;
 }
+
+
 
 @keyframes cards-intro {
 	0% {
