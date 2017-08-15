@@ -62,23 +62,15 @@ class Overview {
 		this.splashloadinganimation.style.right = this.splashloadinganimation.style.bottom = this.splashheader.style.top = this.splashheader.style.right = "0px";
 
 		this.splashloadinganimation.style.opacity = 1;
-		this.splashheader.style.transition = this.splashloadinganimation.style.transition = "transform 0.3s ease-in-out, opacity 0.2s linear";
-		this.splashheader.style.transformOrigin = "top";
-		this.splashheader.style.transform = "scaleY(2.08)";
+		this.splashloadinganimation.style.transition = this.splashheader.style.transition = "opacity 0.2s linear";
 		this.splashloadinganimation.style.opacity = 0;
 
 		const evhandler = e => {
-			if(e.propertyName == "transform") {
-				e.target.style.opacity = 0;
-				this.headerone.style.opacity = this.header.style.opacity = 1;
-				this.tabshell.style.display = "block";
-			}
-			if(e.propertyName == "opacity") {
-				e.target.parentNode.removeChild(e.target);
-			}
+			this.splashheader.parentNode.removeChild(this.splashheader);
+			e.target.parentNode.removeChild(e.target);
 		}
 
-		this.splashheader.addEventListener("transitionend", evhandler);
+
 		this.splashloadinganimation.addEventListener("transitionend", evhandler);
 
 		this.shell.innerHTML = this.template;
@@ -86,6 +78,10 @@ class Overview {
 		this.headerone = document.getElementById(classid("overview_header_one"));
 		this.header = document.getElementById(classid("overview_header"));
 		this.tabshell = document.getElementById(classid("tab_scrollshell"));
+
+		this.splashheader.style.opacity = 0;
+		this.headerone.style.opacity = this.header.style.opacity = 1;
+		this.tabshell.style.display = "block";
 
 		tabManager = new tabView();
 	}
@@ -101,7 +97,8 @@ class cardManager {
 
 	render(data) {
 		for(let i in data) {
-			let card = new entryCard(data[i]);
+			var card = new entryCard(data[i]);
+			card.style.animationDelay = (i * 3) / 100 + "s";
 			this.tabHost.childNodes[0].appendChild(card);
 		}
 	}

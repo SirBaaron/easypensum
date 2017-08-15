@@ -2,15 +2,15 @@
 	width: 100%;
 	overflow: hidden;
 	display: none;
-	animation: cards-intro 0.4s cubic-bezier(0, 0, .2, 1);
 }
 
 #tabhost {
 	display: flex;
-	overflow: hidden;
 	transform: translateZ(0);
 	transition: transform 0.25s ease-in-out;
 	align-items: flex-start;
+	min-height: calc(100vh - 104px);
+	overflow: hidden;
 }
 
 #tabhost > div {

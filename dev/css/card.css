@@ -4,6 +4,8 @@ entry-card {
 	display: block;
 	position: relative;
 	z-index: 1;
+	animation: cards-intro 0.4s cubic-bezier(0, 0, .2, 1) forwards;
+	opacity: 0;
 }
 
 .card_header {
@@ -145,10 +147,9 @@ entry-card {
 @keyframes cards-intro {
 	0% {
 		opacity: 0;
-		transform: translateY(20px);
+		transform: translate(-10px,150px) skewY(5deg);
 	}
 	100% {
 		opacity: 1;
-		transform: translateY(0px);
 	}
 }
