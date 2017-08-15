@@ -8,6 +8,8 @@ class entryCard extends HTMLElement {
 		this.expanded = false;
 		this.detailWidth = undefined;
 		this.infoOpen = false;
+		this.contentHeight = undefined;
+		this.infoHeight = undefined;
 	}
 
 
@@ -97,6 +99,9 @@ class entryCard extends HTMLElement {
 
 
 		window.setTimeout(this._measure.bind(this), 500);
+
+		window.addEventListener("resize", this._measure.bind(this));
+
 	}
 
 	/**
@@ -110,6 +115,7 @@ class entryCard extends HTMLElement {
 				this.toggleInfo();
 				break;
 			case "done":
+				// alert("Not implemented yet.");
 				break;
 			case "edit":
 				// let el = document.getElementById(classid("overview_drawerToggle"));
@@ -147,24 +153,42 @@ class entryCard extends HTMLElement {
 	}
 
 	toggleInfo() {
+		if(!this.infoHeight) {
+			this._measure();
+		}
+
 		if(!this.infoOpen) {
-			this._expand(this.infoBody);
+			this._expand(this.infoBody, this.infoHeight);
 			this.infoOpen = true;
 		}
 		else {
-			this._collapse(this.infoBody);
+			this._collapse(this.infoBody, this.infoHeight);
 			this.infoOpen = false;
 		}
 	}
 
 	/**
-	 * Measures dimensions needed for detail animation so that they don't always have to be calculated
+	 * Measures dimensions so that they don't always have to be calculated
 	 */
 	_measure() {
+		this.cardBody.style.display = "block";
+		this.infoBody.style.display = "block";
+
 		this.detailWidth = this.cardDetail.getBoundingClientRect().width;
+		this.infoHeight = this.infoBody.getBoundingClientRect().height;
+		this.contentHeight = this.cardBody.getBoundingClientRect().height - this.infoHeight;
+
+		if(!this.expanded) {
+			this.cardBody.style.display = "none";
+		}
+		if(!this.infoOpen) {
+			this.infoBody.style.display = "none";
+		}
+
 		if(this.expanded) {
 			this.cardSubject.style.transform = `translateX(${-this.detailWidth + 10}px)`;
 		}
+
 	}
 
 	/**
@@ -275,10 +299,9 @@ class entryCard extends HTMLElement {
 	 * Open the card.
 	 */
 	open() {
-		if(this.detailWidth === undefined) {
+		if(this.detailWidth === undefined || this.contentHeight === undefined) {
 			this._measure();
 		}
-		this.expanded = true;
 
 		if(this.detailWidth > 16) {
 			this.cardSubject.style.transform = `translateX(${-this.detailWidth + 10}px)`;
@@ -286,22 +309,24 @@ class entryCard extends HTMLElement {
 			this.cardDetail.style.opacity = 1;
 		}
 
-		this._expand(this.cardBody);
+		this._expand(this.cardBody, (this.contentHeight + (this.infoOpen ? this.infoHeight : 0)));
 		this._enlargeshadow();
+		
+		this.expanded = true;
 	}
 
 	/**
 	 * Close the card.
 	 */
 	close() {
-		this.expanded = false;
-
 		this.cardSubject.style.transform = "translateX(0px)";
 		this.cardDetail.style.transform = "translateX(100%)";
 		this.cardDetail.style.opacity = 0;
 
-		this._collapse(this.cardBody);
+		this._collapse(this.cardBody, (this.contentHeight + (this.infoOpen ? this.infoHeight : 0)));
 		this._reduceshadow();
+
+		this.expanded = false;
 	}
 
 	_enlargeshadow() {

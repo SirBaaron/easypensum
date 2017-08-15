@@ -26,19 +26,17 @@ Object.defineProperties(entryCard.prototype, {
 		 * Expand an element and reveal by sliding down
 		 * @param  {Element} The container of the element that should get expanded
 		 */
-		value: function _expand(el) {
+		value: function _expand(el, size) {
 			if(this.animating) {
 				return;
 			}
 			this.animating = true;
 
-			const sizebefore = this.getBoundingClientRect().height;
+			const sizebefore = this.expanded ? 55 + this.contentHeight : 55;
 
 			el.style.display = "block";
 			el.firstChild.style.transform = "translateY(0%)";
 			el.firstChild.style.willChange = "transform";
-
-			const size = el.getBoundingClientRect().height;
 
 			const ratio = sizebefore / (size + sizebefore);
 
@@ -77,14 +75,13 @@ Object.defineProperties(entryCard.prototype, {
 		 * Collapses Elements by sliding up
 		 * @param  {Element} The element that should get collapsed
 		 */
-		value: function _collapse(el) {
+		value: function _collapse(el, size) {
 			if(this.animating) {
 				return;
 			}
 			this.animating = true;
 
-			const wholesize = this.getBoundingClientRect().height;
-			const size = el.getBoundingClientRect().height;
+			const wholesize = 55 + this.contentHeight + (this.infoOpen ? this.infoHeight : 0);
 
 			const ratio = (wholesize - size) / wholesize;
 
