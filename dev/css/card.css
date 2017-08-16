@@ -3,7 +3,7 @@ entry-card {
 	box-sizing: border-box;
 	display: block;
 	position: relative;
-	z-index: 1;
+	z-index: 2;
 	animation: cards-intro 0.4s cubic-bezier(0, 0, .2, 1) forwards;
 	opacity: 0;
 }

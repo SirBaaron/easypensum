@@ -1,6 +1,7 @@
 #tab_scrollshell {
 	width: 100%;
-	overflow: hidden;
+	overflow-x: hidden;
+	overflow-y: visible;
 	display: none;
 }
 
@@ -9,12 +10,12 @@
 	transform: translateZ(0);
 	transition: transform 0.25s ease-in-out;
 	align-items: flex-start;
-	min-height: calc(100vh - 104px);
-	overflow: hidden;
+	overflow: visible;
 }
 
 #tabhost > div {
 	flex: 1;
+	overflow: visible;
 }
 
 
