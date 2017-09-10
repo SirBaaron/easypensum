@@ -120,17 +120,20 @@ class entryCard extends HTMLElement {
 				// alert("Not implemented yet.");
 				// break;
 			case "edit":
-				let el = document.getElementById(classid("overview_drawerToggle"));
+				let el = document.getElementById(classid("toogleDrawerLabel"));				
 				let display = window.getComputedStyle(el).getPropertyValue("display");
 				let titleel = document.getElementById(classid("overview_section_title"));
 
+
 				var previousactionbutton = {
-					el: el,
+					el: el.firstChild,
 					type: "burger"
 				}
 				if(display == "none") {
 					previousactionbutton = null;
 				}
+
+				console.log(previousactionbutton);
 
 				window.sv.open("edit", e, this.color, "back", previousactionbutton, "Bearbeiten", titleel);
 				break;

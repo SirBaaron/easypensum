@@ -12,7 +12,8 @@ body {
 #toogleDrawerLabel {
 	top: 0px;
 	left: 0px;
-	position: absolute;
+	position: fixed;
+	z-index: 3;
 }
 
 #toogleDrawerLabel svg {
@@ -22,19 +23,23 @@ body {
 	fill: white;
 }
 
-#toogleDrawerCheckbox {
-	position: absolute;
+#toggleDrawerShadow {
+	position: fixed;
 	top: 0px;
 	left: 0px;
 	height: 100%;
 	width: 100%;
 	margin: 0;
 	display: none;
-	opacity: 0;
+	z-index: 4;
+	background: rgba(0,0,0,.7);
 }
 
+#toogleDrawerCheckbox {
+	display: none;
+}
 
-#toogleDrawerCheckbox:checked {
+#toogleDrawerCheckbox:checked ~ #toggleDrawerShadow {
 	display: block;
 }
 
