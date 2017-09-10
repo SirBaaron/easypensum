@@ -11,18 +11,14 @@ gulp.task("watch", () => {
 	var filesTypes = ["js", "css", "html"];
 	var paths = [];
 	filesTypes.forEach(t => {
-		paths = paths.concat(config.files[t].map(v => {
-			return "dev/" + v;
-		}))
+		paths = paths.concat(config.files[t]);
 	});
 
 	gulp.watch(paths, ["inline_for_dev"]);
 });
 
 gulp.task("inline_for_dev", () => {
-	var bases = config.files.js.map(v => {
-		return "dev/" + v;
-	});
+	var bases = config.files.js;
 
 	
 	return gulp.src(bases)

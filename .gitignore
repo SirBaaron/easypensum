@@ -1,6 +1,6 @@
 build/
 dist/
-report/
 templates/
 sessions/
 bundles/
+classid-pairs.json

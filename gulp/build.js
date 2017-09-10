@@ -23,6 +23,7 @@ var injectfile = require('gulp-inject-file');
 var replaceBatch = require('gulp-batch-replace');
 var fs = require('fs');
 var argv = require('yargs').argv;
+var copyNodeModule = require('copy-node-modules');
 
 const config = JSON.parse(fs.readFileSync('./gulp/config.json'));
 
@@ -35,10 +36,17 @@ gulp.task("build", () => {
 	runSequence(
 		"prepare",
 		"classid",
+		"classid-cleanup",
 		"html",
 		"css",
 		"inject",
-		"js"
+		"js",
+		"index-remove-classid",
+		"index",
+		"images",
+		"server",
+		"move",
+		"finish"
 	);
 	
 
@@ -60,6 +68,22 @@ gulp.task("build", () => {
 
 });
 
+gulp.task("server", () => {
+	var bases = config.files.server.map(v => {
+		return "build/" + v;
+	});
+
+	var replace = [
+		["const PORT = 8000;", "const PORT = 80;"],
+		["var classid = require('./classid-node.js');", ""]
+	]
+
+	return gulp.src(bases, {
+		base: "build/"
+	})
+	.pipe(replaceBatch(replace))
+	.pipe(gulp.dest("build/"));
+})
 
 gulp.task("inject", () => {	
 
@@ -72,36 +96,56 @@ gulp.task("inject", () => {
 	.pipe(injectfile({
 		pattern: config.injectPattern
 	}))
-	.pipe(gulp.dest("build/injected/"));
+	.pipe(gulp.dest("build/bundles/"));
 });
 
 gulp.task("prepare", () => {
 	del(["dist/*"]);
-	del(["build/**/*"]);
+	del(["build/*.*"]);
+
+	var everyfin = [];
+
+	for(var i in config.files) {
+		everyfin = everyfin.concat(config.files[i]);
+	}
 	
-	return gulp.src("dev/**")
-	.pipe(gulp.dest("build"));
+	return gulp.src(everyfin, {
+		base: "./"
+	})
+	.pipe(gulp.dest("build/"));
 });
 
 gulp.task("classid", () => {
 	var files = [];
 	for(var type in config.files) {
-		if(type == "js" || type == "html" || type == "css") {
+		if(type == "js" || type == "html" || type == "css" || type == "server") {
 			files = files.concat(config.files[type].map(v => {
 				return "build/" + v;
 			}))
 		}
 	}
-	var cmd = "python classid.py " + files.join(" ");
+	var cmd = "python classid.py " + files.join(" ") + " --save-pairs";
 	return gulp.src("")
 	.pipe(run(cmd));
 });
+
+gulp.task("classid-cleanup", () => {
+	const pairs = JSON.parse(fs.readFileSync('./classid-pairs.json'));
+
+	var replace = [
+		["toogleDrawerCheckbox", pairs.toogleDrawerCheckbox]
+	];
+
+	return gulp.src("build/dev/index.html")
+	.pipe(replaceBatch(replace))
+	.pipe(gulp.dest("build/dev/"));
+})
 
 gulp.task("html", () => {
 	var files = config.files.html.map(v => {
 		return "build/" + v;
 	});
-	files.splice(files.indexOf("build/index.html"), 1);
+	files.splice(files.indexOf("build/dev/index.html"), 1);
 
 	return gulp.src(files, {
 		base: "	build/"
@@ -128,31 +172,32 @@ gulp.task("css", () => {
 });
 
 gulp.task("js", () => {
-	return gulp.src("build/injected/*.js")
+	return gulp.src("build/bundles/*.js")
 	.pipe(babel())
 	.on("error", err => {
 		gutil.log(err);
 	})
 	.pipe(uglify({
 		output: {
-			comments: "\/\/<-use:\s*([\w\-.\\\/]+)\s*->"
+			comments: /<-use:/
 		}
 	}))
 	.on("error", err => {
 		gutil.log(err);
 	})
-	.pipe(gulp.dest("build/injected"));
+	.pipe(gulp.dest("build/bundles"));
 });
 
 gulp.task("index", () => {
-	return gulp.src("build/index.html")
+	return gulp.src("build/dev/index.html")
 	.pipe(inlinesource())
 	.pipe(minifyInline())
 	.pipe(htmlmin({
 		collapseWhitespace: true,
-		removeComments: true
+		removeComments: true,
+		ignoreCustomComments: [/SSR:/]
 	}))
-	.pipe(gulp.dest("build"))
+	.pipe(gulp.dest("build/templates"))
 });
 
 gulp.task("images", () => {
@@ -169,45 +214,28 @@ gulp.task("images", () => {
 	.pipe(gulp.dest("build/static/"))
 });
 
-gulp.task("copyright", () => {
-	var files = config.addCopyright.map(v => {
-		return "build/" + v;
-	});
+gulp.task("index-remove-classid", () => {
+	var replace = [
+		['<script src="classid.js"></script>', '']
+	];
 
-	return gulp.src(files, {
-		base: "build/"
-	})
-	.pipe(headerComment("Copyright (c) <%= moment().format('YYYY') %> Aron Längert"))
-	.pipe(gulp.dest("build/"));
-});
-
-gulp.task("replace", () => {
-	var files = Object.keys(config.output).map(v => {
-		return "build/" + v;
-	}).filter(v => {
-		return v.indexOf("png") < 0;
-	});
-	var replace = [];
-	for(var before in config.rename) {
-		replace.push([before, config.rename[before]]);
-	}
-
-
-	return gulp.src(files, {
-		base: "build/"
-	})
+	return gulp.src("build/dev/index.html")
 	.pipe(replaceBatch(replace))
-	.pipe(gulp.dest("build/"));
+	.pipe(gulp.dest("build/dev/"));
 });
 
 gulp.task("move", () => {
 	var stream = require('merge-stream')();
-	for(src in config.output) {
-		stream.add(gulp.src("build/" + src, {
-			base: ("build/" + src)
+
+	copyNodeModule("./", "./dist/", {}, (err, results) => {});
+
+	for(i in config.move) {
+		stream.add(gulp.src(config.move[i], {
+			base: "build/"
 		})
-		.pipe(gulp.dest("dist/" + config.output[src])));
+		.pipe(gulp.dest("dist/")));
 	}
+	
 
 	return stream.isEmpty() ? null : stream;
 });

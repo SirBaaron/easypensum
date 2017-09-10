@@ -1,43 +1,42 @@
 {
 	"injectPattern": "//<-inject:<filename>->",
-	"injectPatternJS": "//<-use:<filename>->",
 	"files": {
 		"js": [
-			"card/card.js",
-			"card/cardmanager.js",
-			"overview/overview.js",
-			"tabs/tabs.js",
-			"overview/stage-1/overview-stage-1.js",
-			"overview/stage-2/overview-stage-2.js",
-			"ripple/ripple.js",
-			"card/cardanimation.js",
-			"second-view/second-view.js",
-			"info/info.js",
-			"helpers/cssinject.js",
-			"helpers/animationsyncer.js",
-			"helpers/cubicbezier.js"
+			"dev/card/card.js",
+			"dev/card/cardmanager.js",
+			"dev/overview/overview.js",
+			"dev/tabs/tabs.js",
+			"dev/overview/stage-1/overview-stage-1.js",
+			"dev/overview/stage-2/overview-stage-2.js",
+			"dev/ripple/ripple.js",
+			"dev/card/cardanimation.js",
+			"dev/second-view/second-view.js",
+			"dev/info/info.js",
+			"dev/helpers/cssinject.js",
+			"dev/helpers/animationsyncer.js",
+			"dev/helpers/cubicbezier.js"
 		],
 		"html": [
-			"index.html",
-			"card/card.html",
-			"overview/overview.html",
-			"second-view/second-view.html",
-			"tabs/tabs.html",
-			"info/info.html"
+			"dev/index.html",
+			"dev/card/card.html",
+			"dev/overview/overview.html",
+			"dev/second-view/second-view.html",
+			"dev/tabs/tabs.html",
+			"dev/info/info.html"
 		],
 		"css": [
-			"card/card.css",
-			"overview/overview.css",
-			"overview/overviewHeader.css",
-			"splashscreen/splashdrawer.css",
-			"splashscreen/splashloadinganimation.css",
-			"splashscreen/splashscreen.css",
-			"ripple/ripple.css",
-			"overview/stage-1/stage-1.css",
-			"card/cardanimation.css",
-			"second-view/second-view.css",
-			"tabs/tabs.css",
-			"info/info.css"
+			"dev/card/card.css",
+			"dev/overview/overview.css",
+			"dev/overview/overviewHeader.css",
+			"dev/splashscreen/splashdrawer.css",
+			"dev/splashscreen/splashloadinganimation.css",
+			"dev/splashscreen/splashscreen.css",
+			"dev/ripple/ripple.css",
+			"dev/overview/stage-1/stage-1.css",
+			"dev/card/cardanimation.css",
+			"dev/second-view/second-view.css",
+			"dev/tabs/tabs.css",
+			"dev/info/info.css"
 		],
 		"img": [
 			"static/logo168.png",
@@ -46,50 +45,20 @@
 			"static/logo96.png",
 			"static/logo72.png",
 			"static/logo48.png"
+		],
+		"server": [
+			"index.js",
+			"server/createBundle.js",
+			"server/renderIndex.js",
+			"server/config.js",
+			"server/secret.js"
 		]
 	},
-	"routes": [
-		{
-			"path": "/",
-			"entry": "overview.js",
-			"lazyload": [
-				"overview-stage-1.js",
-				"overview-stage-2.js"
-			]
-		},
-		{
-			"path": "/info/",
-			"entry": "info.js",
-			"lazyload": [
-
-			]
-		}
-	],
-	"bundles": [
-		"overview.js",
-		"overview-stage-1.js",
-		"overview-stage-2.js",
-		"info.js"
-	],
-	"output": {
-		"index.html": "index.html",
-		"bundles/overview.js": "a.js",
-		"bundles/progressive.js": "b.js",
-		"bundles/second-view.js": "d.js",
-		"../node_modules/@webcomponents/custom-elements/custom-elements.min.js": "c.js",
-		"static/*.png": "static/*.png"
-	},
-	"rename": {
-		"bundles/overview.js": "a.js",
-		"bundles/progressive.js": "b.js",
-		"bundles/second-view.js": "d.js",
-		"../node_modules/@webcomponents/custom-elements/custom-elements.min.js": "c.js",
-		"<script src=\"classid.js\"></script>": ""
-	},
-	"addCopyright": [
-		"index.html",
-		"bundles/overview.js",
-		"bundles/progressive.js",
-		"bundles/second-view.js"
+	"move": [
+		"build/bundles/*.*",
+		"build/templates/*.*",
+		"build/index.js",
+		"build/server/*.*",
+		"build/static/*.*"
 	]
 }

@@ -3,6 +3,7 @@ var URL = require("url");
 var FS = require('fs');
 var SESSION = require('node-session');
 
+const PORT = 8000;
 
 const config = require("./server/config.js");
 
@@ -46,31 +47,6 @@ app.get("/classid.js", (req, res) => {
 	FS.createReadStream("./dev/classid.js").pipe(res); 
 })
 
-app.listen(8000);
+app.listen(PORT);
 
-// HTTP.createServer((req, res) => {
-// 	const url = URL.parse(req.url);
-// 	const path = url.path.replace(/.(\/|\/index.html)$/, "");
-// 	const headers = req.headers;
-// 	const entryPoint = (Object.keys(config.entryPoints).indexOf(path) > -1);
-// 	const js = url.path.endsWith(".js");
-
-// 	var response;
-
-// 	console.log("entryPoint? ", entryPoint);
-
-// 	if(entryPoint) {
-// 		response = require("./renderIndex").renderIndex(path);
-// 	}
-// 	else if(js) {
-// 		response = require("./createBundle").createBundle(path);
-// 	}
-// 	else {
-// 		response = FS.createReadStream("./dev" + url.path);
-// 	}
-
-// 	res.writeHead(200, {
-// 		"Content-Type": "text/html"
-// 	});
-// 	response.pipe(res);
-// }).listen(8000, "127.0.0.1");
+console.log("server started!");
