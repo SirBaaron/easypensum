@@ -8,3 +8,36 @@ body {
 #splashheader {
 	z-index: 9;
 }
+
+#toogleDrawerLabel {
+	top: 0px;
+	left: 0px;
+	position: absolute;
+}
+
+#toogleDrawerLabel svg {
+	width: 28px;
+	height: 50px;
+	padding-left: 10px;
+	fill: white;
+}
+
+#toogleDrawerCheckbox {
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	display: none;
+	opacity: 0;
+}
+
+
+#toogleDrawerCheckbox:checked {
+	display: block;
+}
+
+#toogleDrawerCheckbox:checked ~ #drawer {
+	transform: translateZ(0) translateX(0%);
+}

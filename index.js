@@ -11,6 +11,8 @@ var app = EXPRESS();
 const secret = require("./server/secret").session_csrf_secret;
 const cookiename = require("./server/secret").session_cookie_name;
 
+var routes = Object.keys(config.entryPoints);
+
 var session = new SESSION({
 	"secret": secret,
 	"lifetime": 1000 * 60 * 60 * 24 * 365,
@@ -21,9 +23,9 @@ app.use((req, res, next) => {
 	session.startSession(req, res, next);
 });
 
-app.get("/", (req, res) => {
+app.get(routes, (req, res) => {
 	req.session.set("loadedModules", []);
-	require("./server/renderIndex").renderIndex(config.entryPoints["/"])
+	require("./server/renderIndex").renderIndex(req.path)
 		.pipe(res);
 });
 

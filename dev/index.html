@@ -9,7 +9,7 @@
 	}
 	</script>
 	<title>Easy Pensum</title>
-	<meta name="theme-color" content="#D68800">
+	<meta name="theme-color" content="<!--SSR:headerColor-->">
 	<meta name="viewport" content="width=device-width,height=device-height">
 	
 
@@ -36,6 +36,8 @@
 			<!-- <section-archive></section-archive> -->
 			<!-- <section-settings></section-settings> -->
 			<section-info></section-info>
+			<section-datenschutz></section-datenschutz>
+			<section-impressum></section-impressum>
 		</div>
 
 		<second-view></second-view>
@@ -43,6 +45,12 @@
 
 	<link rel="stylesheet" href="splashscreen/splashdrawer.css" inline>
 
+	<input id="toogleDrawerCheckbox" type="checkbox">
+	<label id="toogleDrawerLabel" for="toogleDrawerCheckbox">
+		<svg viewBox="0 0 24 24">
+			<path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"></path>
+		</svg>
+	</label>
 	<div id="drawer">
 		<div id="navigation_header">
 			<div id="navigation_firstrow">
@@ -50,6 +58,9 @@
 				<div id="navigation_title">Easy<br>Pensum</div>
 			</div>
 			<div id="schoolinfo"></div>
+		</div>
+		<div id="navigation_links">
+			<!--SSR:links-->
 		</div>
 	</div>
 	<!--SSR:scripts-->
