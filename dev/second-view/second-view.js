@@ -1,11 +1,11 @@
+//<-use:cssinject.js->
+
+cssinject(`//<-inject:../second-view/second-view.css->`);
+
 
 class secondView extends HTMLElement {
 	constructor() {
 		super();
-
-		var css = document.createElement("style");
-		css.innerHTML = this.css;
-		document.head.appendChild(css);
 
 		this.innerHTML = this.template;
 
@@ -40,14 +40,7 @@ class secondView extends HTMLElement {
 	}
 
 	get template() {
-		return `
-			//<-inject:../html/second-view.html->
-		`;
-	}
-	get css() {
-		return `
-			//<-inject:../css/second-view.css->
-		`;
+		return `//<-inject:../second-view/second-view.html->`;
 	}
 
 	get svgs() {
@@ -72,6 +65,14 @@ class secondView extends HTMLElement {
 					}
 				}
 			]
+		}
+	}
+
+	get svgtransform() {
+		return {
+			back: {
+				burger: "rotate(180deg)"
+			}
 		}
 	}
 
@@ -238,7 +239,11 @@ class secondView extends HTMLElement {
 	}
 
 	_handleLab(leftActionButton, previousLeftActionButton) {
-		this.labsvg.removeAttribute("translate");
+		try {
+			this.labsvg.style.transition = "none";
+			this.labsvg.style.transform = this.svgtransform[leftActionButton][previousLeftActionButton.type];
+		}
+		catch(err) {}
 
 		try {
 			previousLeftActionButton.el.style.opacity = 0;
@@ -262,7 +267,11 @@ class secondView extends HTMLElement {
 			this.labsvg.appendChild(el);
 		}
 
-		window.requestAnimationFrame(_ => window.requestAnimationFrame(_ => this.labsvg.setAttribute("translate", "")));
+
+		window.requestAnimationFrame(_ => window.requestAnimationFrame(_ => {
+			this.labsvg.style.transition = "transform 0.4s cubic-bezier(.4, 0, .2, 1)";
+			this.labsvg.setAttribute("translate", "");
+		}));
 	}
 
 	_spawnRipple(x, y, color) {

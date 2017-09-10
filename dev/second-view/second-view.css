@@ -1,6 +1,7 @@
 second-view {
 	min-height: 100vh;
 	position: fixed;
+	width: 100%;
 	z-index: 5;
 	top: 0px;
 	display: none;
@@ -32,15 +33,15 @@ second-view {
 }
 
 .sv-labsvg {
-	padding-left: 10px;
+	margin-left: 10px;
 }
 
-.sv-labsvg > path {
-	transform-origin: center;
+.sv-labsvg > path, .sv-labsvg {
+	transform-origin: center center;
 	transition: transform 0.4s cubic-bezier(.4, 0, .2, 1), opacity 0.4s ease-in-out;
 }
 
-svg[translate] > path {
+.sv-labsvg[translate] > path, .sv-labsvg[translate] {
 	transform: none !important;
 	opacity: 1 !important;
 }
@@ -58,7 +59,7 @@ svg[translate] > path {
 	position: absolute;
 	transform: translate(-50%, -50%) scale(0);
 	pointer-events: none;
-	transition: 0.3s transform cubic-bezier(0, 0, .2, 1), 0.3s opacity cubic-bezier(.4, 0, 1, 1);
+	transition: 0.25s transform cubic-bezier(0, 0, .2, 1), 0.2s opacity linear;
 }
 
 .sv-header-title {

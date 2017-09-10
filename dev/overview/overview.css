@@ -1,0 +1,6 @@
+
+button, button:active {
+	background: transparent;
+	border: none;
+	outline: none;
+}

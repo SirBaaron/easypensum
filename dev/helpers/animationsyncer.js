@@ -1,13 +1,3 @@
-var style = document.createElement("style");
-style.textContent = `
-	//<-inject:../css/ripple.css->
-	//<-inject:../css/progressive.css->
-	//<-inject:../css/cardanimation.css->
-`;
-document.head.appendChild(style);
-
-//<-inject:ripple.js->
-
 class animationSyncer {
 	constructor() {
 		this.tasks = [];
@@ -58,6 +48,4 @@ class animationSyncer {
 		}
 	}
 }
-var animation = new animationSyncer();
-
-//<-inject:cardanimation.js->
+var animation = new animationSyncer()

@@ -1,63 +1,43 @@
 {
 	"injectPattern": "//<-inject:<filename>->",
-	"bundles": [
-		{
-			"base": "js/overview.js",
-			"sources": [
-				"js/card.js",
-				"js/tabs.js",
-				"css/overview.css",
-				"css/overviewHeader.css",
-				"css/card.css",
-				"html/overview.html",
-				"html/card.html"
-			]
-		},
-		{
-			"base": "js/progressive.js",
-			"sources": [
-				"js/ripple.js",
-				"js/cardanimation.js",
-				"css/ripple.css",
-				"css/progressive.css",
-				"css/cardanimation.css"
-			]
-		},
-		{
-			"base": "js/second-view.js",
-			"sources": [
-				"html/second-view.html",
-				"css/second-view.css"
-			]
-		}
-	],
+	"injectPatternJS": "//<-use:<filename>->",
 	"files": {
 		"js": [
-			"js/card.js",
-			"js/overview.js",
-			"js/tabs.js",
-			"js/progressive.js",
-			"js/ripple.js",
-			"js/cardanimation.js",
-			"js/second-view.js"
+			"card/card.js",
+			"card/cardmanager.js",
+			"overview/overview.js",
+			"tabs/tabs.js",
+			"overview/stage-1/overview-stage-1.js",
+			"overview/stage-2/overview-stage-2.js",
+			"ripple/ripple.js",
+			"card/cardanimation.js",
+			"second-view/second-view.js",
+			"info/info.js",
+			"helpers/cssinject.js",
+			"helpers/animationsyncer.js",
+			"helpers/cubicbezier.js"
 		],
 		"html": [
 			"index.html",
-			"html/card.html",
-			"html/overview.html",
-			"html/second-view.html"
+			"card/card.html",
+			"overview/overview.html",
+			"second-view/second-view.html",
+			"tabs/tabs.html",
+			"info/info.html"
 		],
 		"css": [
-			"css/card.css",
-			"css/overview.css",
-			"css/overviewHeader.css",
-			"css/splashdrawer.css",
-			"css/splashloadinganimation.css",
-			"css/splashscreen.css",
-			"css/ripple.css",
-			"css/progressive.css",
-			"css/cardanimation.css",
-			"css/second-view.css"
+			"card/card.css",
+			"overview/overview.css",
+			"overview/overviewHeader.css",
+			"splashscreen/splashdrawer.css",
+			"splashscreen/splashloadinganimation.css",
+			"splashscreen/splashscreen.css",
+			"ripple/ripple.css",
+			"overview/stage-1/stage-1.css",
+			"card/cardanimation.css",
+			"second-view/second-view.css",
+			"tabs/tabs.css",
+			"info/info.css"
 		],
 		"img": [
 			"static/logo168.png",
@@ -68,6 +48,29 @@
 			"static/logo48.png"
 		]
 	},
+	"routes": [
+		{
+			"path": "/",
+			"entry": "overview.js",
+			"lazyload": [
+				"overview-stage-1.js",
+				"overview-stage-2.js"
+			]
+		},
+		{
+			"path": "/info/",
+			"entry": "info.js",
+			"lazyload": [
+
+			]
+		}
+	],
+	"bundles": [
+		"overview.js",
+		"overview-stage-1.js",
+		"overview-stage-2.js",
+		"info.js"
+	],
 	"output": {
 		"index.html": "index.html",
 		"bundles/overview.js": "a.js",

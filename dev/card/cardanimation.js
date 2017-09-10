@@ -1,12 +1,10 @@
-//DOTO: actually make easing
-class cubicBezier {
-	constructor(controlpoints) {
+//<-use:cssinject.js->
 
-	}
-	yatx(x) {
-		return x;
-	}
-}
+//<-use:animationsyncer.js->
+
+//<-use:cubicbezier.js->
+
+cssinject(`//<-inject:../card/cardanimation.css->`);
 
 
 

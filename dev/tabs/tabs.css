@@ -1,0 +1,16 @@
+tab-view {
+	width: 100%;
+	display: none;
+	overflow: hidden;
+}
+
+#tabhost {
+	display: flex;
+	transform: translateZ(0);
+	transition: transform 0.25s ease-in-out;
+	align-items: flex-start;
+}
+
+#tabhost > div {
+	flex: 1;
+}

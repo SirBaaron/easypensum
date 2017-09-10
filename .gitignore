@@ -1,4 +1,6 @@
 build/
 dist/
 report/
-dev/bundles/*
+templates/
+sessions/
+bundles/

@@ -13,14 +13,8 @@ gulp.task("serve", () => {
 		livereload: true
 	});
 
-	connect.server({
-		name: "dist",
-		port: 8001,
-		root: "dist/"
-	})
-
 	gulp.watch(["dev/**/*"])
-	.on("change", function (file) {
+	.on("change", file => {
 	    gulp.src(file.path)
 	    .pipe(connect.reload());
 	});

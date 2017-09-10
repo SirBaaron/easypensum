@@ -1,3 +1,7 @@
+//<-use:cssinject.js->
+
+cssinject(`//<-inject:../ripple/ripple.css->`);
+
 /*
 expandfunction:
 er(x) = 1 / (-1.0015 ^ x) + 1

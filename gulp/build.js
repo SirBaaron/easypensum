@@ -4,6 +4,7 @@ FLAGS:
 --nolighthouse  || -l					skip lighthouse report
 */
 
+
 var gulp = require('gulp');
 var csso = require('gulp-csso');
 var uglify = require('gulp-uglify');
@@ -23,33 +24,60 @@ var replaceBatch = require('gulp-batch-replace');
 var fs = require('fs');
 var argv = require('yargs').argv;
 
+const config = JSON.parse(fs.readFileSync('./gulp/config.json'));
+
 var gutil = require('gulp-util');
 
 
-const config = JSON.parse(fs.readFileSync('./gulp/config.json'));
-
 
 gulp.task("build", () => {
+
 	runSequence(
 		"prepare",
 		"classid",
 		"html",
 		"css",
 		"inject",
-		"js",
-		"index",
-		"replace",
-		"copyright",
-		"images",
-		"move",
-		"lighthouse",
-		"finish"
+		"js"
 	);
+	
+
+	// runSequence(
+	// 	"prepare",
+	// 	"classid",
+	// 	"html",
+	// 	"css",
+	// 	"inject",
+	// 	"js",
+	// 	"index",
+	// 	"replace",
+	// 	"copyright",
+	// 	"images",
+	// 	"move",
+	// 	"lighthouse",
+	// 	"finish"
+	// );
+
 });
 
 
+gulp.task("inject", () => {	
+
+	var bases = config.files.js.map(v => {
+		return "build/" + v;
+	});
+
+	
+	return gulp.src(bases)
+	.pipe(injectfile({
+		pattern: config.injectPattern
+	}))
+	.pipe(gulp.dest("build/injected/"));
+});
+
 gulp.task("prepare", () => {
 	del(["dist/*"]);
+	del(["build/**/*"]);
 	
 	return gulp.src("dev/**")
 	.pipe(gulp.dest("build"));
@@ -64,26 +92,9 @@ gulp.task("classid", () => {
 			}))
 		}
 	}
-	var cmd = "python classid.py " +files.join(" ");
+	var cmd = "python classid.py " + files.join(" ");
 	return gulp.src("")
 	.pipe(run(cmd));
-});
-
-gulp.task("inject", () => {
-	var stream = require('merge-stream')();
-	var files = config.bundles.map(v => {
-		return "build/" + v.base;
-	});
-
-	for(i in files) {
-		stream.add(gulp.src(files[i])
-			.pipe(injectfile({
-				pattern: config.injectPattern
-			}))
-			.pipe(gulp.dest("build/bundles/")));
-		}
-
-	return stream.isEmpty() ? null : stream;
 });
 
 gulp.task("html", () => {
@@ -92,9 +103,14 @@ gulp.task("html", () => {
 	});
 	files.splice(files.indexOf("build/index.html"), 1);
 
-	return gulp.src(files)
-	.pipe(htmlmin({collapseWhitespace: true}))
-	.pipe(gulp.dest("build/html"));
+	return gulp.src(files, {
+		base: "	build/"
+	})
+	.pipe(htmlmin({
+		collapseWhitespace: true,
+		removeComments: true
+	}))
+	.pipe(gulp.dest("build/"));
 });
 
 gulp.task("css", () => {
@@ -103,30 +119,39 @@ gulp.task("css", () => {
 	});
 
 
-	return gulp.src(files)
+	return gulp.src(files, {
+		base: "build/"
+	})
 	.pipe(autoprefixer('last 1 version'))
 	.pipe(csso())
-	.pipe(gulp.dest("build/css"));
+	.pipe(gulp.dest("build/"));
 });
 
 gulp.task("js", () => {
-	return gulp.src("build/bundles/**")
+	return gulp.src("build/injected/*.js")
 	.pipe(babel())
 	.on("error", err => {
 		gutil.log(err);
 	})
-	.pipe(uglify())
+	.pipe(uglify({
+		output: {
+			comments: "\/\/<-use:\s*([\w\-.\\\/]+)\s*->"
+		}
+	}))
 	.on("error", err => {
 		gutil.log(err);
 	})
-	.pipe(gulp.dest("build/bundles"));
+	.pipe(gulp.dest("build/injected"));
 });
 
 gulp.task("index", () => {
 	return gulp.src("build/index.html")
 	.pipe(inlinesource())
 	.pipe(minifyInline())
-	.pipe(htmlmin({collapseWhitespace: true}))
+	.pipe(htmlmin({
+		collapseWhitespace: true,
+		removeComments: true
+	}))
 	.pipe(gulp.dest("build"))
 });
 
@@ -181,9 +206,7 @@ gulp.task("move", () => {
 		stream.add(gulp.src("build/" + src, {
 			base: ("build/" + src)
 		})
-		.pipe(gulp.dest("dist/" + config.output[src])).on("error", () => {
-			console.log("DF");
-		}));
+		.pipe(gulp.dest("dist/" + config.output[src])));
 	}
 
 	return stream.isEmpty() ? null : stream;

@@ -1,8 +1,25 @@
-class tabView {
+//<-use:cssinject.js->
+
+cssinject(`//<-inject:../tabs/tabs.css->`);
+
+
+
+class tabView extends HTMLElement {
 	constructor() {
+		super();
+
 		this.selected = 0;
 		this.tabWidth = 0;
-		this.shell = document.getElementById(classid("tab_scrollshell"));
+	}
+
+	get template() {
+		return `//<-inject:../tabs/tabs.html->`;
+	}
+
+	connectedCallback() {
+
+		this.innerHTML = this.template;
+
 		this.host = document.getElementById(classid("tabhost"));
 
 		window.addEventListener("resize", this.measure.bind(this));
@@ -11,7 +28,7 @@ class tabView {
 	}
 
 	measure() {
-		this.tabWidth = this.shell.getBoundingClientRect().width;
+		this.tabWidth = this.getBoundingClientRect().width;
 		this.tabs = [].slice.call(this.host.childNodes).filter(v => {
 			return v.nodeType == 1; 
 		});
@@ -35,7 +52,7 @@ class tabView {
 		const goalscroll = this.tabs[index].scrollpos || 0;
 
 
-		this.shell.style.height = `${Math.max(this.tabs[index].height, this.tabs[this.selected].height)}px`;
+		this.style.height = `${Math.max(this.tabs[index].height, this.tabs[this.selected].height)}px`;
 		
 		//scrap when smooth scrolling comes
 		const frame = stamp => {
@@ -55,10 +72,10 @@ class tabView {
 		window.requestAnimationFrame(frame);
 
 		const finish = () => {
-			this.shell.style.height = `${this.tabs[index].height}px`;
+			this.style.height = `${this.tabs[index].height}px`;
 			this.selected = index;
 		}
 	}
 }
 
-var tabManager;
+window.customElements.define("tab-view", tabView);

@@ -17,31 +17,31 @@
 	
 
 
-	<link rel="stylesheet" href="css/splashscreen.css" inline>
+	<link rel="stylesheet" href="splashscreen/splashscreen.css" inline>
 	<script src="classid.js"></script>
 </head>
 <body>
 	<div id="main">
-		<div id="splashheader" style="height:104px"></div>
+		<div id="splashheader" style="height:<!--SSR:headerHeight-->px;background:<!--SSR:headerColor-->"></div>
 
-		<link rel="stylesheet" href="css/splashloadinganimation.css" inline>
+		<link rel="stylesheet" href="splashscreen/splashloadinganimation.css" inline>
 		
-		<div id="splashloadinganimation" style="height:calc(100vh - 104px);">
+		<div id="splashloadinganimation" style="height:calc(100vh - <!--SSR:headerHeight-->px);">
 			<span>.</span>
 			<span>.</span>
 			<span>.</span>
 		</div>
 		<div id="sections">
 			<section-overview></section-overview>
-<!-- 			<section-archive></section-archive>
-			<section-settings></section-settings>
-			<section-info></section-info> -->
+			<!-- <section-archive></section-archive> -->
+			<!-- <section-settings></section-settings> -->
+			<section-info></section-info>
 		</div>
 
 		<second-view></second-view>
 	</div>
 
-	<link rel="stylesheet" href="css/splashdrawer.css" inline>
+	<link rel="stylesheet" href="splashscreen/splashdrawer.css" inline>
 
 	<div id="drawer">
 		<div id="navigation_header">
@@ -52,6 +52,6 @@
 			<div id="schoolinfo"></div>
 		</div>
 	</div>
-	<script src="bundles/overview.js" async></script>
+	<!--SSR:scripts-->
 </body>
 </html>
