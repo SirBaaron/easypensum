@@ -14,7 +14,8 @@
 			"dev/info/info.js",
 			"dev/helpers/cssinject.js",
 			"dev/helpers/animationsyncer.js",
-			"dev/helpers/cubicbezier.js"
+			"dev/helpers/cubicbezier.js",
+			"dev/helpers/scriptinject.js"
 		],
 		"html": [
 			"dev/index.html",

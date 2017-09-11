@@ -25,6 +25,7 @@ app.use((req, res, next) => {
 });
 
 app.get(routes, (req, res) => {
+	req.session.set("route", req.path);
 	req.session.set("loadedModules", []);
 	require("./server/renderIndex").renderIndex(req.path)
 		.pipe(res);

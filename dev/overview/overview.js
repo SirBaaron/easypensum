@@ -1,4 +1,10 @@
-//<-use:cssinject.js->
+console.log("loaded #1: ", performance.now());
+
+__USE("scriptinject.js");
+
+__SSR("cascadingscript");
+
+__USE("cssinject.js");
 
 cssinject(`//<-inject:../overview/overview.css-> //<-inject:../overview/overviewHeader.css->`);
 
@@ -64,11 +70,11 @@ class Overview extends HTMLElement {
 }
 window.customElements.define("section-overview", Overview);
 
-//<-use:tabs.js->
+__USE("tabs.js");
 
-//<-use:card.js->
+__USE("card.js");
 
-//<-use:cardmanager.js->
+__USE("cardmanager.js");
 
 
 cards.render([{

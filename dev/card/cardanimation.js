@@ -1,8 +1,8 @@
-//<-use:cssinject.js->
+__USE("cssinject.js");
 
-//<-use:animationsyncer.js->
+__USE("animationsyncer.js");
 
-//<-use:cubicbezier.js->
+__USE("cubicbezier.js");
 
 cssinject(`//<-inject:../card/cardanimation.css->`);
 

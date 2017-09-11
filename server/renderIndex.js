@@ -10,9 +10,8 @@ module.exports = {
 	"renderIndex": (path) => {
 		var route = config.entryPoints[path];
 
-		const scripts = route.bundles.map(r => {
-				return `<script src="bundles/${r}"></script>`;
-			}).join("");
+		const script = `<script async src="bundles/${route.bundles[0]}"></script>`;
+
 
 		var linksPrimary = "";
 		var linksSecondary = "";
@@ -37,7 +36,7 @@ module.exports = {
 			.pipe(REPLACESTREAM("<!--SSR:headerHeight-->", route.headerHeight))
 			.pipe(REPLACESTREAM("<!--SSR:headerColor-->", route.headerColor))
 			.pipe(REPLACESTREAM("<!--SSR:links-->", links))
-			.pipe(REPLACESTREAM("<!--SSR:scripts-->", scripts))
+			.pipe(REPLACESTREAM("<!--SSR:script-->", script))
 			.pipe(REPLACESTREAM("<!--SSR:copyright-->", copyright));
 
 	}

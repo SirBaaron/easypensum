@@ -1,7 +1,13 @@
-//<-use:cssinject.js->
+console.log("loaded #2: ", performance.now());
 
-//<-use:ripple.js->
+__USE("scriptinject.js");
 
-//<-use:cardanimation.js->
+__SSR("cascadingscript");
+
+__USE("cssinject.js");
 
 cssinject(`//<-inject:./stage-1.css->`);
+
+__USE("ripple.js");
+
+__USE("cardanimation.js");

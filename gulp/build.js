@@ -100,8 +100,7 @@ gulp.task("inject", () => {
 });
 
 gulp.task("prepare", () => {
-	del(["dist/*"]);
-	del(["build/*.*"]);
+	del(["dist/**/*"]);
 
 	var everyfin = [];
 
@@ -162,7 +161,6 @@ gulp.task("css", () => {
 		return "build/" + v;
 	});
 
-
 	return gulp.src(files, {
 		base: "build/"
 	})
@@ -179,7 +177,10 @@ gulp.task("js", () => {
 	})
 	.pipe(uglify({
 		output: {
-			comments: /<-use:/
+			comments: "all"
+		},
+		compress: {
+			sequences: false
 		}
 	}))
 	.on("error", err => {

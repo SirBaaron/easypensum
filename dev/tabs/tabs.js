@@ -1,4 +1,4 @@
-//<-use:cssinject.js->
+__USE("cssinject.js");
 
 cssinject(`//<-inject:../tabs/tabs.css->`);
 
