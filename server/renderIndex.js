@@ -1,4 +1,4 @@
-var FS = require('fs');
+	var FS = require('fs');
 var REPLACESTREAM = require('replacestream');
 var classid = require('./classid-node.js');
 
@@ -31,10 +31,14 @@ module.exports = {
 
 		var links = `${linksPrimary}<div class="${classid("seperator")}"></div>${linksSecondary}`;
 
+		const copyright = `Copyright © ${new Date().getFullYear()} Aron Längert`;
+
 		return FS.createReadStream("./templates/index.html") 
 			.pipe(REPLACESTREAM("<!--SSR:headerHeight-->", route.headerHeight))
 			.pipe(REPLACESTREAM("<!--SSR:headerColor-->", route.headerColor))
 			.pipe(REPLACESTREAM("<!--SSR:links-->", links))
-			.pipe(REPLACESTREAM("<!--SSR:scripts-->", scripts));
+			.pipe(REPLACESTREAM("<!--SSR:scripts-->", scripts))
+			.pipe(REPLACESTREAM("<!--SSR:copyright-->", copyright));
+
 	}
 }
