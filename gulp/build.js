@@ -177,7 +177,7 @@ gulp.task("js", () => {
 	})
 	.pipe(uglify({
 		output: {
-			comments: "all"
+			comments: false
 		},
 		compress: {
 			sequences: false

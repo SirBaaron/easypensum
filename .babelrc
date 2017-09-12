@@ -1,8 +1,11 @@
 {
-  "plugins": [
-    "transform-custom-element-classes",
-    "transform-es2015-classes",
-    "transform-exponentiation-operator"
-  ],
-  "presets": "es2015"
+  "plugins": [],
+  "presets": [
+    ["env", {
+      "targets": {
+        "browsers": ["last 2 versions", ">1% in AT"]
+      },
+      "debug": true
+    }]
+  ]
 }
