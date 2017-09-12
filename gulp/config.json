@@ -23,7 +23,8 @@
 			"dev/overview/overview.html",
 			"dev/second-view/second-view.html",
 			"dev/tabs/tabs.html",
-			"dev/info/info.html"
+			"dev/info/info.html",
+			"dev/cookie-notice/cookie-notice.html"
 		],
 		"css": [
 			"dev/card/card.css",
@@ -37,7 +38,8 @@
 			"dev/card/cardanimation.css",
 			"dev/second-view/second-view.css",
 			"dev/tabs/tabs.css",
-			"dev/info/info.css"
+			"dev/info/info.css",
+			"dev/cookie-notice/cookie-notice.css"
 		],
 		"img": [
 			"static/logo168.png",

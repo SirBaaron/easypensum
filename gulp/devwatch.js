@@ -25,7 +25,15 @@ gulp.task("inline_for_dev", () => {
 	.pipe(injectfile({
 		pattern: config.injectPattern
 	}))
-	.pipe(gulp.dest("bundles/")).on("end", _ => {
+	.pipe(gulp.dest("bundles/"))
+	.on("end", _ => {
+		return gulp.src("dev/cookie-notice/cookie-notice.html")
+		.pipe(injectfile({
+			pattern: config.injectPattern
+		}))
+		.pipe(gulp.dest("templates/"))
+	})
+	.on("end", _ => {
 		return gulp.src("dev/index.html")
 		.pipe(inlinesource())
 		.pipe(gulp.dest("templates/"));

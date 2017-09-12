@@ -42,6 +42,7 @@ gulp.task("build", () => {
 		"inject",
 		"js",
 		"index-remove-classid",
+		"cookie",
 		"index",
 		"images",
 		"server",
@@ -131,13 +132,18 @@ gulp.task("classid", () => {
 gulp.task("classid-cleanup", () => {
 	const pairs = JSON.parse(fs.readFileSync('./classid-pairs.json'));
 
-	var replace = [
-		["toogleDrawerCheckbox", pairs.toogleDrawerCheckbox]
-	];
+	var stream = require('merge-stream')();
 
-	return gulp.src("build/dev/index.html")
-	.pipe(replaceBatch(replace))
-	.pipe(gulp.dest("build/dev/"));
+	stream.add(gulp.src("build/dev/index.html")
+	.pipe(replaceBatch([["toogleDrawerCheckbox", pairs.toogleDrawerCheckbox]]))
+	.pipe(gulp.dest("build/dev/")));
+
+	stream.add(gulp.src("build/dev/cookie-notice/cookie-notice.html")
+	.pipe(replaceBatch([["hide_cookie", pairs.hide_cookie]]))
+	.pipe(gulp.dest("build/dev/cookie-notice/")));
+
+	return stream.isEmpty() ? null : stream;
+
 })
 
 gulp.task("html", () => {
@@ -188,6 +194,14 @@ gulp.task("js", () => {
 	})
 	.pipe(gulp.dest("build/bundles"));
 });
+
+gulp.task("cookie", () => {
+	return gulp.src("build/dev/cookie-notice/cookie-notice.html")
+	.pipe(injectfile({
+		pattern: config.injectPattern
+	}))
+	.pipe(gulp.dest("build/templates"));
+})
 
 gulp.task("index", () => {
 	return gulp.src("build/dev/index.html")
