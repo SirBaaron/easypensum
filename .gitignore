@@ -4,3 +4,4 @@ templates/
 sessions/
 bundles/
 classid-pairs.json
+dev/impressum/impressum.html

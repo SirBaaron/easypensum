@@ -17,7 +17,8 @@
 			"dev/helpers/cubicbezier.js",
 			"dev/helpers/scriptinject.js",
 			"dev/loading-transition/loading-outro.js",
-			"dev/datenschutz/datenschutz.js"
+			"dev/datenschutz/datenschutz.js",
+			"dev/impressum/impressum.js"
 		],
 		"html": [
 			"dev/index.html",
@@ -27,7 +28,8 @@
 			"dev/tabs/tabs.html",
 			"dev/info/info.html",
 			"dev/cookie-notice/cookie-notice.html",
-			"dev/datenschutz/datenschutz.html"
+			"dev/datenschutz/datenschutz.html",
+			"dev/impressum/impressum.html"
 		],
 		"css": [
 			"dev/card/card.css",
@@ -45,7 +47,8 @@
 			"dev/cookie-notice/cookie-notice.css",
 			"dev/header/header-title.css",
 			"dev/header/header.css",
-			"dev/datenschutz/datenschutz.css"
+			"dev/datenschutz/datenschutz.css",
+			"dev/impressum/impressum.css"
 		],
 		"img": [
 			"static/logo168.png",
