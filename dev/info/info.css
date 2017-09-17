@@ -2,6 +2,7 @@ section-info {
 	display: block;
 	text-align: center;
 	padding: 50px 10px 0px;
+	word-break: break-word;
 }
 
 section-info > .header {
