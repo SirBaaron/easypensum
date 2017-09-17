@@ -101,6 +101,44 @@
 	line-height: 20px;
 }
 
+#toogleDrawerLabel {
+	top: 0px;
+	left: 0px;
+	position: fixed;
+	z-index: 3;
+}
+
+#toogleDrawerLabel svg {
+	width: 28px;
+	height: 50px;
+	padding: 0px 10px;
+	fill: white;
+}
+
+#toggleDrawerShadow {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	display: none;
+	z-index: 4;
+	background: rgba(0,0,0,.7);
+}
+
+#toogleDrawerCheckbox {
+	display: none;
+}
+
+#toogleDrawerCheckbox:checked ~ #toggleDrawerShadow {
+	display: block;
+}
+
+#toogleDrawerCheckbox:checked ~ #drawer {
+	transform: translateZ(0) translateX(0%);
+}
+
 @keyframes weird {
 	0% {
 		transform: rotate(0deg);

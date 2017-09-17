@@ -1,7 +1,8 @@
 __USE("cssinject.js");
 
-cssinject(`//<-inject:../info/info.css->`);
+cssinject(`//<-inject:../info/info.css-> //<-inject:../header/header-title.css-> //<-inject:../header/header.css->`);
 
+__USE("loading-outro.js");
 
 class infoPanel extends HTMLElement {
 	constructor() {
@@ -14,6 +15,7 @@ class infoPanel extends HTMLElement {
 
 	connectedCallback() {
 		this.innerHTML = this.template;
+		loadingOutro();
 	}
 }
 

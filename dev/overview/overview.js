@@ -6,9 +6,9 @@ __SSR("cascadingscript");
 
 __USE("cssinject.js");
 
-cssinject(`//<-inject:../overview/overview.css-> //<-inject:../overview/overviewHeader.css->`);
+cssinject(`//<-inject:../overview/overview.css-> //<-inject:../overview/overviewHeader.css-> //<-inject:../header/header-title.css->`);
 
-
+__USE("loading-outro.js");
 
 window["mobile"] = /(Android)|(webOS)|(iPhone)|(BlackBerry)|(Windows Phone)/ig.test(navigator.userAgent);
 
@@ -22,32 +22,9 @@ class Overview extends HTMLElement {
 	}
 
 	connectedCallback() {
+		loadingOutro();
 		try {
-			this.splashheader = document.getElementById(classid("splashheader"));
-			this.splashloadinganimation = document.getElementById(classid("splashloadinganimation"));
-
-			const splashdim = this.splashheader.getBoundingClientRect();
-			const loaderdim = this.splashloadinganimation.getBoundingClientRect();
 			
-			this.splashheader.style.position = this.splashloadinganimation.style.position = "absolute";
-			this.splashheader.style.left = this.splashloadinganimation.style.left = `${splashdim.left}px`;
-			this.splashloadinganimation.style.top = `${loaderdim.top}px`;
-			this.splashloadinganimation.style.right = this.splashloadinganimation.style.bottom = this.splashheader.style.top = this.splashheader.style.right = "0px";
-
-			this.splashloadinganimation.style.opacity = 1;
-			this.splashloadinganimation.style.transition = this.splashheader.style.transition = "opacity 0.2s linear";
-			this.splashloadinganimation.style.opacity = 0;
-
-			const evhandler = e => {
-				this.splashheader.parentNode.removeChild(this.splashheader);
-				e.target.parentNode.removeChild(e.target);
-			}
-
-
-			this.splashloadinganimation.addEventListener("transitionend", evhandler);
-
-			
-			this.splashheader.style.opacity = 0;
 
 			history.replaceState({
 				view: "main",

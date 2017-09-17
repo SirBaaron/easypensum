@@ -28,19 +28,11 @@
 	z-index: 1;
 	transform: translateZ(0);
 	opacity: 0;
+	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 svg > path {
 	pointer-events: none !important;
-}
-
-.section_title {
-	display: inline-block;
-	padding-left: 15px;
-	margin-left: 38px;
-	line-height: 50px;
-	font-size: 150%;
-	color: white;
 }
 
 #updateinfo {

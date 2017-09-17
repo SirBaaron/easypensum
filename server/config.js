@@ -14,7 +14,7 @@ module.exports = {
 		"/info": {
 			"name": "Info",
 			"bundles": [
-
+				"info.js"
 			],
 			"headerColor": "#F44336",
 			"headerHeight": 50,

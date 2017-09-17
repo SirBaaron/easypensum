@@ -15,7 +15,8 @@
 			"dev/helpers/cssinject.js",
 			"dev/helpers/animationsyncer.js",
 			"dev/helpers/cubicbezier.js",
-			"dev/helpers/scriptinject.js"
+			"dev/helpers/scriptinject.js",
+			"dev/loading-transition/loading-outro.js"
 		],
 		"html": [
 			"dev/index.html",
@@ -39,7 +40,9 @@
 			"dev/second-view/second-view.css",
 			"dev/tabs/tabs.css",
 			"dev/info/info.css",
-			"dev/cookie-notice/cookie-notice.css"
+			"dev/cookie-notice/cookie-notice.css",
+			"dev/header/header-title.css",
+			"dev/header/header.css"
 		],
 		"img": [
 			"static/logo168.png",

@@ -22,6 +22,7 @@
 	animation-delay: 0.2s;
 }
 
+
 @keyframes jump {
 	0% {
 		transform: translateY(0px) scale(1);
