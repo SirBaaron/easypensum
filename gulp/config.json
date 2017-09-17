@@ -16,7 +16,8 @@
 			"dev/helpers/animationsyncer.js",
 			"dev/helpers/cubicbezier.js",
 			"dev/helpers/scriptinject.js",
-			"dev/loading-transition/loading-outro.js"
+			"dev/loading-transition/loading-outro.js",
+			"dev/datenschutz/datenschutz.js"
 		],
 		"html": [
 			"dev/index.html",
@@ -25,7 +26,8 @@
 			"dev/second-view/second-view.html",
 			"dev/tabs/tabs.html",
 			"dev/info/info.html",
-			"dev/cookie-notice/cookie-notice.html"
+			"dev/cookie-notice/cookie-notice.html",
+			"dev/datenschutz/datenschutz.html"
 		],
 		"css": [
 			"dev/card/card.css",
@@ -42,7 +44,8 @@
 			"dev/info/info.css",
 			"dev/cookie-notice/cookie-notice.css",
 			"dev/header/header-title.css",
-			"dev/header/header.css"
+			"dev/header/header.css",
+			"dev/datenschutz/datenschutz.css"
 		],
 		"img": [
 			"static/logo168.png",
