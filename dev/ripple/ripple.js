@@ -117,7 +117,9 @@ class rippleEffect extends HTMLElement {
 			return;
 		}
 		this.state = 3;
-		this.parentNode.dispatchEvent(new Event("ripple-click"));
+		this.parentNode.dispatchEvent(new Event("ripple-click", {
+			"bubbles": true
+		}));
 	}
 
 	collapse() {
