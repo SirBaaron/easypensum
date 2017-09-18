@@ -3,14 +3,15 @@
   "version": "1.0.0",
   "main": "index.js",
   "dependencies": {
-    "@webcomponents/custom-elements": "^1.0.0",
+    "@webcomponents/custom-elements": "^1.0.4",
+    "compression": "^1.7.0",
     "express": "^4.15.4",
     "node-session": "^1.2.1",
-    "replacestream": "^4.0.2"
+    "replacestream": "^4.0.3"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
-    "babel-eslint": "^7.2.3",
+    "babel-eslint": "^8.0.0",
     "babel-plugin-transform-custom-element-classes": "^0.1.0",
     "babel-plugin-transform-es2015-classes": "^6.24.1",
     "babel-plugin-transform-exponentiation-operator": "^6.24.1",
@@ -40,7 +41,7 @@
     "merge-stream": "^1.0.1",
     "require-dir": "^0.3.2",
     "run-sequence": "^2.1.0",
-    "yargs": "^8.0.1"
+    "yargs": "^9.0.1"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",

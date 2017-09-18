@@ -2,6 +2,7 @@ var EXPRESS = require('express')
 var URL = require("url");
 var FS = require('fs');
 var SESSION = require('node-session');
+var compression = require('compression');
 
 const PORT = 8000;
 
@@ -19,6 +20,12 @@ var session = new SESSION({
 	"lifetime": 1000 * 60 * 60 * 24 * 365,
 	"cookie": cookiename
 });
+
+app.use(compression({
+	filter: _ => {
+		return true;
+	}
+}));
 
 app.use((req, res, next) => {
 	session.startSession(req, res, next);
