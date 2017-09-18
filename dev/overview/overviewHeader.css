@@ -8,7 +8,6 @@
 	background: #D68800;
 	white-space: nowrap;
 	transform: translateZ(0);
-	opacity: 0;
 }
 
 @media screen and (min-width: 800px) {
@@ -27,7 +26,6 @@
 	overflow: hidden;
 	z-index: 1;
 	transform: translateZ(0);
-	opacity: 0;
 	box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 

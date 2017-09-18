@@ -9,7 +9,7 @@ class tabView extends HTMLElement {
 		super();
 
 		this.selected = 0;
-		this.tabWidth = 0;
+		this.tabWidth;
 	}
 
 	get template() {
@@ -24,27 +24,32 @@ class tabView extends HTMLElement {
 
 		window.addEventListener("resize", this.measure.bind(this));
 
-		this.measure();
+		window.setTimeout(this.measure.bind(this), 500);
 	}
 
 	measure() {
 		this.tabWidth = this.getBoundingClientRect().width;
-		this.tabs = [].slice.call(this.host.childNodes).filter(v => {
-			return v.nodeType == 1; 
-		});
+		this.tabs = [].slice.call(this.host.childNodes);
 
 		this.tabs.forEach(v => {
-			var dim = v.getBoundingClientRect();
-			v.height = dim.height;
+			v.height = v.getBoundingClientRect().height;
 		});
 
 		this.host.style.transform = `translateZ(0) translateX(-${this.tabWidth * this.selected}px)`;
 	}
 
-	switchTab(index) {
+	switchTab(name) {
+		var index = this.tabs.map(v => {
+			return v.getAttribute("name");
+		}).indexOf(name);
+
+		if(index == this.selected || index < 0) {
+			return;
+		}
 
 		this.host.style.transform = `translateZ(0) translateX(-${this.tabWidth * index}px)`;
-		
+		this.tabs[index].setAttribute("selected", "");
+
 
 		const start = performance.now();
 
@@ -52,7 +57,7 @@ class tabView extends HTMLElement {
 		const goalscroll = this.tabs[index].scrollpos || 0;
 
 
-		this.style.height = `${Math.max(this.tabs[index].height, this.tabs[this.selected].height)}px`;
+		//this.style.height = `${Math.max(this.tabs[index].height, this.tabs[this.selected].height)}px`;
 		
 		//scrap when smooth scrolling comes
 		const frame = stamp => {
@@ -72,7 +77,7 @@ class tabView extends HTMLElement {
 		window.requestAnimationFrame(frame);
 
 		const finish = () => {
-			this.style.height = `${this.tabs[index].height}px`;
+			this.tabs[this.selected].removeAttribute("selected");
 			this.selected = index;
 		}
 	}

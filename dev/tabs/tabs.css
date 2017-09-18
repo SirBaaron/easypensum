@@ -1,6 +1,6 @@
 tab-view {
 	width: 100%;
-	display: none;
+	display: block;
 	overflow: hidden;
 }
 
@@ -13,4 +13,16 @@ tab-view {
 
 #tabhost > div {
 	flex: 1;
+}
+
+#tabhost > div:not([selected]) {
+	max-height: calc(100vh - 104px);
+}
+
+#tabhost .noContent {
+	margin-top: 35px;
+	padding: 0px 10px;
+	font-size: 110%;
+	text-align: center;
+	white-space: nowrap;
 }
