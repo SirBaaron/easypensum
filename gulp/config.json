@@ -18,7 +18,9 @@
 			"dev/helpers/scriptinject.js",
 			"dev/loading-transition/loading-outro.js",
 			"dev/datenschutz/datenschutz.js",
-			"dev/impressum/impressum.js"
+			"dev/impressum/impressum.js",
+			"dev/header/header.js",
+			"dev/header/header-title.js"
 		],
 		"html": [
 			"dev/index.html",

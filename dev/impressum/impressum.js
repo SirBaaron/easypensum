@@ -1,6 +1,9 @@
 __USE("cssinject.js");
 
-cssinject(`//<-inject:../impressum/impressum.css-> //<-inject:../header/header-title.css-> //<-inject:../header/header.css->`);
+cssinject(`//<-inject:../impressum/impressum.css->`);
+
+__USE("header.js");
+__USE("header-title.js");
 
 __USE("loading-outro.js");
 

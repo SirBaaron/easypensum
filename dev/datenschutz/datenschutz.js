@@ -1,6 +1,9 @@
 __USE("cssinject.js");
 
-cssinject(`//<-inject:../datenschutz/datenschutz.css-> //<-inject:../header/header-title.css-> //<-inject:../header/header.css->`);
+cssinject(`//<-inject:../datenschutz/datenschutz.css->`);
+
+__USE("header.js");
+__USE("header-title.js");
 
 __USE("loading-outro.js");
 
