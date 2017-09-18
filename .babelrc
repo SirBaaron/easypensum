@@ -1,5 +1,7 @@
 {
-  "plugins": [],
+  "plugins": [
+  	"transform-custom-element-classes"
+  ],
   "presets": [
     ["env", {
       "targets": {
