@@ -50,6 +50,7 @@ class Overview extends HTMLElement {
 		this.buttonRow.addEventListener("click", this._ontabnav.bind(this));
 		this.buttonRow.addEventListener("ripple-click", this._ontabnav.bind(this));
 
+		this._drawButtonBar(this.buttonRow.querySelector('button[selected]'));
 	}
 
 	_ontabnav(e) {
