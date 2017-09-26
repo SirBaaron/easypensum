@@ -23,9 +23,9 @@ class cardManager {
 			if(data[key].length == 0) {
 				let div = document.createElement("div");
 				div.className = classid("noContent");
-				div.innerHTML = `Es scheint keine ${key} zu geben ${
+				div.innerHTML = `Es scheint keine ${key} zu geben <font style="white-space:nowrap">${
 					this.smileys[Math.floor(Math.random() * this.smileys.length)]
-				}`;
+				}</font>`;
 				this.tabs[index].appendChild(div);
 			}
 		}
