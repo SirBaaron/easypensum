@@ -11,3 +11,5 @@ cssinject(`//<-inject:./stage-1.css->`);
 __USE("ripple.js");
 
 __USE("cardanimation.js");
+
+__USE("tabsanimation.js");

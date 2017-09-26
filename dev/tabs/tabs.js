@@ -21,6 +21,7 @@ class tabView extends HTMLElement {
 		this.innerHTML = this.template;
 
 		this.host = document.getElementById(classid("tabhost"));
+		this.overview = document.getElementsByTagName("section-overview")[0];
 
 		window.addEventListener("resize", this.measure.bind(this));
 
@@ -50,36 +51,25 @@ class tabView extends HTMLElement {
 		this.host.style.transform = `translateZ(0) translateX(-${this.tabWidth * index}px)`;
 		this.tabs[index].setAttribute("selected", "");
 
-
-		const start = performance.now();
-
+		const color = this.tabs[index].getAttribute("color");
 		const currentscroll = this.tabs[this.selected].scrollpos = window.scrollY;
 		const goalscroll = this.tabs[index].scrollpos || 0;
 
 
-		//this.style.height = `${Math.max(this.tabs[index].height, this.tabs[this.selected].height)}px`;
-		
-		//scrap when smooth scrolling comes
-		const frame = stamp => {
-			var progress = Math.min((stamp - start) / 250, 1);
-
-			var scroll = currentscroll + (goalscroll - currentscroll) * progress;
-
-			window.scrollTo(0, scroll);
-
-			if(stamp - start > 250) {
-				finish();
-				return;
-			}
-			window.requestAnimationFrame(frame);
-		}
-
-		window.requestAnimationFrame(frame);
-
-		const finish = () => {
+		this._animateSwitch(name, color, goalscroll, currentscroll).then(_ => {
 			this.tabs[this.selected].removeAttribute("selected");
 			this.selected = index;
-		}
+		});
+
+		
+
+	}
+
+	_animateSwitch(name, color, scroll) {
+		window.scrollTo(0, scroll);
+		this.overview.switchHeaderColor(color);
+		this.overview.switchSelectedButton(name);
+		return new Promise(resolve => resolve());
 	}
 }
 

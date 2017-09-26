@@ -39,6 +39,13 @@ class Overview extends HTMLElement {
 
 		this.tabshell = document.getElementsByTagName("tab-view")[0];
 		this.buttonRow = document.getElementById(classid("header_row_3"));
+		this.headerOne = document.getElementById(classid("overview_header_one"));
+		this.header = document.getElementById(classid("overview_header"));
+		this.buttonBar = document.getElementById(classid("button_bar"));
+
+		window.addEventListener("resize", _ => {
+			this._drawButtonBar(this.buttonRow.querySelector('button[selected]'));
+		});
 
 		this.buttonRow.addEventListener("click", this._ontabnav.bind(this));
 		this.buttonRow.addEventListener("ripple-click", this._ontabnav.bind(this));
@@ -50,6 +57,30 @@ class Overview extends HTMLElement {
 			return;
 		}
 		this.tabshell.switchTab(e.target.textContent);
+	}
+
+	switchHeaderColor(color) {
+		this.headerOne.style.background = this.header.style.background = color;
+	}
+
+	switchSelectedButton(name) {
+		this.buttonRow.querySelector('button[selected]').removeAttribute("selected");
+		const btn = this._getButtonByText(name);
+		
+		btn.setAttribute("selected", "");
+		this._drawButtonBar(btn);
+	}
+
+	_drawButtonBar(btn) {
+		const rect = btn.getBoundingClientRect();
+		const scrollLeft = this.buttonRow.scrollLeft;
+		this.buttonBar.style.transform = `translateX(${rect.left + scrollLeft}px) scaleX(${rect.width / 100})`;
+	}
+
+	_getButtonByText(txt) {
+		return [].slice.call(this.buttonRow.childNodes).find(n => {
+			return n.textContent == txt;
+		});
 	}
 }
 window.customElements.define("section-overview", Overview);

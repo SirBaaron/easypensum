@@ -20,7 +20,8 @@
 			"dev/datenschutz/datenschutz.js",
 			"dev/impressum/impressum.js",
 			"dev/header/header.js",
-			"dev/header/header-title.js"
+			"dev/header/header-title.js",
+			"dev/tabs/tabsanimation.js"
 		],
 		"html": [
 			"dev/index.html",
@@ -50,7 +51,8 @@
 			"dev/header/header-title.css",
 			"dev/header/header.css",
 			"dev/datenschutz/datenschutz.css",
-			"dev/impressum/impressum.css"
+			"dev/impressum/impressum.css",
+			"dev/tabs/tabsanimation.css"
 		],
 		"img": [
 			"static/logo168.png",

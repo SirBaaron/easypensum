@@ -1,6 +1,26 @@
+@media screen and (min-width: 800px) {
+	#button_bar {
+		left: -250px !important;
+	}
+}
 
 button, button:active {
 	background: transparent;
 	border: none;
 	outline: none;
+}
+
+#header_row_3 > button[selected] {
+	font-weight: bold;
+}
+
+#button_bar {
+	position: absolute;
+	left: 0px;
+	bottom: 1px;
+	width: 100px;
+	height: 3px;
+	background: white;
+	opacity: 0.8;
+	transform-origin: left center;
 }

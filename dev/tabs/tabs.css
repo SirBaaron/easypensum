@@ -7,7 +7,6 @@ tab-view {
 #tabhost {
 	display: flex;
 	transform: translateZ(0);
-	transition: transform 0.25s ease-in-out;
 	align-items: flex-start;
 }
 
