@@ -13,3 +13,5 @@ __USE("ripple.js");
 __USE("cardanimation.js");
 
 __USE("tabsanimation.js");
+
+__USE("overviewanimation.js");

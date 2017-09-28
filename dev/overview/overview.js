@@ -75,6 +75,7 @@ class Overview extends HTMLElement {
 	_drawButtonBar(btn) {
 		const rect = btn.getBoundingClientRect();
 		const scrollLeft = this.buttonRow.scrollLeft;
+		this.buttonBar.style.transition = "none";
 		this.buttonBar.style.transform = `translateX(${rect.left + scrollLeft}px) scaleX(${rect.width / 100})`;
 	}
 
