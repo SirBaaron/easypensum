@@ -42,6 +42,7 @@ class Overview extends HTMLElement {
 		this.headerOne = document.getElementById(classid("overview_header_one"));
 		this.header = document.getElementById(classid("overview_header"));
 		this.buttonBar = document.getElementById(classid("button_bar"));
+		this.meta = document.getElementsByTagName("meta")[0];
 
 		window.addEventListener("resize", _ => {
 			this._drawButtonBar(this.buttonRow.querySelector('button[selected]'));
@@ -57,11 +58,12 @@ class Overview extends HTMLElement {
 		if(e.type == "click" && document.createElement("ripple-effect").constructor !== HTMLElement) {
 			return;
 		}
-		this.tabshell.switchTab(e.target.textContent);
+		this.tabshell.switchTab(e.target.firstChild.textContent);
 	}
 
 	switchHeaderColor(color) {
 		this.headerOne.style.background = this.header.style.background = color;
+		this.meta.setAttribute("content", color);
 	}
 
 	switchSelectedButton(name) {
@@ -81,7 +83,7 @@ class Overview extends HTMLElement {
 
 	_getButtonByText(txt) {
 		return [].slice.call(this.buttonRow.childNodes).find(n => {
-			return n.textContent == txt;
+			return n.firstChild.textContent == txt;
 		});
 	}
 }

@@ -3,6 +3,8 @@ __USE("cssinject.js");
 cssinject(`//<-inject:../overview/overviewanimation.css->`);
 
 
+
+
 Object.defineProperties(Overview.prototype, {
 	"switchSelectedButton": {
 		value: function switchSelectedButton(name) {
@@ -21,11 +23,8 @@ Object.defineProperties(Overview.prototype, {
 			const oldbtnrect = oldbtn.getBoundingClientRect();
 
 			const invert = oldbtnrect.left > btnrect.left;
-			console.log(invert);
 
 			const fullscale = (invert ? (oldbtnrect.left - btnrect.left + oldbtnrect.width) : (btnrect.left - oldbtnrect.left + btnrect.width)) / 100;
-
-			console.log(fullscale);
 
 			const leftToUse = invert ? btnrect.left : oldbtnrect.left;
 
@@ -41,4 +40,6 @@ Object.defineProperties(Overview.prototype, {
 			this.buttonBar.addEventListener("transitionend", evhandler);
 		}
 	}
-})
+});
+
+document.getElementsByTagName("section-overview")[0].progressiveConstructor();
