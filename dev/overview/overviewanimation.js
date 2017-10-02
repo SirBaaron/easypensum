@@ -41,5 +41,3 @@ Object.defineProperties(Overview.prototype, {
 		}
 	}
 });
-
-document.getElementsByTagName("section-overview")[0].progressiveConstructor();
