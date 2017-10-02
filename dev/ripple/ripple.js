@@ -170,7 +170,7 @@ class rippleEffect extends HTMLElement {
 			this.style.opacity = (1 - (elapsedTime / this.releaseDuration)) * this.opacity;
 		}
 
-		this.style.transform = `${this.offset} scale(${this.coverRadius * f / 1000})`;
+		this.style.transform = `${this.offset} scale(${this.coverRadius * f / 50})`;
 
 
 
