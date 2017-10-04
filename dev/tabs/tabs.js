@@ -26,12 +26,12 @@ class tabView extends HTMLElement {
 		this.host = document.getElementById(classid("tabhost"));
 		this.overview = document.getElementsByTagName("section-overview")[0];
 
-		window.addEventListener("resize", this.measure.bind(this));
-		this.addEventListener("touchmove", this._touchmove.bind(this));
-		this.addEventListener("touchstart", this._touchstart.bind(this));
+		window.addEventListener("resize", this.measure.bind(this), {passive: true});
+		this.addEventListener("touchmove", this._touchmove.bind(this), {passive: true});
+		this.addEventListener("touchstart", this._touchstart.bind(this), {passive: true});
 		this.addEventListener("selectstart", _ => {
 			this.touchstart = null;
-		})
+		}, {passive: true})
 
 		window.setTimeout(this.measure.bind(this), 500);
 	}
