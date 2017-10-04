@@ -10,6 +10,9 @@ class tabView extends HTMLElement {
 
 		this.selected = 0;
 		this.tabWidth;
+
+		this.ratioMax = 0.6;
+		this.minX = 30;
 	}
 
 	get template() {
@@ -24,8 +27,35 @@ class tabView extends HTMLElement {
 		this.overview = document.getElementsByTagName("section-overview")[0];
 
 		window.addEventListener("resize", this.measure.bind(this));
+		this.addEventListener("touchmove", this._touchmove.bind(this));
+		this.addEventListener("touchstart", this._touchstart.bind(this));
+		this.addEventListener("selectstart", _ => {
+			this.touchstart = null;
+		})
 
 		window.setTimeout(this.measure.bind(this), 500);
+	}
+
+	_touchstart(e) {
+		this.touchstart = e.touches[0];
+	}
+
+	_touchmove(e) {
+		if(this.touchstart == null) {
+			return;
+		}
+		let xdiff = e.touches[0].screenX - this.touchstart.screenX;
+		let ydiff = e.touches[0].screenY - this.touchstart.screenY;
+		
+		if(Math.abs(ydiff / xdiff) < this.ratioMax && Math.abs(xdiff) > this.minX) {
+			this.touchstart = null;
+			let newIndex = xdiff < 0 ? this.selected + 1 : this.selected - 1;
+			if(newIndex < 0 || newIndex >= this.tabs.length) {
+				return;
+			}
+			let name = this.tabs[newIndex].getAttribute("name");
+			this.switchTab(name);
+		}
 	}
 
 	measure() {

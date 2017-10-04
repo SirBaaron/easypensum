@@ -2,6 +2,7 @@ tab-view {
 	width: 100%;
 	display: block;
 	overflow: hidden;
+	min-height: calc(100vh - 104px);
 }
 
 #tabhost {
