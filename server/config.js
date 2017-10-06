@@ -5,7 +5,8 @@ module.exports = {
 			"bundles": [
 				"overview.js",
 				"overview-stage-1.js",
-				"overview-stage-2.js"
+				"overview-stage-2.js",
+				"overview-stage-3.js"
 			],
 			"headerColor": "#d68800",
 			"headerHeight": 104,
