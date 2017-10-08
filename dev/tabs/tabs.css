@@ -5,6 +5,10 @@ tab-view {
 	min-height: calc(100vh - 104px);
 }
 
+tab-view[fab] #tabhost div[selected] {
+	padding-bottom: 90px;
+}
+
 #tabhost {
 	display: flex;
 	transform: translateZ(0);
