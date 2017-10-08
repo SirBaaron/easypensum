@@ -133,8 +133,6 @@ class entryCard extends HTMLElement {
 					previousactionbutton = null;
 				}
 
-				console.log(e);
-
 				window.sv.open("edit", e, this.color, "back", previousactionbutton, "Bearbeiten", titleel);
 				break;
 			case "share":
