@@ -75,7 +75,7 @@ gulp.task("server", () => {
 	});
 
 	var replace = [
-		["const PORT = 8000;", "const PORT = 80;"],
+		["const PORT = 8000;", "const PORT = 8080;"],
 		["var classid = require('./classid-node.js');", ""]
 	]
 
