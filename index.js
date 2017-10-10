@@ -3,10 +3,10 @@ var URL = require("url");
 var FS = require('fs');
 var SESSION = require('node-session');
 var compression = require('compression');
-
-const PORT = 8000;
+var cookieParser = require('cookie-parser')
 
 const config = require("./server/config.js");
+const environment = require("./server/environment.js");
 
 var app = EXPRESS();
 
@@ -26,10 +26,10 @@ app.use(compression({
 		return true;
 	}
 }));
-
 app.use((req, res, next) => {
 	session.startSession(req, res, next);
 });
+app.use(cookieParser());
 
 app.get(routes, (req, res) => {
 	req.session.set("route", req.path);
@@ -42,8 +42,8 @@ app.get("/index.html", (req, res) => {
 	res.redirect(301, "/");
 });
 
-app.all("/bundles/*", (req, res) => {
-	res.end(require("./server/createBundle").createBundle(req.path, req.session));
+app.all("/bundles/*.js", (req, res) => {
+	res.end(require("./server/createBundle").createBundle(req.path, req.session, req.cookies));
 });
 
 app.all("/static/*", (req, res) => {
@@ -55,6 +55,6 @@ app.get("/classid.js", (req, res) => {
 	FS.createReadStream("./dev/classid.js").pipe(res); 
 })
 
-app.listen(PORT);
+app.listen(environment.port);
 
 console.log("server started!");

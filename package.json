@@ -4,14 +4,15 @@
   "main": "index.js",
   "dependencies": {
     "@webcomponents/custom-elements": "^1.0.4",
-    "compression": "^1.7.0",
-    "express": "^4.15.4",
+    "compression": "^1.7.1",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.16.1",
     "node-session": "^1.2.1",
     "replacestream": "^4.0.3"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
-    "babel-eslint": "^8.0.0",
+    "babel-eslint": "^8.0.1",
     "babel-plugin-transform-custom-element-classes": "^0.1.0",
     "babel-plugin-transform-es2015-classes": "^6.24.1",
     "babel-plugin-transform-exponentiation-operator": "^6.24.1",
@@ -30,7 +31,7 @@
     "gulp-csso": "^3.0.0",
     "gulp-header-comment": "^0.2.0",
     "gulp-htmlmin": "^3.0.0",
-    "gulp-image": "^3.0.0",
+    "gulp-image": "^4.0.0",
     "gulp-inject-file": "0.0.19",
     "gulp-inline-source": "^3.1.0",
     "gulp-minify-inline-scripts": "^0.0.6",
@@ -40,7 +41,7 @@
     "gulp-util": "^3.0.8",
     "merge-stream": "^1.0.1",
     "require-dir": "^0.3.2",
-    "run-sequence": "^2.1.0",
+    "run-sequence": "^2.2.0",
     "yargs": "^9.0.1"
   },
   "scripts": {

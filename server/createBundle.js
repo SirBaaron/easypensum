@@ -4,6 +4,8 @@ var classid = require('./classid-node.js');
 
 
 const config = require("./config.js");
+const environment = require("./environment.js");
+
 
 const classobj = {
 	name: "8D",
@@ -75,18 +77,38 @@ const queryResult = {
 
 
 module.exports = {
-	"createBundle": (path, session) => {
-		return loadmodule(path, session).replace(/__SSR\("(\s*([\w\-.\\\/]+)\s*)"\);?/g, (m, str) => {
+	"createBundle": (path, session, cookies) => {
+		var jsversion;
+		if(cookies["feature-es6"] == true) {
+			jsversion = environment.es6Path;
+		}
+		else {
+			jsversion = environment.es5Path;
+		}
+		var bundle = path.match(/[\w\d-]+\.[\w\d]+$/)[0];
+
+		var firstBundles = [];
+		for(i in config.entryPoints) {
+			firstBundles.push(config.entryPoints[i].bundles[0]);
+		}
+
+		var extraHead = "";
+
+		if(firstBundles.indexOf(bundle) > -1 && cookies["feature-customElements"]) {
+			extraHead = FS.readFileSync("./node_modules/@webcomponents/custom-elements/custom-elements.min.js", "utf-8");
+		}
+
+		return extraHead.concat(loadmodule("./bundles/" + jsversion + bundle, session, jsversion).replace(/__SSR\("(\s*([\w\-.\\\/]+)\s*)"\);?/g, (m, str) => {
 			switch(str) {
 				case "cascadingscript":
-					var bundle = path.replace("/bundles/", "");
+					var bundle = path.match(/[\w\d-]+\.[\w\d]+$/)[0];
 					var scripts = config.entryPoints[session.get("route")].bundles;
 					var position = scripts.indexOf(bundle);
 					if(position == -1) {
 						return "";
 					}
 					if(position < scripts.length - 1) {
-						return `jsinject("bundles/${scripts[position + 1]}");`;
+						return `jsinject("bundles/${jsversion}${scripts[position + 1]}");`;
 					}
 					break;
 				case "tabButtons":
@@ -116,17 +138,17 @@ module.exports = {
 					break;
 			}
 			return "";
-		})
+		}));
 	}
 }
 
-function loadmodule(path, session) {
+function loadmodule(path, session, jsversion) {
 	return FS.readFileSync("./" + path, "utf-8").replace(/__USE\("(\s*([\w\-.\\\/]+)\s*)"\);/g, (m, module) => {
 		const loadedModules = session.get("loadedModules") || [];
 		if(loadedModules.indexOf(module) > -1) {
 			return "";
 		}
 		session.push("loadedModules", module);
-		return loadmodule("./bundles/" + module, session);
+		return loadmodule("./bundles/" + jsversion + module, session, jsversion);
 	});
 }

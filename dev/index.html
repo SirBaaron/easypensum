@@ -2,10 +2,13 @@
 <html>
 <head>
 	<script>
+	try {
+		eval("class fooa {};var foob = x => 1;let fooc = 1;const food = 1;var fooe = `a`;function foof (one = 1) {}");
+		document.cookie = "feature-es6=true";
+	}
+	catch(e){}
 	if(window.customElements == undefined) {
-		var s = document.createElement("script");
-		s.src = "node_modules/@webcomponents/custom-elements/custom-elements.min.js";
-		document.head.appendChild(s);
+		document.cookie = "feature-customElements=false"
 	}
 	</script>
 	<title>Easy Pensum</title>

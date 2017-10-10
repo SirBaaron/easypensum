@@ -1,7 +1,6 @@
 /*
 FLAGS:
 --noimagecompression || -i			won't compress images, duh
---nolighthouse  || -l					skip lighthouse report
 */
 
 
@@ -32,7 +31,6 @@ var gutil = require('gulp-util');
 
 
 gulp.task("build", () => {
-
 	runSequence(
 		"prepare",
 		"classid",
@@ -40,33 +38,29 @@ gulp.task("build", () => {
 		"html",
 		"css",
 		"inject",
-		"js",
+		"jses5",
+		"jses6",
 		"index-remove-classid",
 		"cookie",
 		"index",
 		"images",
 		"server",
+		"environment",
 		"move",
 		"finish"
 	);
-	
+});
 
-	// runSequence(
-	// 	"prepare",
-	// 	"classid",
-	// 	"html",
-	// 	"css",
-	// 	"inject",
-	// 	"js",
-	// 	"index",
-	// 	"replace",
-	// 	"copyright",
-	// 	"images",
-	// 	"move",
-	// 	"lighthouse",
-	// 	"finish"
-	// );
+gulp.task("environment", () => {
+	var replace = [
+		["port: 8000", "port: 8080"],
+		['es5Path: ""', 'es5Path: "es6/"'],
+		['es6Path: ""', 'es6Path: "es6/"']
+	]
 
+	return gulp.src("build/server/environment.js")
+	.pipe(replaceBatch(replace))
+	.pipe(gulp.dest("build/server/"));
 });
 
 gulp.task("server", () => {
@@ -75,7 +69,6 @@ gulp.task("server", () => {
 	});
 
 	var replace = [
-		["const PORT = 8000;", "const PORT = 8080;"],
 		["var classid = require('./classid-node.js');", ""]
 	]
 
@@ -175,9 +168,19 @@ gulp.task("css", () => {
 	.pipe(gulp.dest("build/"));
 });
 
-gulp.task("js", () => {
+gulp.task("jses5", () => {
 	return gulp.src("build/bundles/*.js")
-	.pipe(babel())
+	.pipe(babel({
+	 	plugins: ["transform-custom-element-classes"],
+	 	presets: [
+	  		["env", {
+	   			targets: {
+	    			browsers: ["last 2 versions", ">1% in AT"]
+	   		},
+			debug: true
+	  	}]
+	  ]
+	}))
 	.on("error", err => {
 		gutil.log(err);
 	})
@@ -192,7 +195,22 @@ gulp.task("js", () => {
 	.on("error", err => {
 		gutil.log(err);
 	})
-	.pipe(gulp.dest("build/bundles"));
+	.pipe(gulp.dest("build/bundles/es5"));
+});
+
+gulp.task("jses6", () => {
+	return gulp.src("build/bundles/*.js")
+	.pipe(babel({
+		presets: [["minify", {
+			deadcode: false,
+			mangle: true,
+			simplify: false
+		}]]
+	}))
+	.on("error", err => {
+		gutil.log(err);
+	})
+	.pipe(gulp.dest("build/bundles/es6"));
 });
 
 gulp.task("cookie", () => {
