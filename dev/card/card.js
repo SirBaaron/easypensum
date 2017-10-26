@@ -116,9 +116,9 @@ class entryCard extends HTMLElement {
 			case "info":
 				this.toggleInfo();
 				break;
-			// case "done":
-				// alert("Not implemented yet.");
-				// break;
+			case "done":
+				this.remove();
+				break;
 			case "edit":
 				let el = document.getElementById(classid("toogleDrawerLabel"));				
 				let display = window.getComputedStyle(el).getPropertyValue("display");
@@ -153,6 +153,10 @@ class entryCard extends HTMLElement {
 				}
 				break;
 		}
+	}
+
+	remove() {
+		this.parentNode.removeChild(this);
 	}
 
 	toggleInfo() {

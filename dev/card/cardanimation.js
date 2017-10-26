@@ -17,6 +17,28 @@ Object.defineProperties(entryCard.prototype, {
 		value: function progressiveConstructor() {
 			this.easing = new cubicBezier([.4, 0, .2, 1]);
 			this.animationDuration = 200;
+			this.closeanimationduration = 250;
+		}
+	},
+	"remove": {
+		value: function remove() {
+			const size = 55 + this.contentHeight + (this.infoOpen ? this.infoHeight : 0);
+			this.style.willChange = "transform";
+			animation.add({
+				el: this,
+				property: "transform",
+				value: (prgs) => {
+					return `scale(${1 - prgs})`;
+				},
+				duration: this.closeanimationduration,
+				easing: this.easing
+			}).then(_ => {
+				this.parentNode.removeChild(this);
+			});
+
+			this.followingSiblings.forEach(n => {
+				n.fakeMove(0, -size, this.closeanimationduration);
+			});
 		}
 	},
 	"_expand": {
@@ -124,7 +146,7 @@ Object.defineProperties(entryCard.prototype, {
 		 * @param  {Number} Position to start from
 		 * @param  {Number}	Position to get to
 		 */
-		value: function fakeMove(from, to) {
+		value: function fakeMove(from, to, duration = this.animationDuration) {
 			this.style.willChange = "transform";
 			this.style.transform = `translateY(${from}px)`;
 			
@@ -134,7 +156,7 @@ Object.defineProperties(entryCard.prototype, {
 				value: (prgs) => {
 					return `translateY(${to * prgs + from * (1 - prgs)}px)`;
 				},
-				duration: this.animationDuration,
+				duration: duration,
 				easing: this.easing
 			}).then(_ => {
 				this.style.transform = "translateY(0px)";
