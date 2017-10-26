@@ -7,6 +7,6 @@
 	transition: opacity 0.2s linear;
 }
 
-entry-card {
+.card_wrapper {
 	transform-origin: center top;
 }

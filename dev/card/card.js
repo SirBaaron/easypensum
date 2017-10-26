@@ -78,6 +78,7 @@ class entryCard extends HTMLElement {
 		this.cardDate = this.querySelector("." + classid("card_date"));
 		this.cardBody = this.querySelector("." + classid("card_body"));
 		this.cardContent = this.querySelector("." + classid("card_content"));
+		this.wrapper = this.querySelector("." + classid("card_wrapper"));
 
 		this.actionfooter = this.querySelector("." + classid("card_actionfooter"));
 

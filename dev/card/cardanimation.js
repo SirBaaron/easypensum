@@ -22,9 +22,9 @@ Object.defineProperties(entryCard.prototype, {
 	"remove": {
 		value: function remove() {
 			const size = 55 + this.contentHeight + (this.infoOpen ? this.infoHeight : 0);
-			this.style.willChange = "transform";
+			this.wrapper.style.willChange = "transform";
 			animation.add({
-				el: this,
+				el: this.wrapper,
 				property: "transform",
 				value: (prgs) => {
 					return `scale(${1 - prgs})`;
@@ -146,11 +146,11 @@ Object.defineProperties(entryCard.prototype, {
 		 * @param  {Number}	Position to get to
 		 */
 		value: function fakeMove(from, to, duration = this.animationDuration) {
-			this.style.willChange = "transform";
-			this.style.transform = `translateY(${from}px)`;
+			this.wrapper.style.willChange = "transform";
+			this.wrapper.style.transform = `translateY(${from}px)`;
 			
 			animation.add({
-				el: this,
+				el: this.wrapper,
 				property: "transform",
 				value: (prgs) => {
 					return `translateY(${to * prgs + from * (1 - prgs)}px)`;
@@ -158,8 +158,8 @@ Object.defineProperties(entryCard.prototype, {
 				duration: duration,
 				easing: this.easing
 			}).then(_ => {
-				this.style.transform = "translateY(0px)";
-				this.style.willChange = "initial";
+				this.wrapper.style.transform = "translateY(0px)";
+				this.wrapper.style.willChange = "initial";
 			})
 		}
 	},
