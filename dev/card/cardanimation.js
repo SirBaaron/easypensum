@@ -10,15 +10,14 @@ cssinject(`//<-inject:../card/cardanimation.css->`);
 
 
 Object.defineProperties(entryCard.prototype, {
-	"progressiveConstructor": {
-		/**
-		 * runs when the element gets upgraded
-		 */
-		value: function progressiveConstructor() {
-			this.easing = new cubicBezier([.4, 0, .2, 1]);
-			this.animationDuration = 200;
-			this.closeanimationduration = 250;
-		}
+	"easing": {
+		value: new cubicBezier([.4, 0, .2, 1])
+	},
+	"animationDuration": {
+		value: 200
+	},
+	"closeanimationduration": {
+		value: 250
 	},
 	"remove": {
 		value: function remove() {
@@ -219,5 +218,3 @@ Object.defineProperties(entryCard.prototype, {
 		}
 	}
 });
-
-[].slice.call(document.getElementsByTagName("entry-card")).forEach(v => v.progressiveConstructor());
