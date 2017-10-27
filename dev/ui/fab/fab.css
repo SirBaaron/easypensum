@@ -8,6 +8,7 @@ fab-create {
 	cursor: pointer;
 	position: fixed !important;
 	border-radius: 50%;
+	transition: all 0.2s ease-in-out;
 }
 
 fab-create:after, fab-create:before {
@@ -25,4 +26,11 @@ fab-create:after, fab-create:before {
 
 fab-create:after {
 	transform: translate(50%, 50%) rotate(90deg);
+}
+
+body:not([feature-sv]) fab-create {
+	background: #808080;
+	opacity: 0.9;
+	pointer-events: none;
+	transform: scale(0.8);
 }

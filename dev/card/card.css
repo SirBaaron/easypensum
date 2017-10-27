@@ -99,6 +99,7 @@ entry-card {
 .card_action_button {
 	height: 32px;
 	cursor: pointer;
+	transition: opacity 0.2s ease-in-out;
 }
 
 .card_action_button > svg {
@@ -142,6 +143,10 @@ entry-card {
 	opacity: 0.65;
 }
 
+body:not([feature-sv]) .card_action_button[value=edit], body:not([feature-dispatch]) .card_action_button[value=done] {
+	opacity: 0.5;
+	pointer-events: none;
+}
 
 
 @keyframes cards-intro {

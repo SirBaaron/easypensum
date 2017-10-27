@@ -90,3 +90,5 @@ class secondView extends HTMLElement {
 window.customElements.define("second-view", secondView);
 
 window["sv"] = document.getElementsByTagName("second-view")[0];
+
+document.body.setAttribute("feature-sv", "");
