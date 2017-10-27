@@ -221,7 +221,8 @@ class entryCard extends HTMLElement {
 	 * @return {String}     The time in the format hh:mm
 	 */
 	_extractTime(dte) {
-		let d = new Date(dte);
+		let p = dte.split(/[^0-9]/);
+		let d = new Date(p[0],p[1]-1,(p[2] || 0),(p[3] || 0),(p[4] || 0));
 		return d.getHours() + ":" + d.getMinutes();
 	}
 
@@ -232,7 +233,10 @@ class entryCard extends HTMLElement {
 	 */
 	_compileDate(dte, prefix = "") {
 		const now = new Date();
-		const date = new Date(dte);
+		let p = dte.split(/[^0-9]/);
+		console.log(p);
+		const date = new Date(p[0],p[1]-1,(p[2] || 0),(p[3] || 0),(p[4] || 0));
+		console.log(date);
 		const diff = Math.ceil((date.getTime() - now.getTime()) / 86400000);
 
 		switch(true) {
