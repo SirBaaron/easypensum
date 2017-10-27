@@ -3,7 +3,6 @@
 	"files": {
 		"js": [
 			"dev/card/card.js",
-			"dev/card/cardmanager.js",
 			"dev/overview/overview.js",
 			"dev/tabs/tabs.js",
 			"dev/overview/stage-1/overview-stage-1.js",
@@ -27,7 +26,9 @@
 			"dev/overview/stage-3/overview-stage-3.js",
 			"dev/ui/fab/fab.js",
 			"dev/toast/toast.js",
-			"dev/toast/toastanimation.js"
+			"dev/toast/toastanimation.js",
+			"dev/cardmanager/cardmanager.js",
+			"dev/cardmanager/cardmanager-dispatch.js"
 		],
 		"html": [
 			"dev/index.html",

@@ -31,6 +31,7 @@ toast-card {
 .toast_action {
 	color: #FFC107;
 	cursor: pointer;
+	margin-left: 20px;
 }
 
 .toast_spinner {

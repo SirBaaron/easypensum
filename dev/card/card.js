@@ -118,7 +118,7 @@ class entryCard extends HTMLElement {
 				this.toggleInfo();
 				break;
 			case "done":
-				this.remove();
+				cards.dispatch(this);
 				break;
 			case "edit":
 				let el = document.getElementById(classid("toogleDrawerLabel"));				
