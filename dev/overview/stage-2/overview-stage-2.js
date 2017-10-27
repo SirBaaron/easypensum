@@ -5,3 +5,5 @@ __USE("scriptinject.js");
 __SSR("cascadingscript");
 
 __USE("second-view.js");
+
+__USE("toast.js");
