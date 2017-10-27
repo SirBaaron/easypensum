@@ -21,7 +21,8 @@ toast-card {
 
 .toast_text {
 	color: #f1f1f1;
-	margin-right: 20px;
+	flex-grow: 1;
+	text-align: center;
 }
 
 .toast_action {

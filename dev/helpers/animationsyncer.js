@@ -33,7 +33,7 @@ class animationSyncer {
 			task.el.style[task.property] += task.value(f) + " ";
 
 			if(prgs == 1) {
-				task._resolve();
+				task._resolve(task.el);
 				return false;
 			}
 

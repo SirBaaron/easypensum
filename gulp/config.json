@@ -26,7 +26,8 @@
 			"dev/second-view/second-viewanimation.js",
 			"dev/overview/stage-3/overview-stage-3.js",
 			"dev/ui/fab/fab.js",
-			"dev/toast/toast.js"
+			"dev/toast/toast.js",
+			"dev/toast/toastanimation.js"
 		],
 		"html": [
 			"dev/index.html",
@@ -62,7 +63,8 @@
 			"dev/overview/overviewanimation.css",
 			"dev/second-view/second-viewanimation.css",
 			"dev/ui/fab/fab.css",
-			"dev/toast/toast.css"
+			"dev/toast/toast.css",
+			"dev/toast/toastanimation.css"
 		],
 		"img": [
 			"static/logo168.png",
