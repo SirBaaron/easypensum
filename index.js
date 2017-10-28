@@ -57,4 +57,4 @@ app.get("/classid.js", (req, res) => {
 
 app.listen(environment.port);
 
-console.log("server started!");
+console.log("server started on port ", environment.port);

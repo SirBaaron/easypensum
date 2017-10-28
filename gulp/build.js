@@ -53,7 +53,6 @@ gulp.task("build", () => {
 
 gulp.task("environment", () => {
 	var replace = [
-		["port: 8000", "port: 8080"],
 		['es5Path: ""', 'es5Path: "es6/"'],
 		['es6Path: ""', 'es6Path: "es6/"']
 	]
