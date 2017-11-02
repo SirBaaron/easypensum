@@ -9,3 +9,5 @@ __USE("cardmanager-dispatch.js");
 __USE("second-view.js");
 
 __USE("toast.js");
+
+__USE("spinner.js");

@@ -28,7 +28,9 @@
 			"dev/toast/toast.js",
 			"dev/toast/toastanimation.js",
 			"dev/cardmanager/cardmanager.js",
-			"dev/cardmanager/cardmanager-dispatch.js"
+			"dev/cardmanager/cardmanager-dispatch.js",
+			"dev/spinner/spinner.js",
+			"dev/spinner/spinneranimation.js"
 		],
 		"html": [
 			"dev/index.html",
@@ -40,7 +42,9 @@
 			"dev/cookie-notice/cookie-notice.html",
 			"dev/datenschutz/datenschutz.html",
 			"dev/impressum/impressum.html",
-			"dev/toast/toast.html"
+			"dev/toast/toast.html",
+			"dev/spinner/spinner.html",
+			"dev/spinner/spinneranimation.html"
 		],
 		"css": [
 			"dev/card/card.css",
@@ -65,7 +69,9 @@
 			"dev/second-view/second-viewanimation.css",
 			"dev/ui/fab/fab.css",
 			"dev/toast/toast.css",
-			"dev/toast/toastanimation.css"
+			"dev/toast/toastanimation.css",
+			"dev/spinner/spinner.css",
+			"dev/spinner/spinneranimation.css"
 		],
 		"img": [
 			"static/logo168.png",

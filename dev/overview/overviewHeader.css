@@ -53,6 +53,24 @@ svg > path {
 	align-self: center;
 	fill: white;
 	flex-shrink: 0;
+	transition: opacity 0.2s linear;
+	cursor: pointer;
+}
+
+body:not([feature-spinner]) #update {
+	opacity: 0.6;
+	pointer-events: none;
+}
+
+#update > svg {
+	position: absolute;
+	height: 25px;
+}
+
+#update spinner-element {
+	height: 21px;
+	width: 21px;
+	margin: 2px;
 }
 
 #header_row_3 {
