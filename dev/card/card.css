@@ -10,6 +10,7 @@ entry-card {
 
 .card_header {
 	height: 55px;
+	padding: 0px;
 	padding-left: 12px;
 	overflow: hidden;
 	position: relative;
@@ -143,11 +144,30 @@ entry-card {
 	opacity: 0.65;
 }
 
+.card_header_pin {
+	height: 35px;
+	margin: 10px 0px;
+	fill: white;
+	opacity: 0.9;
+	display: none;
+}
+
 body:not([feature-sv]) .card_action_button[value=edit], body:not([feature-dispatch]) .card_action_button[value=done] {
 	opacity: 0.5;
 	pointer-events: none;
 }
 
+.card_wrapper[pinned=true] .card_action_button[value=pin] svg {
+	fill: #FFC107;
+}
+
+.card_wrapper[pinned=true] .card_header {
+	padding-left: 0px;
+}
+
+.card_wrapper[pinned=true] .card_header_pin {
+	display: initial;
+}
 
 @keyframes cards-intro {
 	0% {

@@ -39,6 +39,9 @@ class entryCard extends HTMLElement {
 	get interactions() {
 		return this.data.interactions || {};
 	}
+	get pinned() {
+		return this.data.pinned || false;
+	}
 
 
 
@@ -66,6 +69,9 @@ class entryCard extends HTMLElement {
 	set interactions(val) {
 		this.data.interactions = val;
 		this._updateText(this.info, this._compileInteractions(val));
+	}
+	set pinned(val) {
+		this.wrapper.setAttribute("pinned", val);
 	}
 
 	connectedCallback() {
