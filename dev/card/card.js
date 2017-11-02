@@ -71,6 +71,7 @@ class entryCard extends HTMLElement {
 		this._updateText(this.info, this._compileInteractions(val));
 	}
 	set pinned(val) {
+		this.data.pinned = val;
 		this.wrapper.setAttribute("pinned", val);
 	}
 
@@ -158,6 +159,9 @@ class entryCard extends HTMLElement {
 					let url = "whatsapp://send?text=" + encodeURIComponent(txt + window.location.origin);
 					window.location = url;
 				}
+				break;
+			case "pin":
+				this.pinned = !this.pinned;
 				break;
 		}
 	}
