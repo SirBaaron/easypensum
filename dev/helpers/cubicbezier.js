@@ -1,136 +1,78 @@
-//DOTO: actually make easing
-class cubicBezier {
-	constructor(controlpoints) {
+/*
+	Taken from this Stack Overflow question: https://stackoverflow.com/a/11697909/5203474
+ */
 
+class cubicBezier {
+	get epsilon() {
+		return 1e-6;
 	}
+
+	constructor(controlpoints) {
+		// pre-calculate the polynomial coefficients
+	    // First and last control points are implied to be (0,0) and (1.0, 1.0)
+	    this.cx = 3.0 * controlpoints[0];
+	    this.bx = 3.0 * (controlpoints[2] - controlpoints[0]) - this.cx;
+	    this.ax = 1.0 - this.cx -this.bx;
+
+	    this.cy = 3.0 * controlpoints[1];
+	    this.by = 3.0 * (controlpoints[3] - controlpoints[1]) - this.cy;
+	    this.ay = 1.0 - this.cy - this.by;
+	}
+
+	sampleCurveX(t) {
+	    return ((this.ax * t + this.bx) * t + this.cx) * t;
+	}
+
+	sampleCurveY(t) {
+	    return ((this.ay * t + this.by) * t + this.cy) * t;
+	}
+
+	sampleCurveDerivativeX(t) {
+	    return (3.0 * this.ax * t + 2.0 * this.bx) * t + this.cx;
+	}
+
+	solveCurveX(x, epsilon) {
+    	var t0; 
+	    var t1;
+	    var t2;
+	    var x2;
+	    var d2;
+	    var i;
+
+	    // First try a few iterations of Newton's method -- normally very fast.
+	    for (t2 = x, i = 0; i < 8; i++) {
+	        x2 = this.sampleCurveX(t2) - x;
+	        if (Math.abs (x2) < epsilon)
+	            return t2;
+	        d2 = this.sampleCurveDerivativeX(t2);
+	        if (Math.abs(d2) < epsilon)
+	            break;
+	        t2 = t2 - x2 / d2;
+	    }
+
+	    // No solution found - use bi-section
+	    t0 = 0.0;
+	    t1 = 1.0;
+	    t2 = x;
+
+	    if (t2 < t0) return t0;
+	    if (t2 > t1) return t1;
+	    console.log(epsilon);
+	    while (t0 < t1) {
+	        x2 = this.sampleCurveX(t2);
+	        if (Math.abs(x2 - x) < epsilon)
+	            return t2;
+	        if (x > x2) t0 = t2;
+	        else t1 = t2;
+
+	        t2 = (t1 - t0) * .5 + t0;
+	    }
+
+	    // Give up
+	    return t2;
+	}
+
 	yatx(x) {
-		return x;
+	    return this.sampleCurveY( this.solveCurveX(x, this.epsilon) );
 	}
 }
-
-
-// cubicBezier = (x, points) => {
-// 	// return (Math.pow((1 - x), 3) * points[0]) + (3 * Math.pow((1 - x), 2) * x * points[1]) + (3 * (1 - x) * Math.pow(x, 2) * points[2]) + (Math.pow(x, 3) * points[3]);
-// 	//u^3(c0 + 3c1 -3c2 +c3) + u^2(3c0 -6c1 +3c2) + u(-3c0 +3c1) + c0
-// 	// return Math.pow(x, 3) * (points[0] + 3 * points[1] - 3 * points[2] + points[3]) + Math.pow(x, 2) * (3 * points[0] - 6 * points[1] + 3 * points[2]) + x * (-3 * points[0] + 3 * points[1]) + points[0];
-// 	//((1 - x)³ * a) + (3 * (1 - x)² * x * 	b) + (3 * (1 - x) * x² * c) + (x³ * d)
-// }
-
-// class cubicBezier {
-// 	constructor(controlpoints) {
-// 		//controlpoints: [p1x, p1y, p2x, p2y]
-// 		this.C1x = 3 * controlpoints[0];
-// 		this.C1y = 3 * controlpoints[1];
-// 		this.C2x = 3 * controlpoints[2] - 6 * controlpoints[0];
-// 		this.C2y = 3 * controlpoints[3] - 6 * controlpoints[1];
-// 		this.C3x = 3 * controlpoints[0] - 3 * controlpoints[2] + 1;
-// 		this.C3y = 3 * controlpoints[1] - 3 * controlpoints[3] + 1;
-// 	}
-
-// 	yatx(x) {
-// 		if(x == 0) {
-// 			return 0;
-// 		}
-// 		const p = 3 * this.C3x * this.C1x - this.C2x ** 2;
-// 		const q = 2 * this.C2x ** 3 - 9 * this.C3x * this.C2x * this.C1x + 27 * this.C3x ** 2 * -x;
-
-// 		const d = q ** 2 + 4 * p ** 3;
-
-// 		console.log(d);
-
-// 		if(d > 0) {
-// 			const a = 4 * Math.sqrt(q ** 2 + 4 * p **3);
-// 			console.log(a);
-
-// 			const u = .5 * (-4 * q + a) ** (1 / 3)
-// 			const v = -.5 * Math.abs(-4 * q - a) ** (1 / 3)
-
-// 			console.log("test: ", (-4 * q - a));
-// 			console.log(u, v);
-
-// 			const y = u + v;
-
-// 			return (y - this.C2x) / (3 * this.C3x);
-// 		}
-
-// 		// var a, b, c;
-// 		// if(this.C3x == 0) {
-// 		// 	a = this.C2x;
-// 		// 	b = this.C1x;
-// 		// 	c = -x
-// 		// }
-// 		// else {
-// 		// 	a = this.C2x / this.C3x;
-// 		// 	b = this.C1x / this.C3x;
-// 		// 	c = -x / this.C3x;
-// 		// }
-
-// 		// const p = b - ((a ** 2) / 3);
-// 		// const q = ((2 * (a ** 3)) / 27) - ((a * b) / 3) + c;
-
-
-// 		// const delta = ((q / 2) ** 2) + ((p / 3) ** 3);	//no cubic square, instead to the power of 1 / root
-
-// 		// var t;
-// 		// // console.log("delta", delta);
-
-// 		// if(delta > 0) {
-// 		// 	// console.log("first fall D > 0");
-// 		// 	const u = (-(q / 2) + Math.sqrt(delta) ** (1 / 3));
-// 		// 	const v = -((Math.abs(-(q / 2) - Math.sqrt(delta))) ** (1 / 3));	//Can't pow a negative number, so pow the abs and negate it afterwards
-
-// 		// 	t = u + v - (this.C2x / (3 * this.C3x));
-// 		// }
-// 		// else if(delta < 0) {
-// 		// 	// console.log("third fall D < 0");
-
-// 		// 	// console.log((-q / 2) * Math.sqrt(27 / (Math.abs(p) ** 3)));
-
-// 		// 	t = Math.sqrt(-(4 / 3) * p) * Math.cos((1 / 3) * Math.acos(-(q / 2) * Math.sqrt(-(27 / (p ** 3))))) - (this.C2x / (3 * this.C3x));
-
-
-
-// 		// 	// t = Math.sqrt((-4 / 3) * p) * Math.cos((1 / 3) * Math.acos((-q / 2) * Math.sqrt(27 / (Math.abs(p) ** 3))) + (Math.PI / 3)) - (this.C2x / (3 * this.C3x));
-
-// 		// }
-// 		// else {
-// 		// 	alert("D == 0 !");
-// 		// }
-
-		
-
-// 		// const y = (t ** 3) * this.C3y + (t ** 2) * this.C2y + t * this.C1y;
-		
-// 		// return y;
-
-
-// 	}
-
-// }
-
-// const bezier = [0.4, 0, 0.2, 1];
-// const bezier = [0, 0, 1, 1];
-
-
-// const cs = new cubicBezier(bezier);
-
-// console.log(cs.yatx(0.5));
-
-// document.body.innerHTML = `<canvas height=500 width=500 style="border: 2px red solid" id="test"></canvas>`;
-
-// var canvas = document.getElementById("test").getContext("2d");
-// canvas.fillStyle = "green";
-// canvas.strokeStyle = "rgba(0, 0, 255, 0.6)";
-
-// canvas.beginPath();
-
-// canvas.moveTo(0, 500);
-// canvas.bezierCurveTo(bezier[0] * 500, 500 - bezier[1] * 500, bezier[2] * 500, 500 - bezier[3] * 500, 500, 0);
-
-// canvas.stroke();
-
-// for(var i = 0; i < 1; i += 0.02) {
-// 	canvas.beginPath();
-// 	canvas.arc(i * 500, 500 - cs.yatx(i) * 500, 3, 0, 2 * Math.PI);
-// 	canvas.fill();
-// }
