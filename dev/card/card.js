@@ -72,7 +72,7 @@ class entryCard extends HTMLElement {
 	}
 	set pinned(val) {
 		this.data.pinned = val;
-		this.wrapper.setAttribute("pinned", val);
+		this._updatePinnedStatus(val);
 	}
 
 	connectedCallback() {
@@ -164,6 +164,10 @@ class entryCard extends HTMLElement {
 				this.pinned = !this.pinned;
 				break;
 		}
+	}
+
+	_updatePinnedStatus(val) {
+		this.wrapper.setAttribute("pinned", val);
 	}
 
 	remove() {

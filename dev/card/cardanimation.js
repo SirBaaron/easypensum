@@ -19,6 +19,12 @@ Object.defineProperties(entryCard.prototype, {
 	"closeanimationduration": {
 		value: 250
 	},
+	"_updatePinnedStatus": {
+		value: function _updatePinnedStatus(val) {
+			this.cardDate.style.transition = "transform 0.15s cubic-bezier(.4,0,.2,1)";
+			this.wrapper.setAttribute("pinned", val);
+		}
+ 	},
 	"remove": {
 		value: function remove() {
 			const size = 55 + this.contentHeight + (this.infoOpen ? this.infoHeight : 0) + 10;

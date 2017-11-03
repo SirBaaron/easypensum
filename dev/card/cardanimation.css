@@ -10,3 +10,29 @@
 .card_wrapper {
 	transform-origin: center top;
 }
+
+.card_action_button[value=pin] svg {
+	transition: fill 0.15s ease-in-out;
+}
+
+.card_header_pin {
+	transition: opacity 0.15s ease-in-out;
+	display: initial;
+	opacity: 0;
+}
+
+.card_wrapper[pinned=true] .card_header_pin {
+	opacity: 1;
+}
+
+.card_header {
+	padding-left: 0px !important;
+}
+
+.card_date {
+	transform: translateX(-22px);
+}
+
+.card_wrapper[pinned=true] .card_date {
+	transform: translateX(0px);
+}
