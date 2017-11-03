@@ -21,7 +21,7 @@ Object.defineProperties(entryCard.prototype, {
 	},
 	"remove": {
 		value: function remove() {
-			const size = 55 + this.contentHeight + (this.infoOpen ? this.infoHeight : 0);
+			const size = 55 + this.contentHeight + (this.infoOpen ? this.infoHeight : 0) + 10;
 			this.wrapper.style.willChange = "transform";
 			animation.add({
 				el: this.wrapper,
