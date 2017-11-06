@@ -39,3 +39,8 @@ toast-card {
 	width: 26px;
 	margin: 0px 10px;
 }
+
+.toast_spinner > spinner-element {
+	height: 100%;
+	width: 100%;
+}
