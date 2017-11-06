@@ -19,16 +19,14 @@ Object.defineProperties(spinnerElement.prototype, {
 			this.firstChild.lastElementChild.style.height = value + "px";
 		}
 	},
-	"connectedCallback": {
-		value: function connectedCallback() {
+	"_progressiveConstructor": {
+		value: function _progressiveConstructor() {
 			this.innerHTML = this.template;
-			this.connected = true;
-			this._updateColor(this.getAttribute("color") || "#fff");
 			this._updateThickness(this.getAttribute("thickness") || 5);
 		}
 	}
 });
 
 [].slice.call(document.getElementsByTagName("spinner-element")).forEach(n => {
-	n.connectedCallback();
+	n._progressiveConstructor();
 })

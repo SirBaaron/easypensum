@@ -18,9 +18,12 @@ class spinnerElement extends HTMLElement {
 
 	connectedCallback() {
 		this.innerHTML = this.template;
+		this._progressiveConstructor();
 		this.connected = true;
 		this._updateColor(this.getAttribute("color") || "#fff");
 	}
+
+	_progressiveConstructor() {}
 
 	attributeChangedCallback(attribute, oldVal, newVal) {
 		if(!this.connected) return;
