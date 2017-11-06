@@ -1,0 +1,14 @@
+@media screen and (min-width: 800px) {
+	.section_title {
+		margin-left: 0px !important;
+	}
+}
+
+.section_title {
+	display: inline-block;
+	padding-left: 15px;
+	margin-left: 38px;
+	line-height: 50px;
+	font-size: 150%;
+	color: white;
+}

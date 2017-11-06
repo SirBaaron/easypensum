@@ -1,63 +1,77 @@
 {
 	"injectPattern": "//<-inject:<filename>->",
-	"bundles": [
-		{
-			"base": "js/overview.js",
-			"sources": [
-				"js/card.js",
-				"js/tabs.js",
-				"css/overview.css",
-				"css/overviewHeader.css",
-				"css/card.css",
-				"html/overview.html",
-				"html/card.html"
-			]
-		},
-		{
-			"base": "js/progressive.js",
-			"sources": [
-				"js/ripple.js",
-				"js/cardanimation.js",
-				"css/ripple.css",
-				"css/progressive.css",
-				"css/cardanimation.css"
-			]
-		},
-		{
-			"base": "js/second-view.js",
-			"sources": [
-				"html/second-view.html",
-				"css/second-view.css"
-			]
-		}
-	],
 	"files": {
 		"js": [
-			"js/card.js",
-			"js/overview.js",
-			"js/tabs.js",
-			"js/progressive.js",
-			"js/ripple.js",
-			"js/cardanimation.js",
-			"js/second-view.js"
+			"dev/card/card.js",
+			"dev/overview/overview.js",
+			"dev/tabs/tabs.js",
+			"dev/overview/stage-1/overview-stage-1.js",
+			"dev/overview/stage-2/overview-stage-2.js",
+			"dev/ripple/ripple.js",
+			"dev/card/cardanimation.js",
+			"dev/second-view/second-view.js",
+			"dev/info/info.js",
+			"dev/helpers/cssinject.js",
+			"dev/helpers/animationsyncer.js",
+			"dev/helpers/cubicbezier.js",
+			"dev/helpers/scriptinject.js",
+			"dev/loading-transition/loading-outro.js",
+			"dev/datenschutz/datenschutz.js",
+			"dev/impressum/impressum.js",
+			"dev/header/header.js",
+			"dev/header/header-title.js",
+			"dev/tabs/tabsanimation.js",
+			"dev/overview/overviewanimation.js",
+			"dev/second-view/second-viewanimation.js",
+			"dev/overview/stage-3/overview-stage-3.js",
+			"dev/ui/fab/fab.js",
+			"dev/toast/toast.js",
+			"dev/toast/toastanimation.js",
+			"dev/cardmanager/cardmanager.js",
+			"dev/cardmanager/cardmanager-dispatch.js",
+			"dev/spinner/spinner.js",
+			"dev/spinner/spinneranimation.js"
 		],
 		"html": [
-			"index.html",
-			"html/card.html",
-			"html/overview.html",
-			"html/second-view.html"
+			"dev/index.html",
+			"dev/card/card.html",
+			"dev/overview/overview.html",
+			"dev/second-view/second-view.html",
+			"dev/tabs/tabs.html",
+			"dev/info/info.html",
+			"dev/cookie-notice/cookie-notice.html",
+			"dev/datenschutz/datenschutz.html",
+			"dev/impressum/impressum.html",
+			"dev/toast/toast.html",
+			"dev/spinner/spinner.html",
+			"dev/spinner/spinneranimation.html"
 		],
 		"css": [
-			"css/card.css",
-			"css/overview.css",
-			"css/overviewHeader.css",
-			"css/splashdrawer.css",
-			"css/splashloadinganimation.css",
-			"css/splashscreen.css",
-			"css/ripple.css",
-			"css/progressive.css",
-			"css/cardanimation.css",
-			"css/second-view.css"
+			"dev/card/card.css",
+			"dev/overview/overview.css",
+			"dev/overview/overviewHeader.css",
+			"dev/splashscreen/splashdrawer.css",
+			"dev/splashscreen/splashloadinganimation.css",
+			"dev/splashscreen/splashscreen.css",
+			"dev/ripple/ripple.css",
+			"dev/overview/stage-1/stage-1.css",
+			"dev/card/cardanimation.css",
+			"dev/second-view/second-view.css",
+			"dev/tabs/tabs.css",
+			"dev/info/info.css",
+			"dev/cookie-notice/cookie-notice.css",
+			"dev/header/header-title.css",
+			"dev/header/header.css",
+			"dev/datenschutz/datenschutz.css",
+			"dev/impressum/impressum.css",
+			"dev/tabs/tabsanimation.css",
+			"dev/overview/overviewanimation.css",
+			"dev/second-view/second-viewanimation.css",
+			"dev/ui/fab/fab.css",
+			"dev/toast/toast.css",
+			"dev/toast/toastanimation.css",
+			"dev/spinner/spinner.css",
+			"dev/spinner/spinneranimation.css"
 		],
 		"img": [
 			"static/logo168.png",
@@ -66,27 +80,22 @@
 			"static/logo96.png",
 			"static/logo72.png",
 			"static/logo48.png"
+		],
+		"server": [
+			"index.js",
+			"server/createBundle.js",
+			"server/renderIndex.js",
+			"server/config.js",
+			"server/secret.js",
+			"server/environment.js"
 		]
 	},
-	"output": {
-		"index.html": "index.html",
-		"bundles/overview.js": "a.js",
-		"bundles/progressive.js": "b.js",
-		"bundles/second-view.js": "d.js",
-		"../node_modules/@webcomponents/custom-elements/custom-elements.min.js": "c.js",
-		"static/*.png": "static/*.png"
-	},
-	"rename": {
-		"bundles/overview.js": "a.js",
-		"bundles/progressive.js": "b.js",
-		"bundles/second-view.js": "d.js",
-		"../node_modules/@webcomponents/custom-elements/custom-elements.min.js": "c.js",
-		"<script src=\"classid.js\"></script>": ""
-	},
-	"addCopyright": [
-		"index.html",
-		"bundles/overview.js",
-		"bundles/progressive.js",
-		"bundles/second-view.js"
+	"move": [
+		"build/bundles/es5/*.*",
+		"build/bundles/es6/*.*",
+		"build/templates/*.*",
+		"build/index.js",
+		"build/server/*.*",
+		"build/static/*.*"
 	]
 }

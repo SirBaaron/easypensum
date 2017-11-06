@@ -1,0 +1,118 @@
+spinner-element {
+	animation: 2s linear infinite spinner-main-rotate;
+}
+
+spinner-element > div {
+	height: 100%;
+	position: relative;
+	animation: 5.332s cubic-bezier(.4, 0, .2, 1) infinite spinner-rotate;
+	border-color: #fff;
+}
+
+.spinner_tile {
+	position: absolute;
+	overflow: hidden;
+	height: 100%;
+	width: 50%;
+	border-color: inherit;
+}
+
+.spinner_arc {
+	height: 100%;
+	width: 200%;
+	border-radius: 50%;
+	box-sizing: border-box;
+	border-style: solid;
+	border-color: inherit;
+	border-bottom-color: transparent;
+	animation-duration: 1.333s;
+	animation-timing-function: cubic-bezier(.4, 0, .2, 1);
+	animation-iteration-count: infinite;
+}
+
+.spinner_tile-right {
+	margin-left: 50%;
+}
+
+.spinner_tile-right .spinner_arc {
+	margin-left: -100%;
+	border-right-color: transparent;
+	animation-name: spinner-arc-right;
+}
+
+.spinner_tile-left .spinner_arc {
+	border-left-color: transparent;
+	animation-name: spinner-arc-left;
+}
+
+.spinner_middle_dot {
+	position: absolute;
+	height: 7px;
+	width: 3px;
+	left: 50%;
+	transform: translateX(-50%);
+}
+
+@keyframes spinner-main-rotate {
+	to {
+		transform: rotate(360deg);
+	}
+}
+
+@keyframes spinner-rotate {
+	12.5% {
+		transform: rotate(135deg)
+	}
+
+	25% {
+		transform: rotate(270deg)
+	}
+
+	37.5% {
+		transform: rotate(405deg)
+	}
+
+	50% {
+		transform: rotate(540deg)
+	}
+
+	62.5% {
+		transform: rotate(675deg)
+	}
+
+	75% {
+		transform: rotate(810deg)
+	}
+
+	87.5% {
+		transform: rotate(945deg)
+	}
+
+	100% {
+		transform: rotate(1080deg)
+	}
+}
+
+@keyframes spinner-arc-right {
+	0% {
+		transform: rotate(-30deg);
+	}
+	50% {
+		transform: rotate(100deg);
+	}
+	100% {
+		transform: rotate(-30deg);
+	}
+}
+
+@keyframes spinner-arc-left {
+	0% {
+		transform: rotate(30deg);
+	}
+	50% {
+		transform: rotate(-100deg);
+	}
+	100% {
+		transform: rotate(30deg);
+	}
+}

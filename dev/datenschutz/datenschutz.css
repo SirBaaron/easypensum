@@ -1,0 +1,10 @@
+section-datenschutz {
+	display: block;
+	padding: 58px 8px 0px;
+	word-break: break-word;
+}
+
+section-datenschutz a {
+	color: #FFC107;
+	font-style: italic;
+}

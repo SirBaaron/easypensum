@@ -1,0 +1,36 @@
+body:not([feature-sv]) fab-create {
+	background: #808080;
+	opacity: 0.9;
+	pointer-events: none;
+	transform: scale(0.8);
+}
+
+fab-create {
+	bottom: 15px;
+	right: 15px;
+	width: 60px;
+	height: 60px;
+	background: #FFC107;
+	box-shadow: 3px 3px 7px 0 rgba(50,50,50,.5);
+	cursor: pointer;
+	position: fixed !important;
+	border-radius: 50%;
+	transition: background 0.2s ease-in-out, opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+fab-create:after, fab-create:before {
+	content: '';
+	display: block;
+	position: absolute;
+	right: 50%;
+	bottom: 50%;
+	width: 3px;
+	height: 17px;
+	border-radius: 1px;
+	background: #E2E2E2;
+	transform: translate(50%, 50%);
+}
+
+fab-create:after {
+	transform: translate(50%, 50%) rotate(90deg);
+}

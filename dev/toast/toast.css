@@ -1,0 +1,41 @@
+toast-manager {
+	position: fixed;
+	z-index: 100;
+	bottom: 0px;
+	left: 0px;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+}
+
+toast-card {
+	display: flex;
+	min-width: 100px;
+	max-width: calc(100vw - 20px);
+	font-size: 17px;
+	background: #323232;
+	padding: 15px 20px;
+	margin: 10px;
+	border-radius: 3px;
+	box-sizing: border-box;
+	overflow: hidden;
+	box-shadow: 3px 3px 7px 0 rgba(0,0,0,.35);
+}
+
+.toast_text {
+	color: #f1f1f1;
+	flex-grow: 1;
+	text-align: center;
+}
+
+.toast_action {
+	color: #FFC107;
+	cursor: pointer;
+	margin-left: 20px;
+}
+
+.toast_spinner {
+	height: 26px;
+	width: 26px;
+	margin: 0px 10px;
+}

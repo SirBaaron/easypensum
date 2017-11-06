@@ -1,0 +1,12 @@
+ripple-effect {
+	display:block;
+	height:100px;
+	width:100px;
+	position:absolute;
+	top:0px;
+	left:0px;
+	border-radius:50%;
+	pointer-events:none;
+	will-change:transform;
+	transform:scale(0);
+}

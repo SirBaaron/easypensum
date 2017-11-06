@@ -1,4 +1,8 @@
 build/
 dist/
-report/
-dev/bundles/*
+templates/
+sessions/
+bundles/
+classid-pairs.json
+dev/impressum/impressum.html
+server/secret.js

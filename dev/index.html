@@ -2,56 +2,78 @@
 <html>
 <head>
 	<script>
+	try {
+		eval("class fooa {};var foob = x => 1;let fooc = 1;const food = 1;var fooe = `a`;function foof (one = 1) {}");
+		document.cookie = "feature-es6=true";
+	}
+	catch(e){}
 	if(window.customElements == undefined) {
-		var s = document.createElement("script");
-		s.src = "../node_modules/@webcomponents/custom-elements/custom-elements.min.js";
-		document.head.appendChild(s);
+		document.cookie = "feature-customElements=false"
 	}
 	</script>
-	<title>Easy Pensum</title>
-	<meta name="theme-color" content="#D68800">
+	<title>Easy Pensum Beta</title>
+	<meta name="theme-color" content="<!--SSR:headerColor-->">
 	<meta name="viewport" content="width=device-width,height=device-height">
-	
 
 	<meta charset="utf-8">
+	<meta http-equiv="language" content="deutsch, at">
+	<meta name="description" content="Beta Version von Easy Pensum. Offizielle bei filosofisch.com">
+	<link rel="alternate" href="https://easypensum.com/" hreflang="de-at">
+
+	<meta name="google-site-verification" content="SwCfKCpWQD9wLD458uoNKhU2LsY7KVH4PzfmYngS_rQ" />
 	
-
-
-	<link rel="stylesheet" href="css/splashscreen.css" inline>
+	<link rel="stylesheet" href="splashscreen/splashscreen.css" inline>
 	<script src="classid.js"></script>
 </head>
 <body>
 	<div id="main">
-		<div id="splashheader"></div>
+		<div id="splashheader" style="height:<!--SSR:headerHeight-->px;background:<!--SSR:headerColor-->"></div>
 
-		<link rel="stylesheet" href="css/splashloadinganimation.css" inline>
+		<link rel="stylesheet" href="splashscreen/splashloadinganimation.css" inline>
 		
-		<div id="splashloadinganimation">
-			<span>.</span>
-			<span>.</span>
-			<span>.</span>
+		<div id="splashloadinganimation" style="height:calc(100vh - <!--SSR:headerHeight-->px);">
+			<span>·</span>
+			<span>·</span>
+			<span>·</span>
 		</div>
 		<div id="sections">
-			<div id="overview"></div>
-			<div id="archive"></div>
-			<div id="settings"></div>
-			<div id="info"></div>
+			<section-overview></section-overview>
+			<!-- <section-archive></section-archive> -->
+			<!-- <section-settings></section-settings> -->
+			<section-info></section-info>
+			<section-datenschutz></section-datenschutz>
+			<section-impressum></section-impressum>
 		</div>
 
 		<second-view></second-view>
 	</div>
 
-	<link rel="stylesheet" href="css/splashdrawer.css" inline>
+	<link rel="stylesheet" href="splashscreen/splashdrawer.css" inline>
 
+	<input id="toogleDrawerCheckbox" type="checkbox">
+	<label id="toogleDrawerLabel" for="toogleDrawerCheckbox"><svg viewBox="0 0 24 24">
+			<path d="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z"></path>
+		</svg>
+	</label>
+	<label id="toggleDrawerShadow" for="toogleDrawerCheckbox"></label>
 	<div id="drawer">
 		<div id="navigation_header">
 			<div id="navigation_firstrow">
 				<img src="static/logo72.png" alt="Easy Pensum Logo" id="navigation_logo" async>
-				<div id="navigation_title">Easy<br>Pensum</div>
+				<div id="navigation_title">Easy<br>Pensum<br>Beta</div>
+				<svg id="beta_notice" viewBox="0 0 24 24">
+					 <path d="M7,2V4H8V18A4,4 0 0,0 12,22A4,4 0 0,0 16,18V4H17V2H7M11,16C10.4,16 10,15.6 10,15C10,14.4 10.4,14 11,14C11.6,14 12,14.4 12,15C12,15.6 11.6,16 11,16M13,12C12.4,12 12,11.6 12,11C12,10.4 12.4,10 13,10C13.6,10 14,10.4 14,11C14,11.6 13.6,12 13,12M14,7H10V4H14V7Z" />
+				</svg>
 			</div>
 			<div id="schoolinfo"></div>
 		</div>
+		<div id="navigation_links">
+			<!--SSR:links-->
+			<div class="copyright_notice"><!--SSR:copyright--></div>
+		</div>
 	</div>
-	<script src="bundles/overview.js" async></script>
+	<toast-manager></toast-manager>
+	<!--SSR:script-->
+	<!--SSR:cookie-->
 </body>
 </html>

@@ -1,0 +1,162 @@
+@media screen and (min-width: 800px) {
+	#drawer {
+		transform: none !important
+	}
+	#main {
+		margin-left: 250px;
+	}
+	.drawerToggle {
+		display: none;
+	}
+	#toogleDrawerLabel {
+		display: none;
+	}
+}
+
+#drawer {
+	z-index: 10;
+	position: fixed;
+	top: 0px;
+	background: #EAEAEA;
+	height: 100%;
+	width: 250px;
+	transform: translateZ(0) translateX(-100%);
+
+}
+
+#navigation_header {
+	height: 104px;
+	width: 100%;
+	background: #009688;
+	display: block;
+}
+
+#navigation_title {
+	height: 60px;
+	font-size: 20px;
+	color: #fff;
+	display: inline-block;
+	padding-left: 10px;
+	padding-top: 5px;
+}
+
+#beta_notice {
+	height: 60px;
+	margin-top: 5px;
+	margin-left: 15px;
+	width: 40px;
+	animation: weird 0.7s infinite linear;
+}
+
+#navigation_logo {
+	padding: 5px 0 0 10px;
+	height: 60px;
+	width: 60px;
+}
+
+#navigation_firstrow {
+	display: flex;
+	height: 72px;
+}
+
+#navigation_links {
+	height: calc(100% - 104px);
+	padding-top: 10px;
+	display: flex;
+	flex-direction: column;
+	box-sizing: border-box;
+	flex-direction: column;
+	overflow-y: auto;
+}
+
+#navigation_links > a {
+	color: black;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+#navigation_links > .primary {
+	line-height: 30px;
+	padding: 10px;
+	font-size: 21px;
+}
+
+#navigation_links > .secondary {
+	padding: 5px 10px 0px;
+	font-size: 15px;
+	text-align: center;
+}
+
+#navigation_links > .seperator {
+	flex-grow: 1;
+	border-bottom: solid 1px rgba(0, 0, 0, .2);
+	margin: 10px 6px 0px;
+}
+
+#navigation_links > .copyright_notice {
+	font-size: 11px;
+	text-align: center;
+	font-style: italic;
+	opacity: 0.7;
+	line-height: 20px;
+}
+
+#toogleDrawerLabel {
+	top: 0px;
+	left: 0px;
+	position: fixed;
+	z-index: 3;
+}
+
+#toogleDrawerLabel svg {
+	width: 28px;
+	height: 50px;
+	padding: 0px 10px;
+	fill: white;
+}
+
+#toggleDrawerShadow {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	height: 100%;
+	width: 100%;
+	margin: 0;
+	display: none;
+	z-index: 4;
+	background: rgba(0,0,0,.7);
+}
+
+#toogleDrawerCheckbox {
+	display: none;
+}
+
+#toogleDrawerCheckbox:checked ~ #toggleDrawerShadow {
+	display: block;
+}
+
+#toogleDrawerCheckbox:checked ~ #drawer {
+	transform: translateZ(0) translateX(0%);
+}
+
+@keyframes weird {
+	0% {
+		transform: rotate(0deg);
+		fill: #76FF03;
+	}
+	10% {
+		transform: rotate(-10deg);
+	}
+	30% {
+		transform: rotate(10deg);
+	}
+	40% {
+		transform: rotate(0deg);
+	}
+	50% {
+		fill: #B2FF59;
+	}
+	100% {
+		fill: #76FF03;
+	}
+}

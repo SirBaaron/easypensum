@@ -1,0 +1,38 @@
+.card_detail, .card_subject {
+	transition: opacity 0.2s cubic-bezier(.4,0,1,1), transform 0.3s cubic-bezier(.4,0,.2,1);
+	will-change: transform;
+}
+
+.card_shadow {
+	transition: opacity 0.2s linear;
+}
+
+.card_wrapper {
+	transform-origin: center top;
+}
+
+.card_action_button[value=pin] svg {
+	transition: fill 0.15s ease-in-out;
+}
+
+.card_header_pin {
+	transition: opacity 0.15s ease-in-out;
+	display: initial;
+	opacity: 0;
+}
+
+.card_wrapper[pinned=true] .card_header_pin {
+	opacity: 1;
+}
+
+.card_header {
+	padding-left: 0px !important;
+}
+
+.card_date {
+	transform: translateX(-22px);
+}
+
+.card_wrapper[pinned=true] .card_date {
+	transform: translateX(0px);
+}

@@ -1,0 +1,31 @@
+tab-view {
+	width: 100%;
+	display: block;
+	overflow: hidden;
+	min-height: calc(100vh - 104px);
+}
+
+tab-view[fab] #tabhost div[selected] {
+	padding-bottom: 90px;
+}
+
+#tabhost {
+	display: flex;
+	transform: translateZ(0);
+	align-items: flex-start;
+}
+
+#tabhost > div {
+	flex: 1;
+}
+
+#tabhost > div:not([selected]) {
+	max-height: calc(100vh - 104px);
+}
+
+#tabhost .noContent {
+	margin-top: 35px;
+	padding: 0px 10px;
+	font-size: 110%;
+	text-align: center;
+}

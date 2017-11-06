@@ -1,0 +1,10 @@
+body {
+	margin: 0;
+	font-family: "Lucida Sans Unicode","Lucida Grande",sans-serif;
+	background: #F9F9F9;
+}
+
+
+#splashheader {
+	z-index: 9;
+}
