@@ -3,7 +3,7 @@ Object.defineProperties(cardManager.prototype, {
 		value: function dispatch(card) {
 			console.log("dispatch ", card);
 			card.remove();
-			setTimeout(_ => {new Toast("Erledigt!", 1500, false, "Rückgängig", _ => {
+			setTimeout(_ => {new Toast("Erledigt!", 1500, false, false, "Rückgängig", _ => {
 
 			})}, 50);
 		}

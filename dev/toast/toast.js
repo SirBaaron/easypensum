@@ -9,7 +9,7 @@ class toastManager extends HTMLElement {
 			if(e.path.indexOf(this) < 0 && this.childNodes.length > 0) {
 				let toasts = [].slice.call(this.childNodes);
 				for(let i = 0; i < toasts.length; i++) {
-					if(!toasts[i].permanent) {
+					if(!toasts[i].permanent && toasts[i].dismissWithClick) {
 						this.remove(toasts[i]);
 						return;
 					}
@@ -17,9 +17,10 @@ class toastManager extends HTMLElement {
 			}
 		})
 	}
-	add(toast, duration, permanent) {
+	add(toast, duration, permanent, dismissWithClick) {
 		this.domAdd(toast);
 		toast.permanent = permanent;
+		toast.dismissWithClick = dismissWithClick;
 
 		if(!permanent) {
 			this.updateTimer(duration, permanent, toast);
@@ -102,6 +103,9 @@ class ToastCard extends HTMLElement {
 		if("duration" in json) {
 			this.parentNode.updateTimer(json.duration, (json.duration === true), this);
 		}
+		if("dismissWithClick" in json) {
+			this.dismissWithClick = json.dismissWithClick;
+		}
 	}
 
 	hide() {
@@ -113,7 +117,7 @@ window.customElements.define("toast-manager", toastManager);
 window.customElements.define("toast-card", ToastCard);
 
 class Toast {
-	constructor(txt, duration = 2000, spinner = false, action = null, callback = {}) {
+	constructor(txt, duration = 2000, spinner = false, dismissWithClick = true, action = null, callback = {}) {
 		this.toast = new ToastCard(
 			txt,
 			(action || ""),
@@ -124,7 +128,8 @@ class Toast {
 		document.getElementsByTagName("toast-manager")[0].add(
 			this.toast,
 			duration,
-			(duration === true)
+			(duration === true),
+			dismissWithClick
 			);
 	}
 	update(json) {
