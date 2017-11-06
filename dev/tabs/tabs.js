@@ -33,7 +33,7 @@ class tabView extends HTMLElement {
 			this.touchstart = null;
 		}, {passive: true})
 
-		window.setTimeout(this.measure.bind(this), 500);
+		window.setTimeout(this.measure.bind(this), 100);
 	}
 
 	_touchstart(e) {
