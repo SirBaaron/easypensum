@@ -10,8 +10,8 @@ const environment = require("./server/environment.js");
 
 var app = EXPRESS();
 
-const secret = require("./server/secret").session_csrf_secret;
-const cookiename = require("./server/secret").session_cookie_name;
+const secret = environment.session_csrf_secret;
+const cookiename = environment.session_cookie_name;
 
 var routes = Object.keys(config.entryPoints);
 

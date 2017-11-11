@@ -86,8 +86,8 @@
 			"server/createBundle.js",
 			"server/renderIndex.js",
 			"server/config.js",
-			"server/secret.js",
-			"server/environment.js"
+			"server/environment.js",
+			"server/environment.deploy.js"
 		]
 	},
 	"move": [
@@ -95,7 +95,10 @@
 		"build/bundles/es6/*.*",
 		"build/templates/*.*",
 		"build/index.js",
-		"build/server/*.*",
+		[
+			"build/server/*.js",
+			"!build/server/*.deploy.js"
+		],
 		"build/static/*.*"
 	]
 }

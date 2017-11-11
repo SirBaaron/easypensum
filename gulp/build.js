@@ -23,6 +23,7 @@ var replaceBatch = require('gulp-batch-replace');
 var fs = require('fs');
 var argv = require('yargs').argv;
 var copyNodeModule = require('copy-node-modules');
+var rename = require('gulp-rename');
 
 const config = JSON.parse(fs.readFileSync('./gulp/config.json'));
 
@@ -52,13 +53,11 @@ gulp.task("build", () => {
 });
 
 gulp.task("environment", () => {
-	var replace = [
-		['es5Path: ""', 'es5Path: "es6/"'],
-		['es6Path: ""', 'es6Path: "es6/"']
-	]
-
-	return gulp.src("build/server/environment.js")
-	.pipe(replaceBatch(replace))
+	return gulp.src("build/server/environment.deploy.js")
+	.pipe(rename({
+		basename: "environment",
+		extname: ".js"
+	}))
 	.pipe(gulp.dest("build/server/"));
 });
 
