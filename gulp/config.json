@@ -87,7 +87,12 @@
 			"server/renderIndex.js",
 			"server/config.js",
 			"server/environment.js",
-			"server/environment.deploy.js"
+			"server/environment.deploy.js",
+			"server/db.js",
+			"server/ssr.js",
+			"server/bundles/overview.js",
+			"server/api/entries.js",
+			"server/api/klass.js"
 		]
 	},
 	"move": [
@@ -96,7 +101,7 @@
 		"build/templates/*.*",
 		"build/index.js",
 		[
-			"build/server/*.js",
+			"build/server/**/*.js",
 			"!build/server/*.deploy.js"
 		],
 		"build/static/*.*"

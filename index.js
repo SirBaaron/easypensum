@@ -32,10 +32,15 @@ app.use((req, res, next) => {
 app.use(cookieParser());
 
 app.get(routes, (req, res) => {
+	let start = process.hrtime();
 	req.session.set("route", req.path);
 	req.session.set("loadedModules", []);
-	require("./server/renderIndex").renderIndex(req)
-		.pipe(res);
+	require("./server/renderIndex").renderIndex(req).then(r => {
+		res.end(r);
+		let end = process.hrtime(start);
+		console.log("index rendering time: " + Math.round((end[0]*1000) + (end[1]/1000000)) + "ms");
+		res.set("render-time", Math.round((end[0]*1000) + (end[1]/1000000)) + "ms");
+	});
 });
 
 app.get("/index.html", (req, res) => {
@@ -43,7 +48,13 @@ app.get("/index.html", (req, res) => {
 });
 
 app.all("/bundles/*.js", (req, res) => {
-	res.end(require("./server/createBundle").createBundle(req.path, req.session, req.cookies));
+	let start = process.hrtime();
+	require("./server/createBundle").createBundle(req.path, req.session, req.cookies).then(r => {
+		res.end(r);
+		let end = process.hrtime(start);
+		console.log("bundle rendering time: " + Math.round((end[0]*1000) + (end[1]/1000000)) + "ms");
+		res.set("render-time", Math.round((end[0]*1000) + (end[1]/1000000)) + "ms");
+	});
 });
 
 app.all("/static/*", (req, res) => {
@@ -51,9 +62,7 @@ app.all("/static/*", (req, res) => {
 		.pipe(res)
 });
 
-app.get("/classid.js", (req, res) => {
-	FS.createReadStream("./dev/classid.js").pipe(res); 
-})
+app.get("/classid.js", (req, res) => {FS.createReadStream("./dev/classid.js").pipe(res);});
 
 app.listen(environment.port);
 

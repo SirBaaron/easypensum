@@ -5,7 +5,6 @@
 	right: 0px;
 	left: 0px;
 	z-index: 2;
-	background: #D68800;
 	white-space: nowrap;
 	transform: translateZ(0);
 }
@@ -18,7 +17,6 @@
 
 #overview_header {
 	height: 72px;
-	background: #D68800;
 	position: -webkit-sticky;
 	position: sticky;
 	top: 0px;

@@ -6,3 +6,4 @@ bundles/
 classid-pairs.json
 dev/impressum/impressum.html
 server/environment.deploy.js
+dev/survey/

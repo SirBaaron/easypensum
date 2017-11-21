@@ -22,8 +22,8 @@ var injectfile = require('gulp-inject-file');
 var replaceBatch = require('gulp-batch-replace');
 var fs = require('fs');
 var argv = require('yargs').argv;
-var copyNodeModule = require('copy-node-modules');
 var rename = require('gulp-rename');
+var gnf = require('gulp-npm-files');
 
 const config = JSON.parse(fs.readFileSync('./gulp/config.json'));
 
@@ -67,11 +67,13 @@ gulp.task("server", () => {
 	});
 
 	var replace = [
-		["var classid = require('./classid-node.js');", ""]
+		["var classid = require('./classid-node.js');", ""],
+		["var classid = require('./../classid-node.js');", ""],
+		['app.get("/classid.js", (req, res) => {FS.createReadStream("./dev/classid.js").pipe(res);});', ""]
 	]
 
 	return gulp.src(bases, {
-		base: "build/"
+		base: "./build/"
 	})
 	.pipe(replaceBatch(replace))
 	.pipe(gulp.dest("build/"));
@@ -258,7 +260,9 @@ gulp.task("index-remove-classid", () => {
 gulp.task("move", () => {
 	var stream = require('merge-stream')();
 
-	copyNodeModule("./", "./dist/", {}, (err, results) => {});
+	stream.add(gulp.src(gnf(), {
+		base: "./"
+	}).pipe(gulp.dest("dist/")));
 
 	for(i in config.move) {
 		stream.add(gulp.src(config.move[i], {
