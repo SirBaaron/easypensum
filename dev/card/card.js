@@ -237,7 +237,14 @@ class entryCard extends HTMLElement {
 	_extractTime(dte) {
 		let p = dte.split(/[^0-9]/);
 		let d = new Date(p[0],p[1]-1,(p[2] || 0),(p[3] || 0),(p[4] || 0));
-		return d.getHours() + ":" + d.getMinutes();
+		let h = d.getHours();
+		let m = d.getMinutes();
+		console.log(m.length);
+		return `${
+			(h > 9) ? "" : "0"
+		}${h}:${
+			(m > 9) ? "" : "0"
+		}${m}`;
 	}
 
 	/**
