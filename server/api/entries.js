@@ -16,7 +16,7 @@ findUserName = (uuid, cache = {}) => {
 	});
 }
 
-formatEntries = async (entries, subjects, nameMemory = {}) => {
+formatEntries = async (entries, subjects, allowDispatch = false, nameMemory = {}) => {
 	return new Promise(async resolve => {
 		let res = [];
 		for(i in entries) {
@@ -26,7 +26,8 @@ formatEntries = async (entries, subjects, nameMemory = {}) => {
 				detail: entry.detail || "",
 				content: entry.content || "",
 				date: entry.date || "",
-				uuid: entry.uuid || ""
+				uuid: entry.uuid || "",
+				allowDispatch: allowDispatch
 			}
 			let creator = entry.creator || "";
 			let changed = JSON.parse(entry.changed) || [];
@@ -66,8 +67,10 @@ module.exports = {
 						
 			klass.getFields(classuuid, ["scopes", "link", "subjects"]).then(res => {
 				let response = {};
+				let allowDispatch = {};
 				res.scopes.forEach(scope => {
 					response[scope.name] = [];
+					allowDispatch[scope.name] = scope.allowDispatch;
 				});
 				let subjects = {};
 				res.subjects.forEach(subject => {
@@ -91,7 +94,7 @@ module.exports = {
 					let promises = [];
 
 					for(let i = 0; i < Object.keys(response).length; i++) {
-						promises.push(formatEntries(response[Object.keys(response)[i]], subjects, sharedCache));
+						promises.push(formatEntries(response[Object.keys(response)[i]], subjects, allowDispatch[Object.keys(response)[i]], sharedCache));
 					}
 
 					Promise.all(promises).then(val => {

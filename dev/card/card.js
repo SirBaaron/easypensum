@@ -42,6 +42,9 @@ class entryCard extends HTMLElement {
 	get pinned() {
 		return this.data.pinned || false;
 	}
+	get allowDispatch() {
+		return this.data.allowDispatch || false;
+	}
 
 
 
@@ -73,6 +76,9 @@ class entryCard extends HTMLElement {
 	set pinned(val) {
 		this.data.pinned = val;
 		this._updatePinnedStatus(val);
+	}
+	set allowDispatch(val) {
+		this.data.allowDispatch = val;
 	}
 
 	connectedCallback() {
