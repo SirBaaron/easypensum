@@ -30,7 +30,8 @@
 			"dev/cardmanager/cardmanager.js",
 			"dev/cardmanager/cardmanager-dispatch.js",
 			"dev/spinner/spinner.js",
-			"dev/spinner/spinneranimation.js"
+			"dev/spinner/spinneranimation.js",
+			"dev/cardmanager/cardmanager-insert-single.js"
 		],
 		"html": [
 			"dev/index.html",

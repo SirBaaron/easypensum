@@ -5,6 +5,7 @@ class cardManager {
 	}
 
 	render(data) {
+		let dispatched = (JSON.parse(window.localStorage.getItem("dispatch"))) || [];
 		for(var key in data) {
 			var index = this.tabs.map(v => {
 				return v.getAttribute("name");
@@ -13,6 +14,10 @@ class cardManager {
 			if(index < 0) {
 				break;
 			}
+
+			data[key] = data[key].filter(card => {
+				return dispatched.indexOf(card.uuid) < 0;
+			});
 
 			for(var i in data[key]) {
 				let card = new entryCard(data[key][i]);
