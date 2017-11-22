@@ -9,6 +9,10 @@ const config = require("./config.js");
 
 getHeaderColor = (route) => {
 	let promise = new Promise(resolve => {
+		if(route.name != "Übersicht") {
+			resolve(route.headerColor);
+		}
+
 		klass.getScopes("27cfc064-714f-408d-adcd-d1747da75fc5").then(s => {
 			resolve(s[0].color);
 		}).catch(err => {
