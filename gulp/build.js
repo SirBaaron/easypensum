@@ -23,7 +23,7 @@ var replaceBatch = require('gulp-batch-replace');
 var fs = require('fs');
 var argv = require('yargs').argv;
 var rename = require('gulp-rename');
-var gnf = require('gulp-npm-files');
+var gncd = require('gulp-npm-copy-deps');
 
 const config = JSON.parse(fs.readFileSync('./gulp/config.json'));
 
@@ -260,9 +260,7 @@ gulp.task("index-remove-classid", () => {
 gulp.task("move", () => {
 	var stream = require('merge-stream')();
 
-	stream.add(gulp.src(gnf(), {
-		base: "./"
-	}).pipe(gulp.dest("dist/")));
+	gncd('./', './dist');
 
 	for(i in config.move) {
 		stream.add(gulp.src(config.move[i], {
