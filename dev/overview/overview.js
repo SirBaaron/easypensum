@@ -95,7 +95,6 @@ __USE("card.js");
 
 __USE("cardmanager.js");
 
-__USE("fab.js");
 
 
 cards.render(__SSR("queryResult"));
