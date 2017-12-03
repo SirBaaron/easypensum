@@ -12,6 +12,15 @@ module.exports = {
 			"headerHeight": 104,
 			"primarySection": true
 		},
+		"/settings": {
+			"name": "Einstellungen",
+			"bundles": [
+				"settings.js"
+			],
+			"headerColor": "#00BCD4",
+			"headerHeight": 50,
+			"primarySection": true
+		},
 		"/info": {
 			"name": "Info",
 			"bundles": [

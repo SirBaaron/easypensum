@@ -1,0 +1,100 @@
+section-settings {
+	display: block;
+	padding-top: 50px;
+}
+
+.setting_card {
+	margin: 10px;
+	box-shadow: 2px 2px 10px 0 rgba(112,112,112,1);
+	width: calc(100% - 20px);
+	padding-top: 10px;
+}
+
+.settings_card_title {
+	padding-left: 20px;
+	padding-bottom: 10px;
+	display: flex;
+	align-items: center;
+}
+
+.settings_card_title > span {
+	font-size: 130%;
+	margin-left: 15px;
+}
+
+.settings_card_title > svg {
+	height: 35px;
+	width: 35px;
+	fill: rgba(0, 0, 0, 0.8);
+}
+
+.setting_box {
+	padding-bottom: 10px;
+}
+
+.setting_box::before {
+	content: '';
+	background: #0003;
+	left: 0px;
+	right: 0px;
+	height: 1px;
+	display: block;
+}
+
+.settings_box_title {
+	font-weight: 400;
+	padding: 7px 0px 7px 25px;
+	display: block;
+	font-size: 110%;
+}
+
+.setting_box_text, .setting_box_action {
+	padding-left: 15px;
+}
+
+.setting_box_text {
+	font-size: 90%;
+	color: rgba(20, 20, 20, 0.85);
+}
+
+.setting_box_action {
+	display: flex;
+	align-items: center;
+}
+
+.setting_box[pageOpener] {
+	position: relative;
+}
+
+.setting_open_page {
+	display: flex;
+	width: 50px;
+	position: absolute;
+	right: 0px;
+	top: 0px;
+	bottom: 0px;
+	align-items: center;
+}
+
+.setting_open_page > svg {
+	height: 50px;
+	width: 50px;
+}
+
+.setting_box[pageOpener] > .settings_box_title, .setting_box[pageOpener] > .setting_box_text {
+	padding-right: 50px;
+}
+
+#class_share_link {
+	border: 1px solid #1e1e1e66;
+	font-size: 13px;
+	margin-left: 5px;
+	display: inline-block;
+	word-break: break-all;
+}
+
+#class_share_link_button {
+	width: 30px;
+	height: 30px;
+	margin-left: 10px;
+}
