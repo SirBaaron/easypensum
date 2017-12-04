@@ -32,7 +32,8 @@
 			"dev/spinner/spinner.js",
 			"dev/spinner/spinneranimation.js",
 			"dev/cardmanager/cardmanager-insert-single.js",
-			"dev/settings/settings.js"
+			"dev/settings/settings.js",
+			"dev/settings/stage-1/settings-stage-1.js"
 		],
 		"html": [
 			"dev/index.html",

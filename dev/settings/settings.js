@@ -1,5 +1,11 @@
 __USE("cssinject.js");
 
+
+__USE("scriptinject.js");
+
+__SSR("cascadingscript");
+
+
 cssinject(`//<-inject:../settings/settings.css->`);
 
 __USE("header.js");

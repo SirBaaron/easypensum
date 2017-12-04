@@ -29,7 +29,7 @@ section-settings {
 }
 
 .setting_box {
-	padding-bottom: 10px;
+	padding-bottom: 20px;
 }
 
 .setting_box::before {
@@ -43,13 +43,13 @@ section-settings {
 
 .settings_box_title {
 	font-weight: 400;
-	padding: 7px 0px 7px 25px;
+	padding: 17px 0px 7px 25px;
 	display: block;
 	font-size: 110%;
 }
 
 .setting_box_text, .setting_box_action {
-	padding-left: 15px;
+	padding-left: 20px;
 }
 
 .setting_box_text {
@@ -85,10 +85,18 @@ section-settings {
 	padding-right: 50px;
 }
 
+.setting_box[clickable], .setting_box[pageOpener] {
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+}
+
+.setting_box[clickable] *, .setting_box[pageOpener] * {
+	pointer-events: none;
+}
+
 #class_share_link {
 	border: 1px solid #1e1e1e66;
 	font-size: 13px;
-	margin-left: 5px;
 	display: inline-block;
 	word-break: break-all;
 }
@@ -97,4 +105,6 @@ section-settings {
 	width: 30px;
 	height: 30px;
 	margin-left: 10px;
+	cursor: pointer;
+	flex-shrink: 0;
 }
