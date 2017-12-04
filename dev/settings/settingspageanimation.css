@@ -1,0 +1,7 @@
+setting-pages, #settings_view {
+	transition: transform 0.25s cubic-bezier(.7, 0, .6, 1);
+}
+
+.settingspage_animateable_title {
+	transition: transform 0.3s cubic-bezier(.4, 0, .2, 1);
+}

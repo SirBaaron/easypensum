@@ -33,7 +33,9 @@
 			"dev/spinner/spinneranimation.js",
 			"dev/cardmanager/cardmanager-insert-single.js",
 			"dev/settings/settings.js",
-			"dev/settings/stage-1/settings-stage-1.js"
+			"dev/settings/stage-1/settings-stage-1.js",
+			"dev/settings/settingspage.js",
+			"dev/settings/settingspageanimation.js"
 		],
 		"html": [
 			"dev/index.html",
@@ -48,7 +50,8 @@
 			"dev/toast/toast.html",
 			"dev/spinner/spinner.html",
 			"dev/spinner/spinneranimation.html",
-			"dev/settings/settings.html"
+			"dev/settings/settings.html",
+			"dev/settings/settingspage.html"
 		],
 		"css": [
 			"dev/card/card.css",
@@ -76,7 +79,9 @@
 			"dev/toast/toastanimation.css",
 			"dev/spinner/spinner.css",
 			"dev/spinner/spinneranimation.css",
-			"dev/settings/settings.css"
+			"dev/settings/settings.css",
+			"dev/settings/settingspage.css",
+			"dev/settings/settingspageanimation.css"
 		],
 		"img": [
 			"static/logo168.png",
