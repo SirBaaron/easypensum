@@ -269,7 +269,7 @@ class entryCard extends HTMLElement {
 				return "Vor einer Woche";
 				break;
 			case (diff < -2 && diff > -7):
-				return `Vor ${diff} Tagen`;
+				return `Vor ${Math.abs(diff)} Tagen`;
 				break;
 			case (diff == -2):
 				return "Vorgestern";
