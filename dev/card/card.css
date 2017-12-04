@@ -29,6 +29,10 @@ entry-card {
 	overflow: hidden;
 }
 
+.card_header * {
+	pointer-events: none;
+}
+
 .card_subject {
 	text-overflow: ellipsis;
 	text-align: right;
