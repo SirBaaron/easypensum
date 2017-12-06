@@ -23,6 +23,7 @@ Object.defineProperties(spinnerElement.prototype, {
 		value: function _progressiveConstructor() {
 			this.innerHTML = this.template;
 			this._updateThickness(this.getAttribute("thickness") || 5);
+			this._updateColor(this.getAttribute("color") || "#fff");
 		}
 	}
 });
