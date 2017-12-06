@@ -7,20 +7,21 @@ Object.defineProperties(SettingsPages.prototype, {
 		value: function _animateTitle(titleEl) {
 			let pos = titleEl.getBoundingClientRect();
 			let xModifier = (window.matchMedia("(min-width: 800px)").matches) ? 250 : 0;
-			let xTransform = pos.left - (45 + xModifier) + 25;
+			let xTransform = pos.left - (55 + xModifier) + 20;
 			let yTransform = pos.top - 56.5 + 17;
 			let el = titleEl.cloneNode(true);
 			titleEl.style.opacity = 0;
 			this.titleEl.style.opacity = 0;
+			el.style.padding = "0px";
 			el.style.position = "fixed";
-			el.style.top = "39.5px";
-			el.style.left = `${20 + xModifier}px`;;
-			el.style.transform = `translate(${xTransform}px, ${yTransform}px)`;
+			el.style.top = "56.5px";
+			el.style.left = `${60 + xModifier}px`;;
+			el.style.transform = `translate(${xTransform}px, ${yTransform}px) scale(1)`;
 			document.body.appendChild(el);
 			el.classList.add(classid("settingspage_animateable_title"));
 
 			window.requestAnimationFrame(_ => {
-					el.style.transform = "translate(0px, 0px)";
+					el.style.transform = "translate(0px, 0px) scale(1.2)";
 			});
 
 			el.addEventListener("transitionend", _ => {
