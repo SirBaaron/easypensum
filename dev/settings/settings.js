@@ -15,6 +15,8 @@ __USE("loading-outro.js");
 
 __USE("settingspage.js");
 
+const totalSubjects = __SSR("totalSubjects");
+
 class settingsPanel extends HTMLElement {
 	constructor() {
 		super();
