@@ -1,0 +1,10 @@
+.subject_select_label {
+	display: block;
+	margin: 3px 0px;
+	padding: 5px 0px;
+}
+
+.subject_select_checkbox {
+	margin-right: 7px;
+	margin-left: 20px;
+}

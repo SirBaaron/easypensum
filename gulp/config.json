@@ -84,7 +84,9 @@
 			"dev/settings/settings.css",
 			"dev/settings/settingspage.css",
 			"dev/settings/settingspageanimation.css",
-			"dev/helpers/elementloader.css"
+			"dev/helpers/elementloader.css",
+			"dev/elements/subjectselector/subjectselector.css",
+			"dev/ui/checkbox/checkbox.css"
 		],
 		"img": [
 			"static/logo168.png",

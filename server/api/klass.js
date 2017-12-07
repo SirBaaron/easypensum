@@ -6,6 +6,11 @@ module.exports = {
 			return r.scopes;
 		});
 	},
+	"getSubjects": (classuuid) => {
+		return module.exports.getFields(classuuid, ["subjects"]).then(r => {
+			return r.subjects;
+		});
+	},
 	"getFields": (classuuid, fields) => {
 		return new Promise((resolve, reject) => {
 			db.query(`SELECT ${
