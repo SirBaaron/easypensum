@@ -47,6 +47,16 @@ app.get("/index.html", (req, res) => {
 	res.redirect(301, "/");
 });
 
+app.get("/element/*.js", (req, res) => {
+	let start = process.hrtime();
+	require("./server/createBundle").createBundle(req.path, req.session, req.cookies).then(r => {
+		res.end(r);
+		let end = process.hrtime(start);
+		console.log("element rendering time: " + Math.round((end[0]*1000) + (end[1]/1000000)) + "ms");
+		res.set("render-time", Math.round((end[0]*1000) + (end[1]/1000000)) + "ms");
+	});
+});
+
 app.all("/bundles/*.js", (req, res) => {
 	let start = process.hrtime();
 	require("./server/createBundle").createBundle(req.path, req.session, req.cookies).then(r => {

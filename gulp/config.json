@@ -35,7 +35,9 @@
 			"dev/settings/settings.js",
 			"dev/settings/stage-1/settings-stage-1.js",
 			"dev/settings/settingspage.js",
-			"dev/settings/settingspageanimation.js"
+			"dev/settings/settingspageanimation.js",
+			"dev/helpers/elementloader.js",
+			"dev/elements/subjectselector/subjectselector.js"
 		],
 		"html": [
 			"dev/index.html",
@@ -81,7 +83,8 @@
 			"dev/spinner/spinneranimation.css",
 			"dev/settings/settings.css",
 			"dev/settings/settingspage.css",
-			"dev/settings/settingspageanimation.css"
+			"dev/settings/settingspageanimation.css",
+			"dev/helpers/elementloader.css"
 		],
 		"img": [
 			"static/logo168.png",

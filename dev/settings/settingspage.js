@@ -2,6 +2,8 @@ __USE("cssinject.js");
 
 cssinject(`//<-inject:../settings/settingspage.css->`);
 
+__USE("elementloader.js");
+
 class SettingsPages extends HTMLElement {
 	constructor() {
 		super();
@@ -15,6 +17,7 @@ class SettingsPages extends HTMLElement {
 		this.innerHTML = this.template;
 		this.titleEl = document.getElementById(classid("setting_page_title"));
 		this.settingsView = document.getElementById(classid("settings_view"));
+		this.elementLoader = document.getElementById(classid("setting_page_element_loader"));
 
 		document.getElementById(classid("setting_page_back")).addEventListener("click", this.close.bind(this));
 	}
@@ -24,6 +27,7 @@ class SettingsPages extends HTMLElement {
 		this.style.transform = "translateX(0)";
 		this.settingsView.style.transform = "translateX(-110%)";
 		this._animateTitle(nameEl);
+		this.elementLoader.open("subjectselector");
 	}
 
 	close() {

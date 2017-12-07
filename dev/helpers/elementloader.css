@@ -1,0 +1,26 @@
+.element_loader_spinner {
+	height: 50px;
+	width: 50px;
+	position: absolute;
+	right: 50%;
+	bottom: 50%;
+	transform: translate(50%, 50%);
+	opacity: 0;
+	transition: opacity 0.2s ease-in-out;
+}
+
+.element_loader_spinner > * {
+	height: inherit;
+	width: inherit;
+}
+
+element-loader {
+	display: block;
+	height: 100%;
+	position: relative;
+}
+
+element-loader > *:not(.element_loader_spinner) {
+	display: none;
+	transition: opacity 0.2s ease-in-out;
+}

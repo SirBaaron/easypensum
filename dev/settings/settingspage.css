@@ -46,3 +46,7 @@ section-settings {
 	transform: scale(1.2);
 	transform-origin: left;
 }
+
+#setting_page_body {
+	height: calc(100% - 40px);
+}
