@@ -37,7 +37,8 @@
 			"dev/settings/settingspage.js",
 			"dev/settings/settingspageanimation.js",
 			"dev/helpers/elementloader.js",
-			"dev/elements/subjectselector/subjectselector.js"
+			"dev/elements/subjectselector/subjectselector.js",
+			"dev/helpers/storagemanager.js"
 		],
 		"html": [
 			"dev/index.html",

@@ -245,7 +245,6 @@ class entryCard extends HTMLElement {
 		let d = new Date(p[0],p[1]-1,(p[2] || 0),(p[3] || 0),(p[4] || 0));
 		let h = d.getHours();
 		let m = d.getMinutes();
-		console.log(m.length);
 		return `${
 			(h > 9) ? "" : "0"
 		}${h}:${

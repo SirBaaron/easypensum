@@ -1,18 +1,19 @@
 __USE("cardmanager-insert-single.js");
 
+__USE("storagemanager.js");
+
 Object.defineProperties(cardManager.prototype, {
 	"dispatch": {
 		value: function dispatch(card) {
 			card.remove();
 			let tempsave = card.data;
 			tempsave.scope = card.parentNode.getAttribute("name");
-			console.log(tempsave);
-			let dispatched = (JSON.parse(window.localStorage.getItem("dispatch"))) || [];
+			let dispatched = window.storagemanager.retrieve("dispatch", []);
 			dispatched.push(tempsave.uuid);
-			window.localStorage.setItem("dispatch", JSON.stringify(dispatched));
+			window.storagemanager.set("dispatch", dispatched);
 			new Toast("Erledigt!", 1500, false, false, "Rückgängig", _ => {
 				dispatched.splice(dispatched.indexOf(tempsave.uuid), 1);
-				window.localStorage.setItem("dispatch", JSON.stringify(dispatched));
+				window.storagemanager.set("dispatch", dispatched);
 				this.insertSingle(tempsave, tempsave.scope);
 			});
 		}

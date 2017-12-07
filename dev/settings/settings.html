@@ -12,8 +12,8 @@
 		</div>
 		<div class="setting_box" pageOpener>
 			<span class="settings_box_title">Fächer auswählen</span>
-			<div class="setting_box_text">
-				10 von ${totalSubjects} Fächern ausgewählt
+			<div class="setting_box_text" id="subject_select_hint">
+				${this.subjectSelectHint}
 			</div>
 			<div class="setting_open_page">
 				<svg viewBox="0 0 24 24">
@@ -22,10 +22,10 @@
 			</div>
 			<ripple-effect color="#FFC107" opacity="0.3"></ripple-effect>
 		</div>
-		<div class="setting_box" clickable>
+		<div class="setting_box" clickable action="resetDispatch">
 			<span class="settings_box_title">Fertige Einträge zurücksetzen</span>
-			<div class="setting_box_text">
-				25 Einträge als erledigt markiert
+			<div class="setting_box_text" id="reset_dispatch_hint">
+				${this.resetDispatchHint}
 			</div>
 			<ripple-effect color="#FFC107" opacity="0.3"></ripple-effect>
 		</div>
@@ -41,13 +41,13 @@
 				</svg>
 			</div>
 		</div>
-		<div class="setting_box" clickable>
+		<!-- <div class="setting_box" clickable>
 			<span class="settings_box_title">Klasse verlassen</span>
 			<div class="setting_box_text">
 				Deine Einstellungen werden dabei gelöscht.
 			</div>
 			<ripple-effect color="#FFC107" opacity="0.3"></ripple-effect>
-		</div>
+		</div> -->
 	</div>
 </div>
 <setting-pages></setting-pages>

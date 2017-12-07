@@ -1,3 +1,5 @@
+__USE("storagemanager.js");
+
 class cardManager {
 	constructor() {
 		this.tabs = [].slice.call(document.getElementById(classid("tabhost")).childNodes);
@@ -5,7 +7,8 @@ class cardManager {
 	}
 
 	render(data) {
-		let dispatched = (JSON.parse(window.localStorage.getItem("dispatch"))) || [];
+		let dispatched = window.storagemanager.retrieve("dispatch", []);
+		let blackList = window.storagemanager.retrieve("subjectBlackList", []);
 		for(var key in data) {
 			var index = this.tabs.map(v => {
 				return v.getAttribute("name");
@@ -16,7 +19,7 @@ class cardManager {
 			}
 
 			data[key] = data[key].filter(card => {
-				return dispatched.indexOf(card.uuid) < 0;
+				return (dispatched.indexOf(card.uuid) < 0 && blackList.indexOf(card.subjectuuid) < 0);
 			});
 
 			for(var i in data[key]) {

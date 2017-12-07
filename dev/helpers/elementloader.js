@@ -20,7 +20,6 @@ class ElementLoader extends HTMLElement {
 	open(name) {
 		let el = this.elements.find(v => v.getAttribute("name") == name);
 		if(el.constructor == HTMLElement) {
-			console.log("not laoded");
 			this.loader.style.opacity = 1;
 			this.load(name);
 		}

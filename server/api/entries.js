@@ -21,14 +21,23 @@ formatEntries = async (entries, subjects, allowDispatch = false, nameMemory = {}
 		let res = [];
 		for(i in entries) {
 			entry = entries[i];
+
+			let subjectuuid = entry.subject + "§" + entry.detail;
+
 			let obj = {
-				subject: entry.subject || "",
-				detail: entry.detail || "",
 				content: entry.content || "",
 				date: entry.date || "",
 				uuid: entry.uuid || "",
+				subjectuuid: subjectuuid || "",
 				allowDispatch: allowDispatch
 			}
+
+			let subjectMatch = subjects.find(v => (v.name + "§" + v.detail) == subjectuuid);
+
+			obj.subject = subjectMatch.name || "";
+			obj.detail = subjectMatch.detail || "";
+			obj.color = subjectMatch.color || "";
+
 			let creator = entry.creator || "";
 			let changed = JSON.parse(entry.changed) || [];
 			let created = entry.created || "";
@@ -46,13 +55,6 @@ formatEntries = async (entries, subjects, allowDispatch = false, nameMemory = {}
 				created: created,
 				changed: changed
 			}
-
-			let color = "";
-			let subjectid = obj.subject + "§" + obj.detail;
-			if(subjectid in subjects) {
-				color = subjects[subjectid].color
-			}
-			obj.color = color;
 
 			res.push(obj);
 		}
@@ -72,12 +74,7 @@ module.exports = {
 					response[scope.name] = [];
 					allowDispatch[scope.name] = scope.allowDispatch;
 				});
-				let subjects = {};
-				res.subjects.forEach(subject => {
-					subjects[subject.name + "§" + subject.detail] = {
-						color: subject.color
-					}
-				});
+				let subjects = res.subjects;
 
 				let date = new Date();
 				db.query(`SELECT subject, detail, content, date, uuid, created, creator, scope, changed FROM \`${res.link}\` WHERE date ${

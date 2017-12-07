@@ -8,7 +8,11 @@ module.exports = {
 	},
 	"getSubjects": (classuuid) => {
 		return module.exports.getFields(classuuid, ["subjects"]).then(r => {
-			return r.subjects;
+			let arr = r.subjects;
+			arr.forEach(r => {
+				r.uuid = r.name + "§" + r.detail;
+			});
+			return arr;
 		});
 	},
 	"getFields": (classuuid, fields) => {
