@@ -106,6 +106,7 @@
 			"server/db.js",
 			"server/ssr.js",
 			"server/bundles/overview.js",
+			"server/bundles/subjectselector.js",
 			"server/api/entries.js",
 			"server/api/klass.js"
 		]
