@@ -23,9 +23,11 @@ class SettingsPages extends HTMLElement {
 	}
 
 	open(nameEl) {
+		this.scrollBefore = window.scrollY;
 		this.titleEl.textContent = nameEl.textContent;
 		this.style.transform = "translateX(0)";
 		this.settingsView.style.transform = "translateX(-110%)";
+		this._animateOpen();
 		this._animateTitle(nameEl);
 		this.elementLoader.open("subjectselector");
 	}
@@ -33,8 +35,22 @@ class SettingsPages extends HTMLElement {
 	close() {
 		this.style.transform = "translateX(110%)";
 		this.settingsView.style.transform = "translateX(0%)";
+		this._animateClose();
 	}
+
 	_animateTitle() {}
+
+	_animateOpen() {
+		window.scrollTo(0, 0);
+		this.style.position = "initial";
+		this.settingsView.style.position = "fixed";
+	}
+
+	_animateClose() {
+		window.scrollTo(0, this.scrollBefore);
+		this.style.position = "fixed";
+		this.settingsView.style.position = "initial";
+	}
 }
 
 window.customElements.define("setting-pages", SettingsPages);

@@ -24,11 +24,51 @@ Object.defineProperties(SettingsPages.prototype, {
 					el.style.transform = "translate(0px, 0px) scale(1.2)";
 			});
 
-			el.addEventListener("transitionend", _ => {
-				document.body.removeChild(el);
+			el.addEventListener("transitionend", e => {
 				this.titleEl.style.opacity = 1;
+				document.body.removeChild(e.target);
 				titleEl.style.opacity = 1;
+			});
+		}
+	},
+	"_animateOpen": {
+		value: function _animateOpen() {
+			this.style.position = "fixed";
+			this.settingsView.style.position = "absolute";
+			this.setAttribute("animating", "");
+			this.lastChild.style.transform = "translateY(0px)";
+		}
+	},
+	"_animateClose": {
+		value: function _animateClose() {
+			this.lastChild.style.transform = `translateY(-${window.scrollY}px)`;
+			this.style.position = "fixed";
+			this.settingsView.style.position = "absolute";
+			this.setAttribute("animating", "");
+			window.scrollTo(0, this.scrollBefore);
+		}
+	},
+	"_addEventListener": {
+		value: function _addEventListener() {
+			this.addEventListener("transitionend", e => {
+				if(e.propertyName != "transform" || e.target != this) {
+					return;
+				}
+				this.removeAttribute("animating");
+				if(!this.opened) {
+					this.style.position = "initial";
+					this.settingsView.style.position = "fixed";
+					window.scrollTo(0, 0);
+					this.opened = true;
+				}
+				else {
+					this.removeAttribute("animating");
+					this.settingsView.style.position = "initial";
+					this.opened = false;
+				}
 			});
 		}
 	}
 });
+
+document.getElementsByTagName("setting-pages")[0]._addEventListener();

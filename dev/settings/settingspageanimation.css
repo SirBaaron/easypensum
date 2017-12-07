@@ -4,4 +4,15 @@ setting-pages, #settings_view {
 
 .settingspage_animateable_title {
 	transition: transform 0.3s cubic-bezier(.4, 0, .2, 1);
+	z-index: 1;
+}
+
+section-settings {
+	position: relative;
+}
+
+setting-pages[animating] #setting_page_header {
+	position: absolute;
+	left: 0px !important;
+	top: 0px !important;
 }

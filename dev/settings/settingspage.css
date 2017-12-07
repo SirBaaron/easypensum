@@ -8,19 +8,14 @@ setting-pages {
 }
 
 @media screen and (min-width: 800px) {
-	setting-pages {
-		left: 250px !important;
+	setting-pages, #setting_page_header {
+		left: 250px;
 	}
 }
 
 #settings_view {
-	position: absolute;
 	left: 0px;
 	right: 0px;
-}
-
-section-settings {
-	position: relative;
 }
 
 #setting_page_header {
@@ -29,6 +24,11 @@ section-settings {
 	display: flex;
 	align-items: center;
 	background: white;
+	position: fixed;
+	top: 50px;
+	right: 0px;
+	width: 100%;
+	z-index: 1;
 }
 
 #setting_page_back {
@@ -48,5 +48,11 @@ section-settings {
 }
 
 #setting_page_body {
-	height: calc(100% - 40px);
+	min-height: calc(100vh - 90px);
+	padding-top: 40px;
+	display: flex;
+}
+
+#setting_page_element_loader {
+	flex-grow: 1;
 }
