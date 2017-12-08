@@ -17,7 +17,15 @@ __USE("settingspage.js");
 
 __USE("storagemanager.js");
 
+__USE("share.js");
+
 const totalSubjects = __SSR("totalSubjects");
+
+const classuuid = '__SSR("classuuid")';
+
+const className = '__SSR("className")';
+
+const classSchool = '__SSR("classSchool")';
 
 class settingsPanel extends HTMLElement {
 	constructor() {
@@ -44,6 +52,10 @@ class settingsPanel extends HTMLElement {
 		return `${list.length} ${(list.length == 1) ? "Eintrag" : "Einträge"} als erledigt markiert`;
 	}
 
+	get joinLink() {
+		return window.origin + "?j=" + classuuid;
+	}
+
 	connectedCallback() {
 		this.innerHTML = this.template;
 		loadingOutro();
@@ -52,6 +64,9 @@ class settingsPanel extends HTMLElement {
 		
 		document.getElementById(classid("settings_view")).addEventListener("ripple-click", this.clickAction.bind(this));
 		document.getElementById(classid("settings_view")).addEventListener("click", this.clickAction.bind(this));
+		document.getElementById(classid("class_share_link_button")).addEventListener("click", _ => {
+			window.shareTxt(`Tritt der ${className} am ${classSchool} auf Easy Pensum bei:\n${this.joinLink}`);
+		});
 	}
 
 	clickAction(e) {

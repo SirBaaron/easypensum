@@ -38,7 +38,8 @@
 			"dev/settings/settingspageanimation.js",
 			"dev/helpers/elementloader.js",
 			"dev/elements/subjectselector/subjectselector.js",
-			"dev/helpers/storagemanager.js"
+			"dev/helpers/storagemanager.js",
+			"dev/helpers/share.js"
 		],
 		"html": [
 			"dev/index.html",

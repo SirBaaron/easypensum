@@ -2,6 +2,7 @@ __USE("cssinject.js");
 
 cssinject(`//<-inject:../card/card.css->`);
 
+__USE("share.js");
 
 class entryCard extends HTMLElement {
 	constructor(param) {
@@ -151,20 +152,7 @@ class entryCard extends HTMLElement {
 				break;
 			case "share":
 				let txt = `Bis ${this._compileDate(this.date)} in ${this.subject}:\n${this.content.replace(/§br/g, "\n")}\n\n`;
-
-				if("share" in navigator) {
-					//use fancy share api
-					navigator.share({
-						title: "Easy Pensum Eintrag",
-						text: txt,
-						url: window.location.origin
-					})
-				}
-				else {
-					//fallback to WhatsApp
-					let url = "whatsapp://send?text=" + encodeURIComponent(txt + window.location.origin);
-					window.location = url;
-				}
+				window.shareTxt(txt, "Easy Pensum Eintrag");
 				break;
 			case "pin":
 				this.pinned = !this.pinned;
