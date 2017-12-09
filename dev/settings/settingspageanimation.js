@@ -20,9 +20,9 @@ Object.defineProperties(SettingsPages.prototype, {
 			document.body.appendChild(el);
 			el.classList.add(classid("settingspage_animateable_title"));
 
-			window.requestAnimationFrame(_ => {
+			window.requestAnimationFrame(_ => window.requestAnimationFrame(_ => {
 					el.style.transform = "translate(0px, 0px) scale(1.2)";
-			});
+			}));
 
 			el.addEventListener("transitionend", e => {
 				this.titleEl.style.opacity = 1;
