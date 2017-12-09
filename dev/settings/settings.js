@@ -80,6 +80,9 @@ class settingsPanel extends HTMLElement {
 			switch(e.target.getAttribute("action")) {
 				case "resetDispatch":
 					window.storagemanager.set("dispatch", []);
+					if(document.body.hasAttribute("feature-toast")) {
+						new Toast("Zurückgesetzt.", 1500)
+					}
 					break;
 			}
 		}

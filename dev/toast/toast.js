@@ -139,3 +139,5 @@ class Toast {
 		this.toast.hide();
 	}
 }
+
+document.body.setAttribute("feature-toast", "");

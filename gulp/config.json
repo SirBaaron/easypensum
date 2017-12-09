@@ -39,7 +39,9 @@
 			"dev/helpers/elementloader.js",
 			"dev/elements/subjectselector/subjectselector.js",
 			"dev/helpers/storagemanager.js",
-			"dev/helpers/share.js"
+			"dev/helpers/share.js",
+			"dev/settings/stage-2/settings-stage-2.js",
+			"dev/settings/stage-3/settings-stage-3.js"
 		],
 		"html": [
 			"dev/index.html",

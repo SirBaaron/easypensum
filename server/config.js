@@ -16,7 +16,9 @@ module.exports = {
 			"name": "Einstellungen",
 			"bundles": [
 				"settings.js",
-				"settings-stage-1.js"
+				"settings-stage-1.js",
+				"settings-stage-2.js",
+				"settings-stage-3.js"
 			],
 			"headerColor": "#00BCD4",
 			"headerHeight": 50,
