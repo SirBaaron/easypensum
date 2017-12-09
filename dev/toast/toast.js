@@ -9,7 +9,7 @@ class toastManager extends HTMLElement {
 			if(e.path.indexOf(this) < 0 && this.childNodes.length > 0) {
 				let toasts = [].slice.call(this.childNodes);
 				for(let i = 0; i < toasts.length; i++) {
-					if(!toasts[i].permanent && toasts[i].dismissWithClick) {
+					if(!toasts[i].permanent && toasts[i].dismissWithClick && toasts[i].finishedAnimation) {
 						this.remove(toasts[i]);
 						return;
 					}

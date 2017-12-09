@@ -20,6 +20,7 @@ Object.defineProperties(toastManager.prototype, {
 	},
 	"domAdd": {
 		value: function domAdd(el) {
+			let setAnimationFinish = false;
 			this.appendChild(el);
 			let height = el.getBoundingClientRect().height + 10;
 			[].slice.call(this.childNodes).forEach(n => {
@@ -31,7 +32,12 @@ Object.defineProperties(toastManager.prototype, {
 					},
 					duration: this.animationDuration,
 					easing: this.easeIn
-				});
+				}).then(r => {
+					if(!setAnimationFinish) {
+						el.finishedAnimation = true;
+						setAnimationFinish = true;
+					}
+				})
 			});
 		}
 	},
