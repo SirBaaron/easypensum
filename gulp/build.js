@@ -24,6 +24,7 @@ var fs = require('fs');
 var argv = require('yargs').argv;
 var rename = require('gulp-rename');
 var gncd = require('gulp-npm-copy-deps');
+var uglifyes = require('gulp-uglify-es').default;
 
 const config = JSON.parse(fs.readFileSync('./gulp/config.json'));
 
@@ -200,12 +201,13 @@ gulp.task("jses5", () => {
 
 gulp.task("jses6", () => {
 	return gulp.src("build/bundles/*.js")
-	.pipe(babel({
-		presets: [["minify", {
-			deadcode: false,
-			mangle: true,
-			simplify: false
-		}]]
+	.pipe(uglifyes({
+		ecma: 6,
+		compress: {
+			sequences: false,
+			keep_fargs: false,
+			passes: 3
+		}
 	}))
 	.on("error", err => {
 		gutil.log(err);
