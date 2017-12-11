@@ -6,7 +6,7 @@ findUserName = (uuid, cache = {}) => {
 		if(uuid in cache) {
 			resolve(cache[uuid]);
 		}
-
+		console.log("not in cache");
 		db.query(`SELECT \`forename\` FROM users WHERE \`uuid\` = '${uuid}'`).then(res => {
 			cache[uuid] = res[0].forename;
 			resolve(res[0].forename);
@@ -44,11 +44,11 @@ formatEntries = async (entries, subjects, allowDispatch = false, nameMemory = {}
 
 			creator = await findUserName(creator, nameMemory);
 			
-			await changed.map(async change => {
-				let real = change
+			await Promise.all(changed.map(async change => {
+				let real = change;
 				real.user = await findUserName(change.user, nameMemory);
 				return real;
-			});
+			}));
 
 			obj.interactions = {
 				creator: creator,
