@@ -40,7 +40,6 @@ Object.defineProperties(entryCard.prototype, {
 			}).then(_ => {
 				this.parentNode.removeChild(this);
 			});
-
 			this.followingSiblings.forEach(n => {
 				n.fakeMove(0, -size, this.closeanimationduration);
 			});

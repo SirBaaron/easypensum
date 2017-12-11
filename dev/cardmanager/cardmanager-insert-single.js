@@ -5,6 +5,10 @@ Object.defineProperties(cardManager.prototype, {
 				return v.getAttribute("name");
 			}).indexOf(scope);
 
+			if(this.tabs[index].firstChild.classList = classid("noContent")) {
+				this.tabs[index].removeChild(this.tabs[index].firstChild);
+			}
+
 			let cards = [].slice.call(this.tabs[index].childNodes);
 			let comeBefore = this._findAddBefore(card.date, cards);
 			let cardEl = new entryCard(card);

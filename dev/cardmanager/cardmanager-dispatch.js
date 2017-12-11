@@ -5,6 +5,9 @@ __USE("storagemanager.js");
 Object.defineProperties(cardManager.prototype, {
 	"dispatch": {
 		value: function dispatch(card) {
+			if(card.parentNode.childNodes.length == 1) {
+				card.parentNode.insertBefore(this.renderNoContentNotice(card.parentNode.getAttribute("name")), card.parentNode.firstChild);
+			}
 			card.remove();
 			let tempsave = card.data;
 			tempsave.scope = card.parentNode.getAttribute("name");
@@ -16,6 +19,8 @@ Object.defineProperties(cardManager.prototype, {
 				window.storagemanager.set("dispatch", dispatched);
 				this.insertSingle(tempsave, tempsave.scope);
 			});
+
+
 		}
 	}
 });

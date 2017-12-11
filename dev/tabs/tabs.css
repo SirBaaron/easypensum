@@ -17,6 +17,7 @@ tab-view[fab] #tabhost div[selected] {
 
 #tabhost > div {
 	flex: 1;
+	position: relative;
 }
 
 #tabhost > div:not([selected]) {
@@ -28,4 +29,8 @@ tab-view[fab] #tabhost div[selected] {
 	padding: 0px 10px;
 	font-size: 110%;
 	text-align: center;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+	right: 0px;
 }
