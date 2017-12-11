@@ -74,6 +74,10 @@ class Overview extends HTMLElement {
 		this._drawButtonBar(btn);
 	}
 
+	setButtonCount(index, count) {
+		this.buttonRow.childNodes[index].querySelector("." + classid("badge")).textContent = count;
+	}
+
 	_drawButtonBar(btn) {
 		const rect = btn.getBoundingClientRect();
 		const scrollLeft = this.buttonRow.scrollLeft;

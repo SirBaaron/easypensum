@@ -5,7 +5,7 @@ Object.defineProperties(cardManager.prototype, {
 				return v.getAttribute("name");
 			}).indexOf(scope);
 
-			if(this.tabs[index].firstChild.classList = classid("noContent")) {
+			if(this.tabs[index].firstChild.classList == classid("noContent")) {
 				this.tabs[index].removeChild(this.tabs[index].firstChild);
 			}
 
@@ -13,6 +13,9 @@ Object.defineProperties(cardManager.prototype, {
 			let comeBefore = this._findAddBefore(card.date, cards);
 			let cardEl = new entryCard(card);
 			this.tabs[index].insertBefore(cardEl, comeBefore);
+
+			this.overview.setButtonCount(index, cardEl.parentNode.childNodes.length);
+
 			try {
 				cardEl.followingSiblings.forEach(n => {
 					n.fakeMove(-55, 0, cardEl.closeAnimationDuration);

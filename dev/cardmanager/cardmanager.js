@@ -4,11 +4,13 @@ class cardManager {
 	constructor() {
 		this.tabs = [].slice.call(document.getElementById(classid("tabhost")).childNodes);
 		this.smileys = ["\(*o*)/", "(¬º-°)¬", "¯_(ツ)_/¯", "ʕ•ᴥ•ʔ", "(ᗒᗣᗕ)՞", "ヽ༼ຈل͜ຈ༽ﾉ", "ヽ(ﾟДﾟ)ﾉ", "(•̀ᴗ•́)و", "•ᴗ•", "(　＾∇＾)", "(✌ﾟ∀ﾟ)✌", "ヽ(´▽｀)ノ", "( ￣▽￣)/", "(っ˘ڡ˘ς)", "＼(☆o◎)／", "( ͡° ͜ʖ ͡°)", "（〜^∇^)〜", "- =͟͟͞͞ ( ꒪౪꒪)ฅ✧", "(o^^)o", "\(o_o)/", "(r*-*)r", "シ", "=^.^=", ":->", "(ღ˘⌣˘ღ) ♫･*:.｡. .｡.:*･", "＼(^ω^＼)", "^o^", "(●´ω｀●)", "z(°-°)/"];
+		this.overview = document.getElementsByTagName("section-overview")[0];
 	}
 
 	render(data) {
 		let dispatched = window.storagemanager.retrieve("dispatch", []);
 		let blackList = window.storagemanager.retrieve("subjectBlackList", []);
+		
 		for(var key in data) {
 			var index = this.tabs.map(v => {
 				return v.getAttribute("name");
@@ -31,6 +33,7 @@ class cardManager {
 			if(data[key].length == 0) {
 				this.tabs[index].appendChild(this.renderNoContentNotice(key));
 			}
+			this.overview.setButtonCount(index, data[key].length);
 		}
 	}
 
