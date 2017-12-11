@@ -5,17 +5,18 @@ cssinject(`//<-inject:../settings/settingspageanimation.css->`);
 Object.defineProperties(SettingsPages.prototype, {
 	"_animateTitle": {
 		value: function _animateTitle(titleEl) {
+			let top = this.titleEl.getBoundingClientRect().top;
 			let pos = titleEl.getBoundingClientRect();
 			let xModifier = (window.matchMedia("(min-width: 800px)").matches) ? 250 : 0;
 			let xTransform = pos.left - (55 + xModifier) + 20;
-			let yTransform = pos.top - 56.5 + 17;
+			let yTransform = pos.top - top + 17;
 			let el = titleEl.cloneNode(true);
 			titleEl.style.opacity = 0;
 			this.titleEl.style.opacity = 0;
 			el.style.padding = "0px";
 			el.style.position = "fixed";
-			el.style.top = "56.5px";
-			el.style.left = `${60 + xModifier}px`;;
+			el.style.top = `${top}px`;
+			el.style.left = `${60 + xModifier}px`;
 			el.style.transform = `translate(${xTransform}px, ${yTransform}px) scale(1)`;
 			document.body.appendChild(el);
 			el.classList.add(classid("settingspage_animateable_title"));

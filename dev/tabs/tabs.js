@@ -85,14 +85,10 @@ class tabView extends HTMLElement {
 		const currentscroll = this.tabs[this.selected].scrollpos = window.scrollY;
 		const goalscroll = this.tabs[index].scrollpos || 0;
 
-
 		this._animateSwitch(name, color, goalscroll, currentscroll).then(_ => {
 			this.tabs[this.selected].removeAttribute("selected");
 			this.selected = index;
 		});
-
-		
-
 	}
 
 	_animateSwitch(name, color, scroll) {
