@@ -55,16 +55,16 @@ Object.defineProperties(SettingsPages.prototype, {
 					return;
 				}
 				this.removeAttribute("animating");
-				if(!this.opened) {
+				if(!this.animationopened) {
 					this.style.position = "initial";
 					this.settingsView.style.position = "fixed";
 					window.scrollTo(0, 0);
-					this.opened = true;
+					this.animationopened = true;
 				}
 				else {
 					this.removeAttribute("animating");
 					this.settingsView.style.position = "initial";
-					this.opened = false;
+					this.animationopened = false;
 				}
 			});
 		}

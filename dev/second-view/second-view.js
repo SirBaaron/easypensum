@@ -53,8 +53,7 @@ class secondView extends HTMLElement {
 		this.opened = true;
 
 		history.pushState({
-			view: "sv",
-			previous: history.state.view
+			view: "sv"
 		}, "", "");
 
 		this.style.display = "block";

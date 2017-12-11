@@ -19,6 +19,10 @@ __USE("storagemanager.js");
 
 __USE("share.js");
 
+history.replaceState({
+	view: "settings"
+}, "", "");
+
 const totalSubjects = __SSR("totalSubjects");
 
 const classuuid = '__SSR("classuuid")';

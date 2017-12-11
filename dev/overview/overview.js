@@ -14,6 +14,10 @@ __USE("loading-outro.js");
 
 window["mobile"] = /(Android)|(webOS)|(iPhone)|(BlackBerry)|(Windows Phone)/ig.test(navigator.userAgent);
 
+history.replaceState({
+	view: "main"
+}, "", "");
+
 class Overview extends HTMLElement {
 	constructor() {
 		super();
@@ -25,15 +29,6 @@ class Overview extends HTMLElement {
 
 	connectedCallback() {
 		loadingOutro();
-		try {
-			
-
-			history.replaceState({
-				view: "main",
-				previous: ""
-			}, "", "");
-		}
-		catch(err) {}
 
 		this.innerHTML = this.template;
 

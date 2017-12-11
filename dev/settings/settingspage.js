@@ -14,12 +14,23 @@ class SettingsPages extends HTMLElement {
 	}
 
 	connectedCallback() {
+		this.opened = false;
+
 		this.innerHTML = this.template;
 		this.titleEl = document.getElementById(classid("setting_page_title"));
 		this.settingsView = document.getElementById(classid("settings_view"));
 		this.elementLoader = document.getElementById(classid("setting_page_element_loader"));
 
 		document.getElementById(classid("setting_page_back")).addEventListener("click", this.close.bind(this));
+
+		window.addEventListener("popstate", e => {
+			if(e.state.view != "settingpage" && this.opened) {
+				this.close(false);
+			}
+			if(e.state.view == "settingpage" && !this.opened) {
+				history.back();
+			}
+		})
 	}
 
 	open(nameEl) {
@@ -30,12 +41,22 @@ class SettingsPages extends HTMLElement {
 		this._animateOpen();
 		this._animateTitle(nameEl);
 		this.elementLoader.open("subjectselector");
+		this.opened = true;
+
+		history.pushState({
+			view: "settingpage"
+		}, "", "");
 	}
 
-	close() {
+	close(shouldpopstate = true) {
 		this.style.transform = "translateX(110%)";
 		this.settingsView.style.transform = "translateX(0%)";
 		this._animateClose();
+		this.opened = false;
+
+		if(shouldpopstate) {
+			history.back();
+		}
 	}
 
 	_animateTitle() {}

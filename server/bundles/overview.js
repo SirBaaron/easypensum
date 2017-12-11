@@ -4,15 +4,10 @@ var klass = require('./../api/klass.js');
 var entries = require('./../api/entries.js');
 
 
-getTabButtons = (scopes, queryResult) => {
+getTabButtons = (scopes) => {
 	let buttons = "";
 	for(i in scopes) {
-		let length = "";
-		try {
-			length = queryResult[scopes[i].name].length;
-		}
-		catch(err) {}
-		buttons += `<button class="${classid("headerButton")}" noSelect${i == 0 ? " selected" : ""}>${scopes[i].name}<div class="${classid("badge")}">${length}</div><ripple-effect opacity="0.4" cancel-on-move></ripple-effect></button>`
+		buttons += `<button class="${classid("headerButton")}" noSelect${i == 0 ? " selected" : ""}>${scopes[i].name}<div class="${classid("badge")}"></div><ripple-effect opacity="0.4" cancel-on-move></ripple-effect></button>`
 	}
 	return buttons;
 }
@@ -37,7 +32,7 @@ getDBRelated = () => {
 
 			resolve({
 				"tabs": getTabs(scopes),
-				"tabButtons": getTabButtons(scopes, queryResult),
+				"tabButtons": getTabButtons(scopes),
 				"queryResult": JSON.stringify(queryResult),
 				"tabsWidth": scopes.length * 100,
 				"headerColor": scopes[0].color
