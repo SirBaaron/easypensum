@@ -21,8 +21,8 @@ getCascadingscript = (path, session, jsversion) => {
 
 module.exports = {
 	"createBundle": (path, session, cookies) => {
-		var jsversion;
-		if(cookies["feature-es6"] == true) {
+		let jsversion;
+		if(cookies["feature-es6"] == "true") {
 			jsversion = environment.es6Path;
 		}
 		else {
