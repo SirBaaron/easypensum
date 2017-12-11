@@ -6,7 +6,6 @@ findUserName = (uuid, cache = {}) => {
 		if(uuid in cache) {
 			resolve(cache[uuid]);
 		}
-		console.log("not in cache");
 		db.query(`SELECT \`forename\` FROM users WHERE \`uuid\` = '${uuid}'`).then(res => {
 			cache[uuid] = res[0].forename;
 			resolve(res[0].forename);
