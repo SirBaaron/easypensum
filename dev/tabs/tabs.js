@@ -78,6 +78,8 @@ class tabView extends HTMLElement {
 			return;
 		}
 
+		this.host.setAttribute("transition", "");
+
 		this.host.style.transform = `translateZ(0) translateX(-${this.tabWidth * index}px)`;
 		this.tabs[index].setAttribute("selected", "");
 
@@ -86,8 +88,15 @@ class tabView extends HTMLElement {
 		const goalscroll = this.tabs[index].scrollpos || 0;
 
 		this._animateSwitch(name, color, goalscroll, currentscroll).then(_ => {
+			this.host.removeAttribute("transition");
 			this.tabs[this.selected].removeAttribute("selected");
 			this.selected = index;
+
+			let scrollVisible = ((window.innerHeight - 32) < document.body.scrollHeight);
+			if(scrollVisible != this.scrollVisibleBefore) {
+				window.dispatchEvent(new Event("resize"));
+				this.scrollVisibleBefore = scrollVisible;
+			}
 		});
 	}
 
