@@ -101,7 +101,6 @@ section-settings {
 	display: inline-block;
 	word-break: break-all;
 	user-select: all;
-	margin-right: 15px;
 }
 
 #class_share_link_button {
@@ -110,4 +109,6 @@ section-settings {
 	margin-left: 10px;
 	cursor: pointer;
 	flex-shrink: 0;
+	margin-right: 15px;
+	
 }
