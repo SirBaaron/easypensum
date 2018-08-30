@@ -57,7 +57,6 @@ class cubicBezier {
 
 	    if (t2 < t0) return t0;
 	    if (t2 > t1) return t1;
-	    console.log(epsilon);
 	    while (t0 < t1) {
 	        x2 = this.sampleCurveX(t2);
 	        if (Math.abs(x2 - x) < epsilon)
