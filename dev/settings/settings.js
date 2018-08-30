@@ -64,7 +64,7 @@ class settingsPanel extends HTMLElement {
 		this.innerHTML = this.template;
 		loadingOutro();
 
-		this.settingPages = document.getElementsByTagName("setting-pages")[0];
+		this.settingPage = document.getElementsByTagName("setting-page")[0];
 		
 		document.getElementById(classid("settings_view")).addEventListener("ripple-click", this.clickAction.bind(this));
 		document.getElementById(classid("settings_view")).addEventListener("click", this.clickAction.bind(this));
@@ -78,7 +78,7 @@ class settingsPanel extends HTMLElement {
 			return;
 		}
 		if(e.target.hasAttribute("pageopener")) {
-			this.settingPages.open(e.target.querySelector("." + classid("settings_box_title")));
+			this.settingPage.open(e.target.querySelector("." + classid("settings_box_title")));
 		}
 		if(e.target.hasAttribute("clickable")) {
 			switch(e.target.getAttribute("action")) {

@@ -4,8 +4,9 @@ __USE("animationsyncer.js");
 
 __USE("cubicbezier.js");
 
-cssinject(`//<-inject:../card/cardanimation.css->`);
+__USE("cardmanager-insert-single.js");
 
+cssinject(`//<-inject:../card/cardanimation.css->`);
 
 
 
@@ -13,16 +14,93 @@ Object.defineProperties(entryCard.prototype, {
 	"easing": {
 		value: new cubicBezier([.4, 0, .2, 1])
 	},
+	"heavyEasing": {
+		value: new cubicBezier([.7, 0, .6, 1])
+	},
 	"animationDuration": {
 		value: 200
 	},
 	"closeanimationduration": {
 		value: 250
 	},
-	"_updatePinnedStatus": {
-		value: function _updatePinnedStatus(val) {
+	"_reorderPinned": {
+		value: function _redorderPinned(addBefore) {
 			this.cardDate.style.transition = "transform 0.15s cubic-bezier(.4,0,.2,1)";
-			this.wrapper.setAttribute("pinned", val);
+			
+			let all = [].slice.call(this.parentNode.childNodes);
+			let thisIndex = all.indexOf(this);
+			let addBeforeIndex = all.indexOf(addBefore)
+			if(addBeforeIndex < 0) {
+				addBeforeIndex = all.length;
+			}
+			console.log(addBeforeIndex, thisIndex);
+
+			let factor, toMove;
+			if(addBeforeIndex < thisIndex) {
+				//upwards
+				factor = 1;
+				toMove = addBefore.followingSiblings;
+				toMove.unshift(addBefore);
+				toMove = toMove.slice(0, toMove.indexOf(this));
+			}
+			else {
+				//downwards
+				factor = -1;
+				toMove = this.followingSiblings;
+				toMove = toMove.slice(0, (toMove.indexOf(addBefore) < 0 ? toMove.length : toMove.indexOf(addBefore)));
+			}
+
+
+			console.log(toMove);
+
+			let height = 55 + this.contentHeight + (this.infoOpen ? this.infoHeight : 0) + 10;
+			let totheight = 0;
+			toMove.forEach(v => {
+				totheight += 55 + (v.expanded ? v.contentHeight : 0) + (v.infoOpen ? v.infoHeight : 0) + 10;
+			});
+			console.log(totheight);
+
+			let copy = new entryCard(this.data);
+			copy.setAttribute("noEntryAnimation", "");
+			copy.setAttribute("noAnimations", "");
+			copy.style.display = "none";
+			this.parentNode.insertBefore(copy, addBefore);
+
+			if(this.expanded) {
+				copy.open();
+			}
+			if(this.infoOpen) {
+				copy.toggleInfo();
+			}
+
+
+			toMove.forEach(v => {
+				animation.add({
+					el: v,
+					property: "transform",
+					value: (prgs) => {
+						return `translateY(${height * prgs * factor}px)`;
+					},
+					duration: this.animationDuration,
+					easing: this.heavyEasing
+				});
+			});
+
+			animation.add({
+				el: this,
+				property: "transform",
+				value: (prgs) => {
+					return `translateY(${-totheight * prgs * factor}px)`;
+				},
+				duration: this.animationDuration,
+				easing: this.heavyEasing
+			}).then(v => {
+				copy.style.display = "block";
+				copy._measure();
+				this.parentNode.removeChild(this);
+				toMove.forEach(v => v.style.transform = "unset");
+				copy.removeAttribute("noAnimations");
+			});
 		}
  	},
 	"remove": {

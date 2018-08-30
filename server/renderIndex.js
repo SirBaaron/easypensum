@@ -24,8 +24,8 @@ getHeaderColor = (route) => {
 
 getCookie = (req) => {
 	cookie = "";
-	if(!req.session.has("showedCookieConsent")) {
-		req.session.put("showedCookieConsent", true);
+	if(req.session["showedCookieConsent"] == undefined) {
+		req.session["showedCookieConsent"] = true;
 		var cookie = FS.readFileSync("./templates/cookie-notice.html", "utf-8");
 	}
 	return cookie;

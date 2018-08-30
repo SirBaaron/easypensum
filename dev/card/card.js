@@ -4,11 +4,12 @@ cssinject(`//<-inject:../card/card.css->`);
 
 __USE("share.js");
 
+__USE("storagemanager.js");
+
 class entryCard extends HTMLElement {
 	constructor(param) {
 		super();
 		this.data = param;
-
 
 		this.expanded = false;
 		this.detailWidth = undefined;
@@ -46,6 +47,9 @@ class entryCard extends HTMLElement {
 	get allowDispatch() {
 		return this.data.allowDispatch || false;
 	}
+	get uuid() {
+		return this.data.uuid || 0;
+	}
 
 
 
@@ -76,7 +80,7 @@ class entryCard extends HTMLElement {
 	}
 	set pinned(val) {
 		this.data.pinned = val;
-		this._updatePinnedStatus(val);
+		this._updatePinned(val);
 	}
 	set allowDispatch(val) {
 		this.data.allowDispatch = val;
@@ -160,8 +164,26 @@ class entryCard extends HTMLElement {
 		}
 	}
 
-	_updatePinnedStatus(val) {
+	_updatePinned(val) {
 		this.wrapper.setAttribute("pinned", val);
+		if(val == true) {
+			window.storagemanager.arradd("pinned", this.uuid);
+		}
+		else {
+			window.storagemanager.arrremove("pinned", this.uuid);
+		}
+
+		let all = this.parentNode.childNodes;
+		console.log("pinned?: ", val);
+		let addBefore = cards.findAddBefore(this, all, val);
+
+		if(addBefore != this.nextSibling) {
+			this._reorderPinned(addBefore)
+		}
+	}
+
+	_reorderPinned(before) {
+
 	}
 
 	remove() {
@@ -327,7 +349,7 @@ class entryCard extends HTMLElement {
 			this._measure();
 		}
 
-		if(this.detailWidth > 16) {
+		if(this.detail.length > 0) {
 			this.cardSubject.style.transform = `translateX(${-this.detailWidth + 10}px)`;
 			this.cardDetail.style.transform = "translateX(0%)";
 			this.cardDetail.style.opacity = 1;

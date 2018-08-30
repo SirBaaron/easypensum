@@ -4,7 +4,7 @@ class StorageManager {
 	}
 
 	get jsonType() {
-		return ["dispatch", "subjectBlackList"];
+		return ["dispatch", "subjectBlackList", "pinned"];
 	}
 
 	addHook(name, callback) {
@@ -39,6 +39,18 @@ class StorageManager {
 				hook(put);
 			});
 		}
+	}
+
+	arradd(name, value) {
+		let arr = this.retrieve(name, []);
+		arr.push(value);
+		this.set(name, arr);
+	}
+
+	arrremove(name, value) {
+		let arr = this.retrieve(name, []);
+		arr = arr.filter(v => v != value);
+		this.set(name, arr);
 	}
 }
 

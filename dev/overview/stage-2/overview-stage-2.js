@@ -7,3 +7,5 @@ __SSR("cascadingscript");
 __USE("cardmanager-dispatch.js");
 
 __USE("toast.js");
+
+__USE("second-view.js");

@@ -8,7 +8,7 @@ const environment = require("./environment.js");
 
 getCascadingscript = (path, session, jsversion) => {
 	var bundle = path.match(/[\w\d-]+\.[\w\d]+$/)[0];
-	var scripts = config.entryPoints[session.get("route")].bundles;
+	var scripts = config.entryPoints[session["route"]].bundles;
 	var position = scripts.indexOf(bundle);
 	if(position == -1) {
 		return "";
@@ -57,11 +57,11 @@ module.exports = {
 
 function loadmodule(path, session, jsversion) {
 	return FS.readFileSync("./" + path, "utf-8").replace(/__USE\("(\s*([\w\-.\\\/]+)\s*)"\);/g, (m, module) => {
-		const loadedModules = session.get("loadedModules") || [];
+		const loadedModules = session["loadedModules"] || [];
 		if(loadedModules.indexOf(module) > -1) {
 			return "";
 		}
-		session.push("loadedModules", module);
+		session["loadedModules"].push(module);
 		return loadmodule("./bundles/" + jsversion + module, session, jsversion);
 	});
 }

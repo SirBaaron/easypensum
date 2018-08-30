@@ -2,7 +2,7 @@ __USE("cssinject.js");
 
 cssinject(`//<-inject:../settings/settingspageanimation.css->`);
 
-Object.defineProperties(SettingsPages.prototype, {
+Object.defineProperties(SettingsPage.prototype, {
 	"_animateTitle": {
 		value: function _animateTitle(titleEl) {
 			let top = this.titleEl.getBoundingClientRect().top;
@@ -72,4 +72,4 @@ Object.defineProperties(SettingsPages.prototype, {
 	}
 });
 
-document.getElementsByTagName("setting-pages")[0]._addEventListener();
+document.getElementsByTagName("setting-page")[0]._addEventListener();

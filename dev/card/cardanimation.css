@@ -1,5 +1,5 @@
 .card_detail, .card_subject {
-	transition: opacity 0.2s cubic-bezier(.4,0,1,1), transform 0.3s cubic-bezier(.4,0,.2,1);
+	transition: opacity 0.2s cubic-bezier(.4, 0, 1, 1), transform 0.3s cubic-bezier(.4 , 0, .2, 1);
 	will-change: transform;
 }
 
@@ -35,4 +35,13 @@
 
 .card_wrapper[pinned=true] .card_date {
 	transform: translateX(0px);
+}
+
+entry-card[noEntryAnimation] {
+	animation: unset !important;
+	opacity: 1 !important;
+}
+
+entry-card[noAnimations] * {
+	transition: none !important;
 }

@@ -1,4 +1,4 @@
-setting-pages {
+setting-page {
 	position: fixed;
 	right: 0px;
 	left: 0px;
@@ -8,7 +8,7 @@ setting-pages {
 }
 
 @media screen and (min-width: 800px) {
-	setting-pages, #setting_page_header {
+	setting-page, #setting_page_header {
 		left: 250px;
 	}
 }

@@ -4,7 +4,7 @@ cssinject(`//<-inject:../settings/settingspage.css->`);
 
 __USE("elementloader.js");
 
-class SettingsPages extends HTMLElement {
+class SettingsPage extends HTMLElement {
 	constructor() {
 		super();
 	}
@@ -74,4 +74,4 @@ class SettingsPages extends HTMLElement {
 	}
 }
 
-window.customElements.define("setting-pages", SettingsPages);
+window.customElements.define("setting-page", SettingsPage);

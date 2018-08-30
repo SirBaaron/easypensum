@@ -1,3 +1,5 @@
+__USE("cardmanager.js");
+
 Object.defineProperties(cardManager.prototype, {
 	"insertSingle": {
 		value: function insertSingle(card, scope) {
@@ -9,8 +11,8 @@ Object.defineProperties(cardManager.prototype, {
 				this.tabs[index].removeChild(this.tabs[index].firstChild);
 			}
 
-			let cards = [].slice.call(this.tabs[index].childNodes);
-			let comeBefore = this._findAddBefore(card.date, cards);
+			let all = [].slice.call(this.tabs[index].childNodes);
+			let comeBefore = cards.findAddBefore(card, all);
 			let cardEl = new entryCard(card);
 			this.tabs[index].insertBefore(cardEl, comeBefore);
 
@@ -24,14 +26,14 @@ Object.defineProperties(cardManager.prototype, {
 			catch(err) {}
 		}
 	},
-	"_findAddBefore": {
-		value: function _findAddBefore(date, cards) {
-			let p = date.split(/[^0-9]/);
+	"findAddBefore": {
+		value: function findAddBefore(card, cards) {
+			let p = card.date.split(/[^0-9]/);
 			let insert = new Date(p[0],p[1]-1,(p[2] || 0),(p[3] || 0),(p[4] || 0));
 			for(let i = 0; i < cards.length; i++) {
 				let d = cards[i].data.date.split(/[^0-9]/);
 				let cardDate = new Date(d[0],d[1]-1,(d[2] || 0),(d[3] || 0),(d[4] || 0));
-				if(insert.getTime() - cardDate.getTime() < 0) {
+				if(insert.getTime() - cardDate.getTime() < 0 || (card.pinned && !cards[i].pinned)) {
 					return cards[i];
 				}
 			}

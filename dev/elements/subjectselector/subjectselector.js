@@ -15,14 +15,12 @@ class SubjectSelector extends HTMLElement {
 		this.innerHTML = `<div class="${classid("setting_card")}"></div>`;
 		this.render();
 		this.addEventListener("change", e => {
-			let blacklist = window.storagemanager.retrieve("subjectBlackList", []);
 			if(!e.target.checked) {
-				blacklist.push(e.target.getAttribute("uuid"));
+				window.storagemanager.arradd("subjectBlackList", e.target.getAttribute("uuid"));
 			}
 			else {
-				blacklist.splice(blacklist.indexOf(e.target.getAttribute("uuid")), 1);
+				window.storagemanager.arrremove("subjectBlackList", e.target.getAttribute("uuid"));
 			}
-			window.storagemanager.set("subjectBlackList", blacklist);
 		});
 	}
 

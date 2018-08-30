@@ -12,6 +12,8 @@ __USE("header-title.js");
 
 __USE("loading-outro.js");
 
+__USE("fab.js");
+
 window["mobile"] = /(Android)|(webOS)|(iPhone)|(BlackBerry)|(Windows Phone)/ig.test(navigator.userAgent);
 
 history.replaceState({

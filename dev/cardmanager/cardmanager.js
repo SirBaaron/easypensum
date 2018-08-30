@@ -10,6 +10,7 @@ class cardManager {
 	render(data) {
 		let dispatched = window.storagemanager.retrieve("dispatch", []);
 		let blackList = window.storagemanager.retrieve("subjectBlackList", []);
+		let pinned = window.storagemanager.retrieve("pinned", []);
 		
 		for(var key in data) {
 			var index = this.tabs.map(v => {
@@ -20,9 +21,24 @@ class cardManager {
 				break;
 			}
 
+			let pinnedcards = [];
+
 			data[key] = data[key].filter(card => {
 				return (dispatched.indexOf(card.uuid) < 0 && blackList.indexOf(card.subjectuuid) < 0);
+			}).map(card => {
+				card["pinned"] = (pinned.indexOf(card.uuid) > -1);
+				return card;
+			}).filter(b => {
+				if(pinned.indexOf(b.uuid) > -1) {
+					pinnedcards.push(b);
+					return false;
+				}
+				else {
+					return true;
+				}
 			});
+
+			data[key] = pinnedcards.concat(data[key]);
 
 			for(var i in data[key]) {
 				let card = new entryCard(data[key][i]);

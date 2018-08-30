@@ -1,4 +1,4 @@
-setting-pages, #settings_view {
+setting-page, #settings_view {
 	transition: transform 0.25s cubic-bezier(.7, 0, .6, 1);
 }
 
@@ -12,7 +12,7 @@ section-settings {
 	position: relative;
 }
 
-setting-pages[animating] #setting_page_header {
+setting-page[animating] #setting_page_header {
 	position: absolute;
 	left: 0px !important;
 	top: 0px !important;

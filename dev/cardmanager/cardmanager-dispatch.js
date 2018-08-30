@@ -14,12 +14,9 @@ Object.defineProperties(cardManager.prototype, {
 			card.remove();
 			let tempsave = card.data;
 			tempsave.scope = card.parentNode.getAttribute("name");
-			let dispatched = window.storagemanager.retrieve("dispatch", []);
-			dispatched.push(tempsave.uuid);
-			window.storagemanager.set("dispatch", dispatched);
+			window.storagemanager.arradd("dispatch", tempsave.uuid);
 			new Toast("Erledigt!", 1500, false, false, "Rückgängig", _ => {
-				dispatched.splice(dispatched.indexOf(tempsave.uuid), 1);
-				window.storagemanager.set("dispatch", dispatched);
+				window.storagemanager.arrremove("dispatch", tempsave.uuid);
 				this.insertSingle(tempsave, tempsave.scope);
 			});
 		}
